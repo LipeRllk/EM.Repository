@@ -1,0 +1,50 @@
+﻿@model EM.Domain.Models.Aluno
+
+<form asp-action="@ViewData["Action"]" method="post">
+    @if (Model.AlunoMatricula != 0)
+    {
+        <input type="hidden" asp-for="AlunoMatricula" />
+    }
+
+    <div>
+        <label asp-for="AlunoNome"></label><br />
+        <input asp-for="AlunoNome" type="text" />
+        <span asp-validation-for="AlunoNome" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="AlunoCPF"></label><br />
+        <input asp-for="AlunoCPF" type="text" />
+        <span asp-validation-for="AlunoCPF" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="AlunoSexo"></label><br />
+        <select asp-for="AlunoSexo">
+            <option value="">Selecione</option>
+            <option value="0">Masculino</option>
+            <option value="1">Feminino</option>
+        </select>
+        <span asp-validation-for="AlunoSexo" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="AlunoNascimento"></label><br />
+        <input asp-for="AlunoNascimento" type="date" />
+        <span asp-validation-for="AlunoNascimento" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="AlunoCidaCodigo"></label><br />
+        <input asp-for="AlunoCidaCodigo" type="number" />
+        <span asp-validation-for="AlunoCidaCodigo" style="color:red"></span>
+    </div>
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="@Url.Action("AlunoList", "Aluno")">Voltar para lista</a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

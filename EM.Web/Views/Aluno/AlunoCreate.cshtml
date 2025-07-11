@@ -1,0 +1,10 @@
+﻿@model EM.Domain.Models.Aluno
+
+@{
+    ViewData["Title"] = "Cadastrar Aluno";
+    ViewData["Action"] = "AlunoCreate";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<partial name="_AlunoForm" model="Model" />

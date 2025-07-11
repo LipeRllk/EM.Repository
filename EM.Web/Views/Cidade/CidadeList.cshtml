@@ -1,0 +1,31 @@
+﻿@model IEnumerable<EM.Domain.Models.Cidade>
+
+<h1>Lista de Cidades</h1>
+
+<a href="/Cidade/CidadeCreate">Cadastrar Novo Cidade</a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Cidade</th>
+            <th>UF</th>
+            <th>Codigo IBGE</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var cidade in Model)
+    {
+        <tr>
+                <td>@cidade.CIDACODIGO</td>
+                <td>@cidade.CIDADESCRICAO</td>
+                <td>@cidade.CIDAUF</td>
+                <td>@cidade.CIDACODIGOIBGE</td>
+            <td>
+                    <a href="@Url.Action("CidadeEdit", new { id = cidade.CIDACODIGO })">Editar</a>
+                    <a href="@Url.Action("CidadeDelete", new { id = cidade.CIDACODIGO })">Excluir</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

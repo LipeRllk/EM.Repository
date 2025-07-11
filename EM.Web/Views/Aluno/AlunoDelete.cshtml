@@ -1,0 +1,12 @@
+﻿@model EM.Domain.Models.Aluno
+
+<h1>Excluir Aluno</h1>
+
+<p>Tem certeza que deseja excluir <strong>@Model.AlunoNome</strong>?</p>
+
+<form method="post">
+    <input type="hidden" asp-for="AlunoMatricula" />
+    <button type="submit">Confirmar Exclusão</button>
+</form>
+
+<a href="@Url.Action("AlunoList", "Aluno")">Voltar para lista</a>

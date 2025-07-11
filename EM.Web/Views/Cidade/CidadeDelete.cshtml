@@ -1,0 +1,36 @@
+﻿@model EM.Domain.Models.Cidade
+
+<h1>Excluir Cidade</h1>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+@if (ViewBag.ErroExclusao != null)
+{
+    <div class="alert alert-danger" style="background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+        <strong>❌ Erro:</strong> @ViewBag.ErroExclusao
+    </div>
+}
+
+@if (ViewBag.TemAlunos == true)
+{
+    <div class="alert alert-warning" style="background-color: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+        <strong>⚠️ Atenção:</strong> Esta cidade não pode ser excluída pois existem @ViewBag.QuantidadeAlunos aluno(s) cadastrado(s) nela.
+    </div>
+    
+    <p>A cidade <strong>@Model.CIDADESCRICAO</strong> está sendo utilizada por alunos cadastrados no sistema.</p>
+    
+    <div style="margin-top: 20px;">
+        <a href="@Url.Action("CidadeList", "Cidade")" style="background-color: #6c757d; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Voltar para lista</a>
+    </div>
+}
+else
+{
+    <p>Tem certeza que deseja excluir <strong>@Model.CIDADESCRICAO</strong>?</p>
+
+    <form method="post">
+        <input type="hidden" asp-for="CIDACODIGO" />
+        <button type="submit" style="background-color: #dc3545; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">Confirmar Exclusão</button>
+    </form>
+
+    <a href="@Url.Action("CidadeList", "Cidade")" style="background-color: #6c757d; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Voltar para lista</a>
+}

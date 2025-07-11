@@ -1,0 +1,74 @@
+﻿@model EM.Domain.Models.Cidade
+
+<form asp-action="@ViewData["Action"]" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="CIDACODIGO" />
+
+    @* Adicionar mensagens de erro gerais *@
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div>
+        <label asp-for="CIDADESCRICAO"></label><br />
+        <input asp-for="CIDADESCRICAO" type="text" required />
+        <span asp-validation-for="CIDADESCRICAO" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="CIDAUF"></label><br />
+        <select asp-for="CIDAUF" required>
+            <option value="">Selecione</option>
+            <option value="AC">AC</option>
+            <option value="AL">AL</option>
+            <option value="AM">AM</option>
+            <option value="AP">AP</option>
+            <option value="BA">BA</option>
+            <option value="CE">CE</option>
+            <option value="DF">DF</option>
+            <option value="ES">ES</option>
+            <option value="GO">GO</option>
+            <option value="MA">MA</option>
+            <option value="MG">MG</option>
+            <option value="MS">MS</option>
+            <option value="MT">MT</option>
+            <option value="PA">PA</option>
+            <option value="PB">PB</option>
+            <option value="PE">PE</option>
+            <option value="PI">PI</option>
+            <option value="PR">PR</option>
+            <option value="RJ">RJ</option>
+            <option value="RN">RN</option>
+            <option value="RS">RS</option>
+            <option value="RO">RO</option>
+            <option value="RR">RR</option>
+            <option value="SC">SC</option>
+            <option value="SE">SE</option>
+            <option value="SP">SP</option>
+            <option value="TO">TO</option>
+        </select>
+        <span asp-validation-for="CIDAUF" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="CIDACODIGOIBGE"></label><br />
+        <input asp-for="CIDACODIGOIBGE" type="text" required />
+        <span asp-validation-for="CIDACODIGOIBGE" style="color:red"></span>
+    </div>
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="@Url.Action("CidadeList", "Cidade")">Voltar para lista</a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Adicionar validação do lado do cliente
+        $(document).ready(function () {
+            $('form').submit(function () {
+                if (!$(this).valid()) {
+                    return false;
+                }
+            });
+        });
+    </script>
+}
