@@ -1,50 +1,97 @@
 ﻿@model EM.Domain.Models.Aluno
 
-<form asp-action="@ViewData["Action"]" method="post">
-    @if (Model.AlunoMatricula != 0)
-    {
-        <input type="hidden" asp-for="AlunoMatricula" />
-    }
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <form asp-action="@ViewData["Action"]" method="post">
+            @if (Model.AlunoMatricula != 0)
+            {
+                <input type="hidden" asp-for="AlunoMatricula" />
+            }
 
-    <div>
-        <label asp-for="AlunoNome"></label><br />
-        <input asp-for="AlunoNome" type="text" />
-        <span asp-validation-for="AlunoNome" style="color:red"></span>
+            <div class="mb-3">
+                <label asp-for="AlunoNome" class="form-label"></label>
+                <input asp-for="AlunoNome" type="text" class="form-control" />
+                <span asp-validation-for="AlunoNome" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AlunoCPF" class="form-label"></label>
+                <input asp-for="AlunoCPF" type="text" class="form-control" maxlength="14" id="cpfInput" />
+                <span asp-validation-for="AlunoCPF" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AlunoSexo" class="form-label"></label>
+                <select asp-for="AlunoSexo" class="form-select">
+                    <option value="">Selecione</option>
+                    <option value="0">Masculino</option>
+                    <option value="1">Feminino</option>
+                </select>
+                <span asp-validation-for="AlunoSexo" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AlunoNascimento" class="form-label"></label>
+                <input asp-for="AlunoNascimento" type="date" class="form-control" />
+                <span asp-validation-for="AlunoNascimento" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AlunoCidaCodigo" class="form-label"></label>
+                <select asp-for="AlunoCidaCodigo" asp-items="ViewBag.Cidades" class="form-select">
+                    <option value="0">Selecione uma Cidade</option>
+                </select>
+                <span asp-validation-for="AlunoCidaCodigo" class="text-danger"></span>
+            </div>
+
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a href="@Url.Action("AlunoList", "Aluno")" class="btn btn-secondary ms-2">Voltar para lista</a>
+        </form>
     </div>
-
-    <div>
-        <label asp-for="AlunoCPF"></label><br />
-        <input asp-for="AlunoCPF" type="text" />
-        <span asp-validation-for="AlunoCPF" style="color:red"></span>
-    </div>
-
-    <div>
-        <label asp-for="AlunoSexo"></label><br />
-        <select asp-for="AlunoSexo">
-            <option value="">Selecione</option>
-            <option value="0">Masculino</option>
-            <option value="1">Feminino</option>
-        </select>
-        <span asp-validation-for="AlunoSexo" style="color:red"></span>
-    </div>
-
-    <div>
-        <label asp-for="AlunoNascimento"></label><br />
-        <input asp-for="AlunoNascimento" type="date" />
-        <span asp-validation-for="AlunoNascimento" style="color:red"></span>
-    </div>
-
-    <div>
-        <label asp-for="AlunoCidaCodigo"></label><br />
-        <input asp-for="AlunoCidaCodigo" type="number" />
-        <span asp-validation-for="AlunoCidaCodigo" style="color:red"></span>
-    </div>
-
-    <button type="submit">Salvar</button>
-</form>
-
-<a href="@Url.Action("AlunoList", "Aluno")">Voltar para lista</a>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cpfInput = document.getElementById('cpfInput');
+
+            function formatCPF(value) {
+                value = value.replace(/\D/g, '').slice(0, 11);
+
+                if (value.length > 9) {
+                    // 000.000.000-00
+                    return value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+                } else if (value.length > 6) {
+                    // 000.000.000
+                    return value.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+                } else if (value.length > 3) {
+                    // 000.000
+                    return value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+                }
+                // Até 3 dígitos, sem ponto
+                return value;
+            }
+
+            cpfInput.addEventListener('input', function (e) {
+                const value = cpfInput.value;
+                const formatted = formatCPF(value);
+                cpfInput.value = formatted;
+            });
+
+            cpfInput.addEventListener('keypress', function (e) {
+                if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
+
+            cpfInput.addEventListener('paste', function (e) {
+                e.preventDefault();
+                let paste = (e.clipboardData || window.clipboardData).getData('text');
+                cpfInput.value = formatCPF(paste);
+            });
+        });
+    </script>
 }

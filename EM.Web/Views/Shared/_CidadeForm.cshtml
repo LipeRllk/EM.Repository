@@ -1,63 +1,65 @@
 ﻿@model EM.Domain.Models.Cidade
 
-<form asp-action="@ViewData["Action"]" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="CIDACODIGO" />
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <form asp-action="@ViewData["Action"]" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="CIDACODIGO" />
 
-    @* Adicionar mensagens de erro gerais *@
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-    <div>
-        <label asp-for="CIDADESCRICAO"></label><br />
-        <input asp-for="CIDADESCRICAO" type="text" required />
-        <span asp-validation-for="CIDADESCRICAO" style="color:red"></span>
+            <div class="mb-3">
+                <label asp-for="CIDADESCRICAO" class="form-label"></label>
+                <input asp-for="CIDADESCRICAO" type="text" class="form-control" required />
+                <span asp-validation-for="CIDADESCRICAO" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CIDAUF" class="form-label"></label>
+                <select asp-for="CIDAUF" class="form-select" required>
+                    <option value="">Selecione</option>
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AM">AM</option>
+                    <option value="AP">AP</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="DF">DF</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>
+                    <option value="MA">MA</option>
+                    <option value="MG">MG</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="PA">PA</option>
+                    <option value="PB">PB</option>
+                    <option value="PE">PE</option>
+                    <option value="PI">PI</option>
+                    <option value="PR">PR</option>
+                    <option value="RJ">RJ</option>
+                    <option value="RN">RN</option>
+                    <option value="RS">RS</option>
+                    <option value="RO">RO</option>
+                    <option value="RR">RR</option>
+                    <option value="SC">SC</option>
+                    <option value="SE">SE</option>
+                    <option value="SP">SP</option>
+                    <option value="TO">TO</option>
+                </select>
+                <span asp-validation-for="CIDAUF" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CIDACODIGOIBGE" class="form-label"></label>
+                <input asp-for="CIDACODIGOIBGE" type="text" class="form-control" required />
+                <span asp-validation-for="CIDACODIGOIBGE" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a href="@Url.Action("CidadeList", "Cidade")" class="btn btn-secondary ms-2">Voltar para lista</a>
+        </form>
     </div>
-
-    <div>
-        <label asp-for="CIDAUF"></label><br />
-        <select asp-for="CIDAUF" required>
-            <option value="">Selecione</option>
-            <option value="AC">AC</option>
-            <option value="AL">AL</option>
-            <option value="AM">AM</option>
-            <option value="AP">AP</option>
-            <option value="BA">BA</option>
-            <option value="CE">CE</option>
-            <option value="DF">DF</option>
-            <option value="ES">ES</option>
-            <option value="GO">GO</option>
-            <option value="MA">MA</option>
-            <option value="MG">MG</option>
-            <option value="MS">MS</option>
-            <option value="MT">MT</option>
-            <option value="PA">PA</option>
-            <option value="PB">PB</option>
-            <option value="PE">PE</option>
-            <option value="PI">PI</option>
-            <option value="PR">PR</option>
-            <option value="RJ">RJ</option>
-            <option value="RN">RN</option>
-            <option value="RS">RS</option>
-            <option value="RO">RO</option>
-            <option value="RR">RR</option>
-            <option value="SC">SC</option>
-            <option value="SE">SE</option>
-            <option value="SP">SP</option>
-            <option value="TO">TO</option>
-        </select>
-        <span asp-validation-for="CIDAUF" style="color:red"></span>
-    </div>
-
-    <div>
-        <label asp-for="CIDACODIGOIBGE"></label><br />
-        <input asp-for="CIDACODIGOIBGE" type="text" required />
-        <span asp-validation-for="CIDACODIGOIBGE" style="color:red"></span>
-    </div>
-
-    <button type="submit">Salvar</button>
-</form>
-
-<a href="@Url.Action("CidadeList", "Cidade")">Voltar para lista</a>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
@@ -69,6 +71,30 @@
                     return false;
                 }
             });
+        });
+
+        async function buscarCidadePorCodigo(codigo) {
+            try {
+                var response = await fetch('/Cidade/BuscarCidadePorCodigo/' + codigo);
+                if (response.ok) {
+                    var cidade = await response.json();
+                    $('#CIDADESCRICAO').val(cidade.CIDADESCRICAO);
+                    $('#CIDAUF').val(cidade.CIDAUF);
+                    $('#CIDACODIGOIBGE').val(cidade.CIDACODIGOIBGE);
+                } else {
+                    console.log('Cidade não encontrada.');
+                }
+            } catch (error) {
+                console.error('Ocorreu um erro:', error);
+            }
+        }
+
+        // Chamar a função ao carregar a página se houver um código de cidade existente
+        $(document).ready(function () {
+            var codigoCidade = '@Model.CIDACODIGO';
+            if (codigoCidade) {
+                buscarCidadePorCodigo(codigoCidade);
+            }
         });
     </script>
 }

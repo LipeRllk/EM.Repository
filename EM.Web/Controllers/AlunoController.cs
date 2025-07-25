@@ -1,6 +1,7 @@
 ﻿using EM.Domain.Context;
 using EM.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EM.Web.Controllers
@@ -16,12 +17,14 @@ namespace EM.Web.Controllers
 
         public async Task<IActionResult> AlunoList()
         {
-            return View(await _context.Alunos.ToListAsync());
+            // Remover o .Include(a => a.Cidade) pois Aluno não tem navegação Cidade
+            var alunos = await _context.Alunos.ToListAsync();
+            return View(alunos);
         }
 
         public IActionResult AlunoCreate()
         {
-            ViewData["Action"] = "AlunoCadastrar";
+            ViewBag.Cidades = new SelectList(_context.Cidades, "CIDACODIGO", "CIDADESCRICAO");
             var aluno = new Aluno();
             return View(aluno);
         }
@@ -31,10 +34,12 @@ namespace EM.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                aluno.AlunoCPF = aluno.AlunoCPF.Replace(".", "").Replace("-", "");
                 _context.Add(aluno);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(AlunoList));
             }
+            ViewBag.Cidades = new SelectList(_context.Cidades, "CIDACODIGO", "CIDADESCRICAO");
             return View(aluno);
         }
 
@@ -46,6 +51,7 @@ namespace EM.Web.Controllers
             if (aluno == null) return NotFound();
 
             ViewData["Action"] = "AlunoEdit";
+            ViewBag.Cidades = new SelectList(_context.Cidades, "CIDACODIGO", "CIDADESCRICAO", aluno.AlunoCidaCodigo);
             return View(aluno);
         }
 
@@ -68,6 +74,7 @@ namespace EM.Web.Controllers
                 }
                 return RedirectToAction(nameof(AlunoList));
             }
+            ViewBag.Cidades = new SelectList(_context.Cidades, "CIDACODIGO", "CIDADESCRICAO", aluno.AlunoCidaCodigo);
             return View(aluno);
         }
 
@@ -93,5 +100,4 @@ namespace EM.Web.Controllers
             return RedirectToAction(nameof(AlunoList));
         }
     }
-
 }

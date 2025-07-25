@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EM.Web.Controllers
 {
-    public class CidadeController : Controller
+    public class CidadeController(EscolaDbContext context) : Controller
     {
-        private readonly EscolaDbContext _context;
-
-        public CidadeController(EscolaDbContext context)
-        {
-            _context = context;
-        }
+        private readonly EscolaDbContext _context = context;
 
         public async Task<IActionResult> CidadeList()
         {

@@ -3,10 +3,8 @@ using EM.Domain.Models;
 
 namespace EM.Domain.Context
 {
-    public class EscolaDbContext : DbContext
+    public class EscolaDbContext(DbContextOptions<EscolaDbContext> options) : DbContext(options)
     {
-        public EscolaDbContext(DbContextOptions<EscolaDbContext> options) : base(options) { }
-
         public DbSet<Aluno> Alunos { get; set; }
         public DbSet<Cidade> Cidades { get; set; }
 
@@ -22,7 +20,14 @@ namespace EM.Domain.Context
                 entity.Property(e => e.AlunoNascimento).HasColumnName("NASCIMENTO");
                 entity.Property(e => e.AlunoSexo).HasColumnName("SEXO");
                 entity.Property(e => e.AlunoCidaCodigo).HasColumnName("CIDACODIGO");
+
+                // Relaciona o codigo da cidade do aluno, com o mesmo codigo exibido na tb cidade
+                /* entity.HasOne(e => e.Cidade)
+                      .WithMany()
+                      .HasForeignKey(e => e.AlunoCidaCodigo)
+                      .HasPrincipalKey(c => c.CIDACODIGO); */
             });
+
             modelBuilder.Entity<Cidade>(entity =>
             {
                 entity.ToTable("TBCIDADE");
