@@ -1,3 +1,5 @@
+C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\EM.Web.csproj.AssemblyReference.cache
+C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\rpswa.dswa.cache.json
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\bin\Debug\net9.0\appsettings.json
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\bin\Debug\net9.0\EM.Web.staticwebassets.runtime.json
@@ -350,8 +352,6 @@ C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\bin\Debu
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\bin\Debug\net9.0\EM.Domain.dll
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\bin\Debug\net9.0\EM.Domain.pdb
-C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\EM.Web.csproj.AssemblyReference.cache
-C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\rpswa.dswa.cache.json
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\EM.Web.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\EM.Web.AssemblyInfoInputs.cache
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\EM.Web.AssemblyInfo.cs
@@ -369,7 +369,6 @@ C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debu
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\scopedcss\projectbundle\EM.Web.bundle.scp.css
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\compressed\ixtsighhme-b9sayid5wm.gz
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\compressed\esdlbzsb6y-61n19gt1b8.gz
-C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\compressed\rwy7swj5az-xtxxf3hu2r.gz
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\compressed\jjesuqk7ho-bqjiyaj88i.gz
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\compressed\e6pz7sxb9o-c2jlpeoesf.gz
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\compressed\e1d9pkqhfg-erw9l3u2r3.gz
@@ -442,3 +441,4 @@ C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debu
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\EM.Web.pdb
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\EM.Web.genruntimeconfig.cache
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\ref\EM.Web.dll
+C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Web\obj\Debug\net9.0\compressed\rwy7swj5az-pko06dwsue.gz

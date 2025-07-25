@@ -10,13 +10,20 @@
 
             <div class="mb-3">
                 <label asp-for="AlunoNome" class="form-label"></label>
-                <input asp-for="AlunoNome" type="text" class="form-control" />
+                <input asp-for="AlunoNome" type="text" class="form-control" placeholder="Nome Do Aluno"/>
                 <span asp-validation-for="AlunoNome" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="AlunoCPF" class="form-label"></label>
-                <input asp-for="AlunoCPF" type="text" class="form-control" maxlength="14" id="cpfInput" />
+                <label for="cpfInput" class="form-label">CPF</label>
+                <input asp-for="AlunoCPF" 
+                       id="cpfInput" 
+                       type="text" 
+                       class="form-control" 
+                       maxlength="14" 
+                       placeholder="000.000.000-00"
+                       oninput="aplicarMascaraCPF(this)"
+                       onkeypress="return apenasNumeros(event)" />
                 <span asp-validation-for="AlunoCPF" class="text-danger"></span>
             </div>
 
@@ -52,46 +59,6 @@
     </div>
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const cpfInput = document.getElementById('cpfInput');
-
-            function formatCPF(value) {
-                value = value.replace(/\D/g, '').slice(0, 11);
-
-                if (value.length > 9) {
-                    // 000.000.000-00
-                    return value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
-                } else if (value.length > 6) {
-                    // 000.000.000
-                    return value.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
-                } else if (value.length > 3) {
-                    // 000.000
-                    return value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
-                }
-                // Até 3 dígitos, sem ponto
-                return value;
-            }
-
-            cpfInput.addEventListener('input', function (e) {
-                const value = cpfInput.value;
-                const formatted = formatCPF(value);
-                cpfInput.value = formatted;
-            });
-
-            cpfInput.addEventListener('keypress', function (e) {
-                if (!/[0-9]/.test(e.key)) {
-                    e.preventDefault();
-                }
-            });
-
-            cpfInput.addEventListener('paste', function (e) {
-                e.preventDefault();
-                let paste = (e.clipboardData || window.clipboardData).getData('text');
-                cpfInput.value = formatCPF(paste);
-            });
-        });
-    </script>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
 }
