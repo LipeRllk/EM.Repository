@@ -9,9 +9,37 @@ namespace EM.Web.Controllers
     {
         private readonly EscolaDbContext _context = context;
 
-        public async Task<IActionResult> CidadeList()
+        public async Task<IActionResult> CidadeList(string search)
         {
-            return View(await _context.Cidades.ToListAsync());
+            var cidades = _context.Cidades.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                var searchTerm = search.Trim();
+                
+                // Tentar converter para int para pesquisa por código
+                if (int.TryParse(searchTerm, out int codigo))
+                {
+                    // Se é um número, pesquisa por código OU por nome
+                    cidades = cidades.Where(c => c.CIDACODIGO == codigo || 
+                                               EF.Functions.Like(c.CIDADESCRICAO.ToLower(), $"%{searchTerm.ToLower()}%"));
+                }
+                else
+                {
+                    // Dividir o termo de busca em palavras para pesquisa por nome
+                    var palavras = searchTerm.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    
+                    // Para cada palavra, o nome deve conter ela
+                    foreach (var palavra in palavras)
+                    {
+                        cidades = cidades.Where(c => EF.Functions.Like(c.CIDADESCRICAO.ToLower(), $"%{palavra}%"));
+                    }
+                }
+            }
+
+            ViewBag.Search = search;
+
+            return View(await cidades.ToListAsync());
         }
 
         public IActionResult CidadeCreate()

@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\SUP.FELLYPE\\source\\projects\\EM.Repository\\EM.Repository\\EM.Repository\\EM.Repository.csproj",
+      "projectUniqueName": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Repository\\EM.Repository.csproj",
       "projectName": "EM.Repository",
-      "projectPath": "C:\\Users\\SUP.FELLYPE\\source\\projects\\EM.Repository\\EM.Repository\\EM.Repository\\EM.Repository.csproj",
+      "projectPath": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Repository\\EM.Repository.csproj",
       "packagesPath": "C:\\Users\\SUP.FELLYPE\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\SUP.FELLYPE\\source\\projects\\EM.Repository\\EM.Repository\\EM.Repository\\obj\\",
+      "outputPath": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Repository\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

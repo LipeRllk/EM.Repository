@@ -10,3 +10,15 @@ C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Repository\o
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Repository\obj\Debug\net9.0\refint\EM.Repository.dll
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Repository\obj\Debug\net9.0\EM.Repository.pdb
 C:\Users\SUP.FELLYPE\source\projects\EM.Repository\EM.Repository\EM.Repository\obj\Debug\net9.0\ref\EM.Repository.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\bin\Debug\net9.0\EM.Repository.deps.json
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\bin\Debug\net9.0\EM.Repository.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\bin\Debug\net9.0\EM.Repository.pdb
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\obj\Debug\net9.0\EM.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\obj\Debug\net9.0\EM.Repository.AssemblyInfoInputs.cache
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\obj\Debug\net9.0\EM.Repository.AssemblyInfo.cs
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\obj\Debug\net9.0\EM.Repository.csproj.CoreCompileInputs.cache
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\obj\Debug\net9.0\EM.Repository.sourcelink.json
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\obj\Debug\net9.0\EM.Repository.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\obj\Debug\net9.0\refint\EM.Repository.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\obj\Debug\net9.0\EM.Repository.pdb
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Repository\obj\Debug\net9.0\ref\EM.Repository.dll

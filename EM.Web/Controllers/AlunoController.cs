@@ -15,11 +15,37 @@ namespace EM.Web.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> AlunoList()
+        public async Task<IActionResult> AlunoList(string search)
         {
-            // Remover o .Include(a => a.Cidade) pois Aluno não tem navegação Cidade
-            var alunos = await _context.Alunos.ToListAsync();
-            return View(alunos);
+            var alunos = _context.Alunos.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                var searchTerm = search.Trim();
+                
+                // Tentar converter para int para pesquisa por matrícula
+                if (int.TryParse(searchTerm, out int matricula))
+                {
+                    // Se é um número, pesquisa por matrícula OU por nome
+                    alunos = alunos.Where(a => a.AlunoMatricula == matricula || 
+                                             EF.Functions.Like(a.AlunoNome.ToLower(), $"%{searchTerm.ToLower()}%"));
+                }
+                else
+                {
+                    // Dividir o termo de busca em palavras
+                    var palavras = searchTerm.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    
+                    // Para cada palavra, o nome deve conter ela
+                    foreach (var palavra in palavras)
+                    {
+                        alunos = alunos.Where(a => EF.Functions.Like(a.AlunoNome.ToLower(), $"%{palavra}%"));
+                    }
+                }
+            }
+
+            ViewBag.Search = search;
+
+            return View(await alunos.ToListAsync());
         }
 
         public IActionResult AlunoCreate()
