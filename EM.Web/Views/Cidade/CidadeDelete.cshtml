@@ -1,36 +1,105 @@
 ﻿@model EM.Domain.Models.Cidade
 
+@{
+    ViewData["Title"] = "Excluir Cidade";
+}
+
 <h1>Excluir Cidade</h1>
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
 @if (ViewBag.ErroExclusao != null)
 {
-    <div class="alert alert-danger" style="background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+    <div class="alert alert-danger">
         <strong>❌ Erro:</strong> @ViewBag.ErroExclusao
     </div>
 }
 
 @if (ViewBag.TemAlunos == true)
 {
-    <div class="alert alert-warning" style="background-color: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+    <div class="alert alert-warning">
         <strong>⚠️ Atenção:</strong> Esta cidade não pode ser excluída pois existem @ViewBag.QuantidadeAlunos aluno(s) cadastrado(s) nela.
     </div>
     
-    <p>A cidade <strong>@Model.CIDADESCRICAO</strong> está sendo utilizada por alunos cadastrados no sistema.</p>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Dados da Cidade</h5>
+            <p class="card-text">
+                <strong>Nome:</strong> @Model.CIDADESCRICAO<br>
+                <strong>Código:</strong> @Model.CIDACODIGO<br>
+                <strong>UF:</strong> @Model.CIDAUF<br>
+                <strong>Código IBGE:</strong> @Model.CIDACODIGOIBGE
+            </p>
+        </div>
+    </div>
     
-    <div style="margin-top: 20px;">
-        <a href="@Url.Action("CidadeList", "Cidade")" style="background-color: #6c757d; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Voltar para lista</a>
+    <div class="mt-3">
+        <a href="@Url.Action("CidadeList", "Cidade")" class="btn btn-secondary">Voltar para lista</a>
     </div>
 }
 else
 {
-    <p>Tem certeza que deseja excluir <strong>@Model.CIDADESCRICAO</strong>?</p>
+    <div class="alert alert-warning" role="alert">
+        <strong>Atenção:</strong> Tem certeza que deseja excluir esta cidade?
+    </div>
 
-    <form method="post">
-        <input type="hidden" asp-for="CIDACODIGO" />
-        <button type="submit" style="background-color: #dc3545; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">Confirmar Exclusão</button>
-    </form>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Dados da Cidade</h5>
+            <p class="card-text">
+                <strong>Nome:</strong> @Model.CIDADESCRICAO<br>
+                <strong>Código:</strong> @Model.CIDACODIGO<br>
+                <strong>UF:</strong> @Model.CIDAUF<br>
+                <strong>Código IBGE:</strong> @Model.CIDACODIGOIBGE
+            </p>
+        </div>
+    </div>
 
-    <a href="@Url.Action("CidadeList", "Cidade")" style="background-color: #6c757d; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Voltar para lista</a>
+    <div class="mt-3">
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+            Excluir Cidade
+        </button>
+        
+        <a href="@Url.Action("CidadeList", "Cidade")" class="btn btn-secondary">Voltar para lista</a>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <div class="mb-3">
+                            <i class="text-warning" style="font-size: 3rem;"></i>
+                        </div>
+                        <p class="mb-3">
+                            <strong>Você está prestes a excluir permanentemente:</strong>
+                        </p>
+                        <div class="alert alert-light border">
+                            <strong class="text-primary">@Model.CIDADESCRICAO</strong><br>
+                            <small class="text-muted">Código: @Model.CIDACODIGO</small>
+                        </div>
+                        <p class="text-danger">
+                            <strong>Esta ação não pode ser desfeita!</strong>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form method="post" class="d-inline">
+                        <input type="hidden" asp-for="CIDACODIGO" />
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash-alt me-1"></i>Sim, Excluir
+                        </button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 }

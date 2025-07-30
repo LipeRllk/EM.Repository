@@ -1,6 +1,6 @@
 ﻿@model EM.Domain.Models.Aluno
 
-<div class="card shadow-sm mt-4">
+<div class="card shadow-sm">
     <div class="card-body">
         <form asp-action="@ViewData["Action"]" method="post">
             @if (Model.AlunoMatricula != 0)
@@ -8,43 +8,47 @@
                 <input type="hidden" asp-for="AlunoMatricula" />
             }
 
-            <div class="mb-3">
-                <label asp-for="AlunoNome" class="form-label"></label>
-                <input asp-for="AlunoNome" type="text" class="form-control" placeholder="Nome Do Aluno"/>
-                <span asp-validation-for="AlunoNome" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="AlunoNome" class="form-label"></label>
+                    <input asp-for="AlunoNome" type="text" class="form-control" placeholder="Nome do Aluno"/>
+                    <span asp-validation-for="AlunoNome" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="cpfInput" class="form-label">CPF</label>
+                    <input asp-for="AlunoCPF" 
+                           id="cpfInput" 
+                           type="text" 
+                           class="form-control" 
+                           maxlength="14" 
+                           placeholder="000.000.000-00"
+                           oninput="aplicarMascaraCPF(this)"
+                           onkeypress="return apenasNumeros(event)" />
+                    <span asp-validation-for="AlunoCPF" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="cpfInput" class="form-label">CPF</label>
-                <input asp-for="AlunoCPF" 
-                       id="cpfInput" 
-                       type="text" 
-                       class="form-control" 
-                       maxlength="14" 
-                       placeholder="000.000.000-00"
-                       oninput="aplicarMascaraCPF(this)"
-                       onkeypress="return apenasNumeros(event)" />
-                <span asp-validation-for="AlunoCPF" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="AlunoSexo" class="form-label"></label>
+                    <select asp-for="AlunoSexo" class="form-select">
+                        <option value="">Selecione</option>
+                        <option value="0">Masculino</option>
+                        <option value="1">Feminino</option>
+                    </select>
+                    <span asp-validation-for="AlunoSexo" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="AlunoNascimento" class="form-label">Data de Nascimento</label>
+                    <input asp-for="AlunoNascimento" type="date" class="form-control" />
+                    <span asp-validation-for="AlunoNascimento" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="AlunoSexo" class="form-label"></label>
-                <select asp-for="AlunoSexo" class="form-select">
-                    <option value="">Selecione</option>
-                    <option value="0">Masculino</option>
-                    <option value="1">Feminino</option>
-                </select>
-                <span asp-validation-for="AlunoSexo" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="AlunoNascimento" class="form-label"></label>
-                <input asp-for="AlunoNascimento" type="date" class="form-control" />
-                <span asp-validation-for="AlunoNascimento" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="AlunoCidaCodigo" class="form-label"></label>
+            <div class="mb-4">
+                <label asp-for="AlunoCidaCodigo" class="form-label">Cidade</label>
                 <select asp-for="AlunoCidaCodigo" asp-items="ViewBag.Cidades" class="form-select">
                     <option value="0">Selecione uma Cidade</option>
                 </select>
@@ -53,8 +57,14 @@
 
             <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
-            <button type="submit" class="btn btn-success">Salvar</button>
-            <a href="@Url.Action("AlunoList", "Aluno")" class="btn btn-secondary ms-2">Voltar para lista</a>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save me-1"></i>Salvar
+                </button>
+                <a href="@Url.Action("AlunoList", "Aluno")" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>Voltar para lista
+                </a>
+            </div>
         </form>
     </div>
 </div>

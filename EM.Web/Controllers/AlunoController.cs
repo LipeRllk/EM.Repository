@@ -42,6 +42,8 @@ namespace EM.Web.Controllers
                     }
                 }
             }
+            //adiciona ordenação a lista por ordem alfabetica
+            alunos = alunos.OrderBy(a => a.AlunoNome);
 
             ViewBag.Search = search;
 
@@ -90,6 +92,9 @@ namespace EM.Web.Controllers
             {
                 try
                 {
+                    // Limpar formatação do CPF antes de salvar
+                    aluno.AlunoCPF = aluno.AlunoCPF.Replace(".", "").Replace("-", "");
+                    
                     _context.Update(aluno);
                     await _context.SaveChangesAsync();
                 }

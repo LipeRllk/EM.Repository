@@ -8,14 +8,16 @@ namespace EM.Domain.Models
 
         [Display(Name = "Nome da cidade")]
         [Required(ErrorMessage = "O nome da cidade é obrigatório.")]
-        public string CIDADESCRICAO { get; set; } = string.Empty; // Adicionado valor padrão
+        [StringLength(100, ErrorMessage = "O nome da cidade deve ter no máximo 100 caracteres.")]
+        public string CIDADESCRICAO { get; set; } = string.Empty;
 
         [Display(Name = "UF")]
         [Required(ErrorMessage = "O UF é obrigatório.")]
-        public string CIDAUF { get; set; } = string.Empty; // Adicionado valor padrão
+        public string CIDAUF { get; set; } = string.Empty;
 
         [Display(Name = "Codigo do IBGE")]
         [Required(ErrorMessage = "O código do IBGE é obrigatório.")]
-        public string CIDACODIGOIBGE { get; set; } = string.Empty; // Adicionado valor padrão
+        [StringLength(7, ErrorMessage = "O código do IBGE deve ter no máximo 7 caracteres.")]
+        public string CIDACODIGOIBGE { get; set; } = string.Empty;
     }
 }

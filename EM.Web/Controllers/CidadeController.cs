@@ -39,6 +39,7 @@ namespace EM.Web.Controllers
 
             ViewBag.Search = search;
 
+            cidades = cidades.OrderBy(a => a.CIDADESCRICAO);
             return View(await cidades.ToListAsync());
         }
 
