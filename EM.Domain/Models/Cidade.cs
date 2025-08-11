@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EM.Domain.Interface;
+using System.ComponentModel.DataAnnotations;
 
 namespace EM.Domain.Models
 {
-    public class Cidade
+    public class Cidade : IEntidade
     {
         public int CIDACODIGO { get; set; }
 
@@ -19,5 +20,23 @@ namespace EM.Domain.Models
         [Required(ErrorMessage = "O código do IBGE é obrigatório.")]
         [StringLength(7, ErrorMessage = "O código do IBGE deve ter no máximo 7 caracteres.")]
         public string CIDACODIGOIBGE { get; set; } = string.Empty;
+
+        // Métodos auxiliares para conversão de tipos
+        public override bool Equals(object? obj)
+        {
+            if (obj is Cidade cidade)
+                return CIDACODIGO == cidade.CIDACODIGO;
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return CIDACODIGO.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return $"{CIDADESCRICAO} - {CIDAUF}";
+        }
     }
 }

@@ -38,6 +38,7 @@
       "EM.Web/1.0.0": {
         "dependencies": {
           "EM.Domain": "1.0.0",
+          "EM.Repository": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "9.0.7",
           "Microsoft.EntityFrameworkCore": "9.0.7",
           "Microsoft.AspNetCore.Antiforgery": "9.0.0.0",
@@ -128,6 +129,8 @@
           "Microsoft.AspNetCore.WebSockets": "9.0.0.0",
           "Microsoft.AspNetCore.WebUtilities": "9.0.0.0",
           "Microsoft.CSharp": "9.0.0.0",
+          "Microsoft.Extensions.Caching.Abstractions.Reference": "9.0.0.0",
+          "Microsoft.Extensions.Caching.Memory.Reference": "9.0.0.0",
           "Microsoft.Extensions.Configuration.Abstractions.Reference": "9.0.0.0",
           "Microsoft.Extensions.Configuration.Binder": "9.0.0.0",
           "Microsoft.Extensions.Configuration.CommandLine": "9.0.0.0",
@@ -139,6 +142,8 @@
           "Microsoft.Extensions.Configuration.KeyPerFile": "9.0.0.0",
           "Microsoft.Extensions.Configuration.UserSecrets": "9.0.0.0",
           "Microsoft.Extensions.Configuration.Xml": "9.0.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions.Reference": "9.0.0.0",
+          "Microsoft.Extensions.DependencyInjection.Reference": "9.0.0.0",
           "Microsoft.Extensions.Diagnostics.Abstractions": "9.0.0.0",
           "Microsoft.Extensions.Diagnostics": "9.0.0.0",
           "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions": "9.0.0.0",
@@ -156,15 +161,19 @@
           "Microsoft.Extensions.Identity.Stores": "9.0.0.0",
           "Microsoft.Extensions.Localization.Abstractions": "9.0.0.0",
           "Microsoft.Extensions.Localization": "9.0.0.0",
+          "Microsoft.Extensions.Logging.Abstractions.Reference": "9.0.0.0",
           "Microsoft.Extensions.Logging.Configuration": "9.0.0.0",
           "Microsoft.Extensions.Logging.Console": "9.0.0.0",
           "Microsoft.Extensions.Logging.Debug": "9.0.0.0",
+          "Microsoft.Extensions.Logging.Reference": "9.0.0.0",
           "Microsoft.Extensions.Logging.EventLog": "9.0.0.0",
           "Microsoft.Extensions.Logging.EventSource": "9.0.0.0",
           "Microsoft.Extensions.Logging.TraceSource": "9.0.0.0",
           "Microsoft.Extensions.ObjectPool": "9.0.0.0",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "9.0.0.0",
           "Microsoft.Extensions.Options.DataAnnotations": "9.0.0.0",
+          "Microsoft.Extensions.Options.Reference": "9.0.0.0",
+          "Microsoft.Extensions.Primitives.Reference": "9.0.0.0",
           "Microsoft.Extensions.WebEncoders": "9.0.0.0",
           "Microsoft.JSInterop": "9.0.0.0",
           "Microsoft.Net.Http.Headers": "9.0.0.0",
@@ -342,11 +351,11 @@
           "EM.Web.dll": {}
         }
       },
-      "FirebirdSql.Data.FirebirdClient/10.3.2": {
+      "FirebirdSql.Data.FirebirdClient/10.3.3": {
         "runtime": {
           "lib/net8.0/FirebirdSql.Data.FirebirdClient.dll": {
-            "assemblyVersion": "10.3.2.0",
-            "fileVersion": "10.3.2.0"
+            "assemblyVersion": "10.3.3.0",
+            "fileVersion": "10.3.3.0"
           }
         },
         "compile": {
@@ -355,7 +364,7 @@
       },
       "FirebirdSql.EntityFrameworkCore.Firebird/12.0.0": {
         "dependencies": {
-          "FirebirdSql.Data.FirebirdClient": "10.3.2",
+          "FirebirdSql.Data.FirebirdClient": "10.3.3",
           "Microsoft.EntityFrameworkCore.Relational": "9.0.1"
         },
         "runtime": {
@@ -598,9 +607,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.725.31616"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.Caching.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.Caching.Memory/9.0.7": {
@@ -616,9 +622,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.725.31616"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.Caching.Memory.dll": {}
         }
       },
       "Microsoft.Extensions.Configuration.Abstractions/9.0.1": {
@@ -641,9 +644,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.725.31616"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.DependencyInjection.dll": {}
         }
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.7": {
@@ -652,9 +652,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.725.31616"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.DependencyModel/9.0.7": {
@@ -679,9 +676,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.725.31616"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.Logging.dll": {}
         }
       },
       "Microsoft.Extensions.Logging.Abstractions/9.0.7": {
@@ -693,9 +687,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.725.31616"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.Options/9.0.7": {
@@ -708,9 +699,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.725.31616"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.Options.dll": {}
         }
       },
       "Microsoft.Extensions.Primitives/9.0.7": {
@@ -719,9 +707,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.725.31616"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/2.1.2": {},
@@ -748,6 +733,21 @@
         },
         "compile": {
           "EM.Domain.dll": {}
+        }
+      },
+      "EM.Repository/1.0.0": {
+        "dependencies": {
+          "EM.Domain": "1.0.0",
+          "FirebirdSql.Data.FirebirdClient": "10.3.3"
+        },
+        "runtime": {
+          "EM.Repository.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "EM.Repository.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/9.0.0.0": {
@@ -1278,6 +1278,18 @@
         },
         "compileOnly": true
       },
+      "Microsoft.Extensions.Caching.Abstractions.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.Caching.Abstractions.dll": {}
+        },
+        "compileOnly": true
+      },
+      "Microsoft.Extensions.Caching.Memory.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.Caching.Memory.dll": {}
+        },
+        "compileOnly": true
+      },
       "Microsoft.Extensions.Configuration.Abstractions.Reference/9.0.0.0": {
         "compile": {
           "Microsoft.Extensions.Configuration.Abstractions.dll": {}
@@ -1341,6 +1353,18 @@
       "Microsoft.Extensions.Configuration.Xml/9.0.0.0": {
         "compile": {
           "Microsoft.Extensions.Configuration.Xml.dll": {}
+        },
+        "compileOnly": true
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
+        },
+        "compileOnly": true
+      },
+      "Microsoft.Extensions.DependencyInjection.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.DependencyInjection.dll": {}
         },
         "compileOnly": true
       },
@@ -1446,6 +1470,12 @@
         },
         "compileOnly": true
       },
+      "Microsoft.Extensions.Logging.Abstractions.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.Logging.Abstractions.dll": {}
+        },
+        "compileOnly": true
+      },
       "Microsoft.Extensions.Logging.Configuration/9.0.0.0": {
         "compile": {
           "Microsoft.Extensions.Logging.Configuration.dll": {}
@@ -1461,6 +1491,12 @@
       "Microsoft.Extensions.Logging.Debug/9.0.0.0": {
         "compile": {
           "Microsoft.Extensions.Logging.Debug.dll": {}
+        },
+        "compileOnly": true
+      },
+      "Microsoft.Extensions.Logging.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.Logging.dll": {}
         },
         "compileOnly": true
       },
@@ -1497,6 +1533,18 @@
       "Microsoft.Extensions.Options.DataAnnotations/9.0.0.0": {
         "compile": {
           "Microsoft.Extensions.Options.DataAnnotations.dll": {}
+        },
+        "compileOnly": true
+      },
+      "Microsoft.Extensions.Options.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.Options.dll": {}
+        },
+        "compileOnly": true
+      },
+      "Microsoft.Extensions.Primitives.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.Primitives.dll": {}
         },
         "compileOnly": true
       },
@@ -2522,12 +2570,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "FirebirdSql.Data.FirebirdClient/10.3.2": {
+    "FirebirdSql.Data.FirebirdClient/10.3.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-mo74lexrjTPAQ4XGrVWTdXy1wEnLKl/KcUeHO8HqEcULrqo5HfZmhgbClqIPogeQ6TY6Jh1EClfHa9ALn5IxfQ==",
-      "path": "firebirdsql.data.firebirdclient/10.3.2",
-      "hashPath": "firebirdsql.data.firebirdclient.10.3.2.nupkg.sha512"
+      "sha512": "sha512-iAj21eY5u7obZumA3NAVZf8ynu7Z6lslkU3V4W8Mm9Mowa4gcadT2a+LIMwAovDIg8iS8RpCSzIzFdKFCdakTg==",
+      "path": "firebirdsql.data.firebirdclient/10.3.3",
+      "hashPath": "firebirdsql.data.firebirdclient.10.3.3.nupkg.sha512"
     },
     "FirebirdSql.EntityFrameworkCore.Firebird/12.0.0": {
       "type": "package",
@@ -2733,6 +2781,11 @@
       "hashPath": "system.threading.tasks.extensions.4.5.4.nupkg.sha512"
     },
     "EM.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EM.Repository/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -3177,6 +3230,16 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Microsoft.Extensions.Caching.Abstractions.Reference/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Caching.Memory.Reference/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Microsoft.Extensions.Configuration.Abstractions.Reference/9.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
@@ -3228,6 +3291,16 @@
       "sha512": ""
     },
     "Microsoft.Extensions.Configuration.Xml/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions.Reference/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.DependencyInjection.Reference/9.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
@@ -3317,6 +3390,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Microsoft.Extensions.Logging.Abstractions.Reference/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Microsoft.Extensions.Logging.Configuration/9.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
@@ -3328,6 +3406,11 @@
       "sha512": ""
     },
     "Microsoft.Extensions.Logging.Debug/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Logging.Reference/9.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
@@ -3358,6 +3441,16 @@
       "sha512": ""
     },
     "Microsoft.Extensions.Options.DataAnnotations/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Options.Reference/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Primitives.Reference/9.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

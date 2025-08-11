@@ -1,30 +1,29 @@
-using EM.Domain.Context;
-using EM.Domain.Models;
-using Microsoft.EntityFrameworkCore;
-
 public partial class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        // Add services to the container
         builder.Services.AddControllersWithViews();
-
-        builder.Services.AddDbContext<EscolaDbContext>(options =>
-            options.UseFirebird(builder.Configuration.GetConnectionString("FirebirdConnection"))
-        );
 
         var app = builder.Build();
 
+        // Configure the HTTP request pipeline
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseExceptionHandler("/Home/Error");
+            app.UseHsts();
+        }
+
+        app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseRouting();
+        app.UseAuthorization();
 
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+            pattern: "{controller=Aluno}/{action=AlunoList}/{id?}");
 
         app.Run();
     }

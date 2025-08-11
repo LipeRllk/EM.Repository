@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net9.0": {
-      "FirebirdSql.Data.FirebirdClient/10.3.2": {
+      "FirebirdSql.Data.FirebirdClient/10.3.3": {
         "type": "package",
         "compile": {
           "lib/net8.0/FirebirdSql.Data.FirebirdClient.dll": {}
@@ -552,20 +552,34 @@
         "runtime": {
           "bin/placeholder/EM.Domain.dll": {}
         }
+      },
+      "EM.Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "EM.Domain": "1.0.0",
+          "FirebirdSql.Data.FirebirdClient": "10.3.3"
+        },
+        "compile": {
+          "bin/placeholder/EM.Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EM.Repository.dll": {}
+        }
       }
     }
   },
   "libraries": {
-    "FirebirdSql.Data.FirebirdClient/10.3.2": {
-      "sha512": "mo74lexrjTPAQ4XGrVWTdXy1wEnLKl/KcUeHO8HqEcULrqo5HfZmhgbClqIPogeQ6TY6Jh1EClfHa9ALn5IxfQ==",
+    "FirebirdSql.Data.FirebirdClient/10.3.3": {
+      "sha512": "iAj21eY5u7obZumA3NAVZf8ynu7Z6lslkU3V4W8Mm9Mowa4gcadT2a+LIMwAovDIg8iS8RpCSzIzFdKFCdakTg==",
       "type": "package",
-      "path": "firebirdsql.data.firebirdclient/10.3.2",
+      "path": "firebirdsql.data.firebirdclient/10.3.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
         "firebird-logo.png",
-        "firebirdsql.data.firebirdclient.10.3.2.nupkg.sha512",
+        "firebirdsql.data.firebirdclient.10.3.3.nupkg.sha512",
         "firebirdsql.data.firebirdclient.nuspec",
         "lib/net48/FirebirdSql.Data.FirebirdClient.dll",
         "lib/net5.0/FirebirdSql.Data.FirebirdClient.dll",
@@ -1454,11 +1468,17 @@
       "type": "project",
       "path": "../EM.Domain/EM.Domain.csproj",
       "msbuildProject": "../EM.Domain/EM.Domain.csproj"
+    },
+    "EM.Repository/1.0.0": {
+      "type": "project",
+      "path": "../EM.Repository/EM.Repository.csproj",
+      "msbuildProject": "../EM.Repository/EM.Repository.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
       "EM.Domain >= 1.0.0",
+      "EM.Repository >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 9.0.7",
       "Microsoft.EntityFrameworkCore >= 9.0.7"
     ]
@@ -1497,6 +1517,9 @@
           "projectReferences": {
             "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Domain\\EM.Domain.csproj": {
               "projectPath": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Domain\\EM.Domain.csproj"
+            },
+            "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Repository\\EM.Repository.csproj": {
+              "projectPath": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Repository\\EM.Repository.csproj"
             }
           }
         }
@@ -1545,7 +1568,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

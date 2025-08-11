@@ -7,11 +7,17 @@ namespace EM.Domain.Models.Attributes
     {
         public override bool IsValid(object? value)
         {
-            if (value == null) return false;
-            var cpf = value.ToString()!.Replace(".", "").Replace("-", "");
-            if (cpf.Length != 11 || !Regex.IsMatch(cpf, @"^\d{11}$")) return false;
+            // CPF é opcional - se estiver vazio, é válido
+            if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
+                return true;
 
-            // Validação do CPF
+            var cpf = value.ToString()!.Replace(".", "").Replace("-", "");
+            
+            // Se informado, deve ter 11 dígitos
+            if (cpf.Length != 11 || !Regex.IsMatch(cpf, @"^\d{11}$")) 
+                return false;
+
+            // Validação matemática do CPF
             int[] multiplicador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 

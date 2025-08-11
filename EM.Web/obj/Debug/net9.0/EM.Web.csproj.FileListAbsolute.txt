@@ -886,3 +886,13 @@ C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\obj\Debug\net9.0
 C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\obj\Debug\net9.0\EM.Web.pdb
 C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\obj\Debug\net9.0\EM.Web.genruntimeconfig.cache
 C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\obj\Debug\net9.0\ref\EM.Web.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\bin\Debug\net9.0\refs\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\bin\Debug\net9.0\refs\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\bin\Debug\net9.0\refs\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\bin\Debug\net9.0\refs\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\bin\Debug\net9.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\bin\Debug\net9.0\refs\Microsoft.Extensions.Logging.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\bin\Debug\net9.0\refs\Microsoft.Extensions.Options.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\bin\Debug\net9.0\refs\Microsoft.Extensions.Primitives.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\bin\Debug\net9.0\EM.Repository.dll
+C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Web\bin\Debug\net9.0\EM.Repository.pdb

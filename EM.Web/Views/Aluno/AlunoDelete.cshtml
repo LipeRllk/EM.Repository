@@ -1,4 +1,5 @@
 ﻿@model EM.Domain.Models.Aluno
+@using EM.Domain.Utilitarios
 
 @{
     ViewData["Title"] = "Excluir Aluno";
@@ -16,12 +17,10 @@
         <p class="card-text">
             <strong>Nome:</strong> @Model.AlunoNome<br>
             <strong>Matrícula:</strong> @Model.AlunoMatricula<br>
-            @{
-                string cpfFormatado = Model.AlunoCPF.Length == 11
-                    ? Convert.ToUInt64(Model.AlunoCPF).ToString(@"000\.000\.000\-00")
-                    : Model.AlunoCPF;
-            }
-            <strong>CPF:</strong> @cpfFormatado
+            <strong>CPF:</strong> @Model.AlunoCPF.FormatarCPF()<br>
+            <strong>Sexo:</strong> @Model.Sexo.ObterDescricao()<br>
+            <strong>Data de Nascimento:</strong> @Model.AlunoNascimento.ToShortDateString()<br>
+            <strong>Idade:</strong> @Model.ObterIdade() anos
         </p>
     </div>
 </div>
@@ -45,7 +44,7 @@
             <div class="modal-body">
                 <div class="text-center">
                     <div class="mb-3">
-                        <i class="text-warning" style="font-size: 3rem;"></i>
+                        <i class="fas fa-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
                     </div>
                     <p class="mb-3">
                         <strong>Você está prestes a excluir permanentemente:</strong>
@@ -61,6 +60,7 @@
             </div>
             <div class="modal-footer">
                 <form method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="AlunoMatricula" />
                     <button type="submit" class="btn btn-danger">
                         <i class="fas fa-trash-alt me-1"></i>Sim, Excluir
