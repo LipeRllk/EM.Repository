@@ -19,66 +19,67 @@
     </div>
 </form>
 
-<table class="table table-bordered table-striped">
-    <thead class="table-dark">
-        <tr>
-            <th>Matrícula</th>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Sexo</th>
-            <th>Data de Nascimento</th>
-            <th>Idade</th>
-            <th>Cidade</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var aluno in Model)
-    {
-        <tr>
-            <td>@aluno.AlunoMatricula</td>
-            <td style="text-align: left;">@aluno.AlunoNome</td>
-            <td>
-                @{
-                    // Uso de método de extensão para formatar CPF
-                    string cpfFormatado = aluno.AlunoCPF.FormatarCPF();
-                }
-                <span>@cpfFormatado</span>
-            </td>
-            <td>
-                @{
-                    // Demonstra conversão de tipos e uso de enum
-                    var sexoEnum = Enum.TryParse<EnumeradorSexo>(aluno.AlunoSexo, out var sexo) ? sexo : EnumeradorSexo.Masculino;
-                }
-                @sexoEnum.ObterDescricao()
-            </td>
-            <td>@aluno.AlunoNascimento.ToShortDateString()</td>
-            <td>
-                @{
-                    // Uso de método de extensão para calcular idade
-                    var idade = aluno.ObterIdade();
-                    var maiorIdade = aluno.EhMaiorDeIdade();
-                }
-                @idade anos @(maiorIdade ? "✓" : "⚠️")
-            </td>
-            <td>
-                @{
-                    // Usa o dicionário de cidades do ViewBag
-                    var cidades = ViewBag.Cidades as Dictionary<int, string>;
-                    string nomeCidade = cidades != null && cidades.ContainsKey(aluno.AlunoCidaCodigo) 
-                        ? cidades[aluno.AlunoCidaCodigo] 
-                        : "Não encontrada";
-                }
-                @nomeCidade
-            </td>
-            <td>
-                <a href="@Url.Action("AlunoEdit", new { AlunoMatricula = aluno.AlunoMatricula })" class="btn btn-sm btn-warning">Editar</a>
-                <a href="@Url.Action("AlunoDelete", new { AlunoMatricula = aluno.AlunoMatricula })" class="btn btn-sm btn-danger">Excluir</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th class="text-center" style="min-width: 80px;">Matrícula</th>
+                <th style="min-width: 200px;">Nome</th>
+                <th class="text-center" style="min-width: 200px;">CPF</th>
+                <th class="text-center" style="min-width: 80px;">Sexo</th>
+                <th class="text-center" style="min-width: 140px;">Data Nasc.</th>
+                <th class="text-center" style="min-width: 70px;">Idade</th>
+                <th style="min-width: 150px;">Cidade</th>
+                <th class="text-center" style="min-width: 140px;">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var aluno in Model)
+        {
+            <tr>
+                <td class="text-center">@aluno.AlunoMatricula</td>
+                <td style="text-align: left;">@aluno.AlunoNome</td>
+                <td class="text-center">
+                    @{
+                        // Uso de método de extensão para formatar CPF
+                        string cpfFormatado = aluno.AlunoCPF.FormatarCPF();
+                    }
+                    <span>@cpfFormatado</span>
+                </td>
+                <td class="text-center">
+                    @{
+                        // Demonstra conversão de tipos e uso de enum
+                        var sexoEnum = Enum.TryParse<EnumeradorSexo>(aluno.AlunoSexo, out var sexo) ? sexo : EnumeradorSexo.Masculino;
+                    }
+                    @sexoEnum.ObterDescricao()
+                </td>
+                <td class="text-center">@aluno.AlunoNascimento.ToShortDateString()</td>
+                <td class="text-center">
+                    @{
+                        // Uso de método de extensão para calcular idade
+                        var idade = aluno.ObterIdade();
+                    }
+                    @idade anos
+                </td>
+                <td>
+                    @{
+                        // Usa o dicionário de cidades do ViewBag
+                        var cidades = ViewBag.Cidades as Dictionary<int, string>;
+                        string nomeCidade = cidades != null && cidades.ContainsKey(aluno.AlunoCidaCodigo) 
+                            ? cidades[aluno.AlunoCidaCodigo] 
+                            : "Não encontrada";
+                    }
+                    @nomeCidade
+                </td>
+                <td class="text-center">
+                    <a href="@Url.Action("AlunoEdit", new { AlunoMatricula = aluno.AlunoMatricula })" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="@Url.Action("AlunoDelete", new { AlunoMatricula = aluno.AlunoMatricula })" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
 
 @if (!Model.Any())
 {

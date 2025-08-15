@@ -23,7 +23,7 @@ public partial class Program
 
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=Aluno}/{action=AlunoList}/{id?}");
+            pattern: "{controller=Home}/{action=Index}");
 
         app.Run();
     }
