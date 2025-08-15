@@ -1,72 +1,46 @@
-﻿using EM.Domain.Context;
-using EM.Domain.Models;
+﻿using EM.Domain.Models;
+using EM.Repository; // Certifique-se de ter o repositório implementado
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EM.Web.Controllers
 {
-    public class CidadeController(EscolaDbContext context) : Controller
+    public class CidadeController : Controller
     {
-        private readonly EscolaDbContext _context = context;
+        private readonly CidadeRepository _repo = new CidadeRepository();
+        private readonly AlunoRepository _alunoRepo = new AlunoRepository();
 
-        public async Task<IActionResult> CidadeList(string search)
+        public IActionResult CidadeList(string search)
         {
-            var cidades = _context.Cidades.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(search))
-            {
-                var searchTerm = search.Trim();
-                
-                // Tentar converter para int para pesquisa por código
-                if (int.TryParse(searchTerm, out int codigo))
-                {
-                    // Se é um número, pesquisa por código OU por nome
-                    cidades = cidades.Where(c => c.CIDACODIGO == codigo || 
-                                               EF.Functions.Like(c.CIDADESCRICAO.ToLower(), $"%{searchTerm.ToLower()}%"));
-                }
-                else
-                {
-                    // Dividir o termo de busca em palavras para pesquisa por nome
-                    var palavras = searchTerm.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                    
-                    // Para cada palavra, o nome deve conter ela
-                    foreach (var palavra in palavras)
-                    {
-                        cidades = cidades.Where(c => EF.Functions.Like(c.CIDADESCRICAO.ToLower(), $"%{palavra}%"));
-                    }
-                }
-            }
-
+            var cidades = _repo.BuscarCidades(search);
             ViewBag.Search = search;
-
-            return View(await cidades.ToListAsync());
+            return View(cidades);
         }
 
         public IActionResult CidadeCreate()
         {
             ViewData["Action"] = "CidadeCreate";
-            var cidade = new Cidade();
-            return View(cidade);
+            return View(new Cidade());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CidadeCreate([Bind("CIDADESCRICAO,CIDAUF,CIDACODIGOIBGE")] Cidade cidade)
+        public IActionResult CidadeCreate(Cidade cidade)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cidade);
-                await _context.SaveChangesAsync();
+                _repo.Inserir(cidade);
                 return RedirectToAction(nameof(CidadeList));
             }
+            ViewData["Action"] = "CidadeCreate";
             return View(cidade);
         }
 
-        public async Task<IActionResult> CidadeEdit(int? id)
+        public IActionResult CidadeEdit(int? id)
         {
             if (id == null) return NotFound();
 
-            var cidade = await _context.Cidades.FindAsync(id);
+            var cidade = _repo.BuscarPorId(id.Value);
             if (cidade == null) return NotFound();
 
             ViewData["Action"] = "CidadeEdit";
@@ -75,45 +49,29 @@ namespace EM.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CidadeEdit(int id, [Bind("CIDACODIGO,CIDADESCRICAO,CIDAUF,CIDACODIGOIBGE")] Cidade cidade)
+        public IActionResult CidadeEdit(int id, Cidade cidade)
         {
             if (id != cidade.CIDACODIGO)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(cidade);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Cidades.Any(e => e.CIDACODIGO == cidade.CIDACODIGO))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _repo.Atualizar(cidade);
                 return RedirectToAction(nameof(CidadeList));
             }
+            ViewData["Action"] = "CidadeEdit";
             return View(cidade);
         }
 
-        public async Task<IActionResult> CidadeDelete(int? id)
+        public IActionResult CidadeDelete(int? id)
         {
             if (id == null) return NotFound();
 
-            var cidade = await _context.Cidades.FirstOrDefaultAsync(c => c.CIDACODIGO == id);
+            var cidade = _repo.BuscarPorId(id.Value);
             if (cidade == null) return NotFound();
 
             // Verificar se existem alunos vinculados a esta cidade
-            var quantidadeAlunos = await _context.Alunos.CountAsync(a => a.AlunoCidaCodigo == id);
+            var quantidadeAlunos = _alunoRepo.ContarPorCidadeTradicional(id.Value);
             ViewBag.TemAlunos = quantidadeAlunos > 0;
             ViewBag.QuantidadeAlunos = quantidadeAlunos;
 
@@ -122,17 +80,15 @@ namespace EM.Web.Controllers
 
         [HttpPost, ActionName("CidadeDelete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int CIDACODIGO)
+        public IActionResult DeleteConfirmed(int CIDACODIGO)
         {
-            var cidade = await _context.Cidades.FindAsync(CIDACODIGO);
+            var cidade = _repo.BuscarPorId(CIDACODIGO);
             if (cidade != null)
             {
-                // Verificar novamente se existem alunos vinculados
-                var alunosVinculados = await _context.Alunos.CountAsync(a => a.AlunoCidaCodigo == CIDACODIGO);
-                
+                var alunosVinculados = _alunoRepo.ContarPorCidadeTradicional(CIDACODIGO);
+
                 if (alunosVinculados > 0)
                 {
-                    // Se existem alunos vinculados, não permitir a exclusão
                     ViewBag.ErroExclusao = $"Não é possível excluir esta cidade pois existem {alunosVinculados} aluno(s) cadastrado(s) nela.";
                     ViewBag.TemAlunos = true;
                     ViewBag.QuantidadeAlunos = alunosVinculados;
@@ -141,18 +97,41 @@ namespace EM.Web.Controllers
 
                 try
                 {
-                    _context.Cidades.Remove(cidade);
-                    await _context.SaveChangesAsync();
+                    _repo.Excluir(CIDACODIGO);
                 }
-                catch (DbUpdateException)
+                catch (Exception)
                 {
-                    // Capturar erros de integridade referencial
                     ViewBag.ErroExclusao = "Erro ao excluir cidade: Esta cidade está sendo referenciada por outros registros no sistema.";
                     ViewBag.TemAlunos = true;
                     return View("CidadeDelete", cidade);
                 }
             }
             return RedirectToAction(nameof(CidadeList));
+        }
+
+        // API endpoint para buscar cidade por ID
+        [HttpGet]
+        public JsonResult BuscarCidadePorId(int id)
+        {
+            var cidade = _repo.BuscarPorId(id);
+            if (cidade == null)
+            {
+                return Json(new { erro = "Cidade não encontrada" });
+            }
+            
+            return Json(new { 
+                cidacodigo = cidade.CIDACODIGO,
+                cidadescricao = cidade.CIDADESCRICAO,
+                cidauf = cidade.CIDAUF,
+                cidacodigoibge = cidade.CIDACODIGOIBGE
+            });
+        }
+
+        // Método para compatibilidade com scripts existentes
+        [HttpGet]
+        public JsonResult BuscarCidadePorCodigo(int codigo)
+        {
+            return BuscarCidadePorId(codigo);
         }
     }
 }

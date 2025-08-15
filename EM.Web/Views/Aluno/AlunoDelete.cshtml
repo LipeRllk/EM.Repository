@@ -1,12 +1,75 @@
 ﻿@model EM.Domain.Models.Aluno
+@using EM.Domain.Utilitarios
+
+@{
+    ViewData["Title"] = "Excluir Aluno";
+}
 
 <h1>Excluir Aluno</h1>
 
-<p>Tem certeza que deseja excluir <strong>@Model.AlunoNome</strong>?</p>
+<div class="alert alert-warning" role="alert">
+    <strong>Atenção:</strong> Tem certeza que deseja excluir este aluno?
+</div>
 
-<form method="post">
-    <input type="hidden" asp-for="AlunoMatricula" />
-    <button type="submit">Confirmar Exclusão</button>
-</form>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Dados do Aluno</h5>
+        <p class="card-text">
+            <strong>Nome:</strong> @Model.AlunoNome<br>
+            <strong>Matrícula:</strong> @Model.AlunoMatricula<br>
+            <strong>CPF:</strong> @Model.AlunoCPF.FormatarCPF()<br>
+            <strong>Sexo:</strong> @Model.Sexo.ObterDescricao()<br>
+            <strong>Data de Nascimento:</strong> @Model.AlunoNascimento.ToShortDateString()<br>
+            <strong>Idade:</strong> @Model.ObterIdade() anos
+        </p>
+    </div>
+</div>
 
-<a href="@Url.Action("AlunoList", "Aluno")">Voltar para lista</a>
+<div class="mt-3">
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+        Excluir Aluno
+    </button>
+    
+    <a href="@Url.Action("AlunoList", "Aluno")" class="btn btn-secondary">Voltar para lista</a>
+</div>
+
+<!-- Modal de Confirmação -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+                    </div>
+                    <p class="mb-3">
+                        <strong>Você está prestes a excluir permanentemente:</strong>
+                    </p>
+                    <div class="alert alert-light border">
+                        <strong class="text-primary">@Model.AlunoNome</strong><br>
+                        <small class="text-muted">Matrícula: @Model.AlunoMatricula</small>
+                    </div>
+                    <p class="text-danger">
+                        <strong>Esta ação não pode ser desfeita!</strong>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <form method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="AlunoMatricula" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt me-1"></i>Sim, Excluir
+                    </button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

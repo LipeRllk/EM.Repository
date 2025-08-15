@@ -1,9 +1,35 @@
 @{
-    ViewData["Title"] = "Bem-vindo";
+    ViewData["Title"] = "Sistema de Gestão Escolar";
 }
 
 <div class="text-center mt-5">
     <h1>@ViewData["Title"]</h1>
-    <p>Bem-vindo ao sistema Escolar!</p>
-    <p>Utilize o menu para acessar as funcionalidades.</p>
+    <p class="lead">Sistema de cadastro de alunos e cidades</p>
+    
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">Gestão de Alunos</h5>
+                    <p class="card-text">Cadastre, edite e consulte alunos do sistema.</p>
+                    <a href="@Url.Action("AlunoList", "Aluno")" class="btn btn-primary">
+                        <i class="fas fa-list me-1"></i>Ver Lista de Alunos
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-map-marker-alt fa-3x text-success mb-3"></i>
+                    <h5 class="card-title">Gestão de Cidades</h5>
+                    <p class="card-text">Cadastre e gerencie cidades para os alunos.</p>
+                    <a href="@Url.Action("CidadeList", "Cidade")" class="btn btn-success">
+                        <i class="fas fa-list me-1"></i>Ver Lista de Cidades
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

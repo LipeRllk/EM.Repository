@@ -1,0 +1,234 @@
+﻿using EM.Domain.Models;
+using EM.Domain.Utilitarios;
+using System.Linq.Expressions;
+
+namespace EM.Repository
+{
+    public class AlunoRepository : RepositorioAbstrato<Aluno>
+    {
+        /// <summary>
+        /// Implementação do método Add usando generics
+        /// </summary>
+        public override void Add(Aluno aluno)
+        {
+            Inserir(aluno);
+        }
+
+        /// <summary>
+        /// Implementação do método Remove
+        /// </summary>
+        public override void Remove(Aluno aluno)
+        {
+            Excluir(aluno.AlunoMatricula);
+        }
+
+        /// <summary>
+        /// Implementação do método Update
+        /// </summary>
+        public override void Update(Aluno aluno)
+        {
+            Atualizar(aluno);
+        }
+
+        /// <summary>
+        /// Implementação do GetAll usando LINQ
+        /// </summary>
+        public override IEnumerable<Aluno> GetAll()
+        {
+            return BuscarAlunos().AsEnumerable();
+        }
+
+        /// <summary>
+        /// Implementação do Get com Expression - demonstra uso de LINQ e conversão de tipos
+        /// </summary>
+        public override IEnumerable<Aluno> Get(Expression<Func<Aluno, bool>> predicate)
+        {
+            var func = predicate.Compile(); // Conversão de Expression para Func
+            return GetAll().Where(func); // Uso de LINQ
+        }
+
+        public List<Aluno> BuscarAlunos(string? search = null)
+        {
+            var alunos = new List<Aluno>();
+            
+            using (var cn = DbHelper.CreateConnection())
+            using (var cmd = cn.CreateCommand())
+            {
+                var sql = "SELECT A.*, C.CIDADESCRICAO FROM TBALUNO A " +
+                         "LEFT JOIN TBCIDADE C ON C.CIDACODIGO = A.CIDACODIGO ";
+
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    cmd.Parameters.AddWithValue("@search", $"%{search.ToLower()}%");
+                    sql += " WHERE LOWER(A.NOME) LIKE @search";
+                    
+                    // Se for número, também pesquisa por matrícula - demonstra conversão de tipos
+                    if (int.TryParse(search, out int matricula))
+                    {
+                        cmd.Parameters.AddWithValue("@matricula", matricula);
+                        sql = sql.Replace("WHERE", "WHERE A.MATRICULA = @matricula OR");
+                    }
+                }
+
+                sql += " ORDER BY A.NOME";
+                cmd.CommandText = sql;
+
+                cn.Open();
+                using var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    alunos.Add(new Aluno
+                    {
+                        AlunoMatricula = dr.GetInt32(dr.GetOrdinal("MATRICULA")),
+                        AlunoNome = dr.GetString(dr.GetOrdinal("NOME")),
+                        AlunoCPF = dr.IsDBNull(dr.GetOrdinal("CPF")) ? "" : dr.GetString(dr.GetOrdinal("CPF")),
+                        AlunoSexo = dr.GetString(dr.GetOrdinal("SEXO")),
+                        AlunoNascimento = dr.GetDateTime(dr.GetOrdinal("NASCIMENTO")),
+                        AlunoCidaCodigo = dr.GetInt32(dr.GetOrdinal("CIDACODIGO"))
+                    });
+                }
+            }
+            
+            // Demonstra uso de LINQ e métodos de extensão
+            return alunos.OrdenarPorNome().ToList();
+        }
+
+        public void Inserir(Aluno aluno)
+        {
+            using (var cn = DbHelper.CreateConnection())
+            using (var cmd = cn.CreateCommand())
+            {
+                cmd.CommandText = @"INSERT INTO TBALUNO (NOME, CPF, SEXO, NASCIMENTO, CIDACODIGO) 
+                                  VALUES (@NOME, @CPF, @SEXO, @NASCIMENTO, @CIDACODIGO)";
+                
+                cmd.Parameters.AddWithValue("@NOME", aluno.AlunoNome);
+                // Uso de método de extensão para limpar CPF
+                var cpfLimpo = aluno.AlunoCPF.LimparCPF();
+                cmd.Parameters.AddWithValue("@CPF", string.IsNullOrEmpty(cpfLimpo) ? DBNull.Value : (object)cpfLimpo);
+                cmd.Parameters.AddWithValue("@SEXO", aluno.AlunoSexo);
+                cmd.Parameters.AddWithValue("@NASCIMENTO", aluno.AlunoNascimento);
+                cmd.Parameters.AddWithValue("@CIDACODIGO", aluno.AlunoCidaCodigo);
+
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        /// <summary>
+        /// Busca aluno por matrícula usando o método genérico
+        /// </summary>
+        public Aluno? BuscarPorMatricula(int matricula)
+        {
+            return GetSingle(a => a.AlunoMatricula == matricula);
+        }
+
+        /// <summary>
+        /// Implementação tradicional para compatibilidade
+        /// </summary>
+        public Aluno? BuscarPorMatriculaTradicional(int matricula)
+        {
+            using (var cn = DbHelper.CreateConnection())
+            using (var cmd = cn.CreateCommand())
+            {
+                cmd.CommandText = "SELECT * FROM TBALUNO WHERE MATRICULA = @MATRICULA";
+                cmd.Parameters.AddWithValue("@MATRICULA", matricula);
+
+                cn.Open();
+                using var dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    return new Aluno
+                    {
+                        AlunoMatricula = dr.GetInt32(dr.GetOrdinal("MATRICULA")),
+                        AlunoNome = dr.GetString(dr.GetOrdinal("NOME")),
+                        AlunoCPF = dr.IsDBNull(dr.GetOrdinal("CPF")) ? "" : dr.GetString(dr.GetOrdinal("CPF")),
+                        AlunoSexo = dr.GetString(dr.GetOrdinal("SEXO")),
+                        AlunoNascimento = dr.GetDateTime(dr.GetOrdinal("NASCIMENTO")),
+                        AlunoCidaCodigo = dr.GetInt32(dr.GetOrdinal("CIDACODIGO"))
+                    };
+                }
+            }
+            return null;
+        }
+
+        public void Atualizar(Aluno aluno)
+        {
+            using (var cn = DbHelper.CreateConnection())
+            using (var cmd = cn.CreateCommand())
+            {
+                cmd.CommandText = @"UPDATE TBALUNO SET 
+                                  NOME = @NOME, 
+                                  CPF = @CPF, 
+                                  SEXO = @SEXO, 
+                                  NASCIMENTO = @NASCIMENTO, 
+                                  CIDACODIGO = @CIDACODIGO 
+                                  WHERE MATRICULA = @MATRICULA";
+
+                cmd.Parameters.AddWithValue("@MATRICULA", aluno.AlunoMatricula);
+                cmd.Parameters.AddWithValue("@NOME", aluno.AlunoNome);
+                // Uso de método de extensão
+                var cpfLimpo = aluno.AlunoCPF.LimparCPF();
+                cmd.Parameters.AddWithValue("@CPF", string.IsNullOrEmpty(cpfLimpo) ? DBNull.Value : (object)cpfLimpo);
+                cmd.Parameters.AddWithValue("@SEXO", aluno.AlunoSexo);
+                cmd.Parameters.AddWithValue("@NASCIMENTO", aluno.AlunoNascimento);
+                cmd.Parameters.AddWithValue("@CIDACODIGO", aluno.AlunoCidaCodigo);
+
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void Excluir(int matricula)
+        {
+            using (var cn = DbHelper.CreateConnection())
+            using (var cmd = cn.CreateCommand())
+            {
+                cmd.CommandText = "DELETE FROM TBALUNO WHERE MATRICULA = @MATRICULA";
+                cmd.Parameters.AddWithValue("@MATRICULA", matricula);
+
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        /// <summary>
+        /// Conta alunos por cidade usando método genérico
+        /// </summary>
+        public int ContarPorCidade(int cidadeId)
+        {
+            return Count(a => a.AlunoCidaCodigo == cidadeId);
+        }
+
+        /// <summary>
+        /// Implementação tradicional para compatibilidade com o controller atual
+        /// </summary>
+        public int ContarPorCidadeTradicional(int cidadeId)
+        {
+            using (var cn = DbHelper.CreateConnection())
+            using (var cmd = cn.CreateCommand())
+            {
+                cmd.CommandText = "SELECT COUNT(*) FROM TBALUNO WHERE CIDACODIGO = @CIDACODIGO";
+                cmd.Parameters.AddWithValue("@CIDACODIGO", cidadeId);
+
+                cn.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        /// <summary>
+        /// Exemplo de uso de LINQ e conversão de tipos - busca por conteúdo do nome
+        /// </summary>
+        public IEnumerable<Aluno> BuscarPorConteudoDoNome(string conteudo)
+        {
+            return Get(a => a.AlunoNome.ToLower().Contains(conteudo.ToLower()));
+        }
+
+        /// <summary>
+        /// Exemplo de downcast/upcast - busca alunos maiores de idade
+        /// </summary>
+        public IEnumerable<Aluno> BuscarMaioresDeIdade()
+        {
+            return Get(a => a.EhMaiorDeIdade()); // Uso de método de extensão
+        }
+    }
+}

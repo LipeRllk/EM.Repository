@@ -1,6 +1,6 @@
 ﻿@model EM.Domain.Models.Cidade
 
-<div class="card shadow-sm mt-4">
+<div class="card shadow-sm">
     <div class="card-body">
         <form asp-action="@ViewData["Action"]" method="post">
             @Html.AntiForgeryToken()
@@ -8,55 +8,70 @@
 
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <div class="mb-3">
-                <label asp-for="CIDADESCRICAO" class="form-label"></label>
-                <input asp-for="CIDADESCRICAO" type="text" class="form-control" required />
-                <span asp-validation-for="CIDADESCRICAO" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <label asp-for="CIDADESCRICAO" class="form-label">Nome da Cidade</label>
+                    <input asp-for="CIDADESCRICAO" type="text" class="form-control" placeholder="Nome da cidade" maxlength="100" required />
+                    <span asp-validation-for="CIDADESCRICAO" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label asp-for="CIDAUF" class="form-label">UF</label>
+                    <select asp-for="CIDAUF" class="form-select" required>
+                        <option value="">Selecione</option>
+                        <option value="AC">AC</option>
+                        <option value="AL">AL</option>
+                        <option value="AM">AM</option>
+                        <option value="AP">AP</option>
+                        <option value="BA">BA</option>
+                        <option value="CE">CE</option>
+                        <option value="DF">DF</option>
+                        <option value="ES">ES</option>
+                        <option value="GO">GO</option>
+                        <option value="MA">MA</option>
+                        <option value="MG">MG</option>
+                        <option value="MS">MS</option>
+                        <option value="MT">MT</option>
+                        <option value="PA">PA</option>
+                        <option value="PB">PB</option>
+                        <option value="PE">PE</option>
+                        <option value="PI">PI</option>
+                        <option value="PR">PR</option>
+                        <option value="RJ">RJ</option>
+                        <option value="RN">RN</option>
+                        <option value="RS">RS</option>
+                        <option value="RO">RO</option>
+                        <option value="RR">RR</option>
+                        <option value="SC">SC</option>
+                        <option value="SE">SE</option>
+                        <option value="SP">SP</option>
+                        <option value="TO">TO</option>
+                    </select>
+                    <span asp-validation-for="CIDAUF" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="CIDAUF" class="form-label"></label>
-                <select asp-for="CIDAUF" class="form-select" required>
-                    <option value="">Selecione</option>
-                    <option value="AC">AC</option>
-                    <option value="AL">AL</option>
-                    <option value="AM">AM</option>
-                    <option value="AP">AP</option>
-                    <option value="BA">BA</option>
-                    <option value="CE">CE</option>
-                    <option value="DF">DF</option>
-                    <option value="ES">ES</option>
-                    <option value="GO">GO</option>
-                    <option value="MA">MA</option>
-                    <option value="MG">MG</option>
-                    <option value="MS">MS</option>
-                    <option value="MT">MT</option>
-                    <option value="PA">PA</option>
-                    <option value="PB">PB</option>
-                    <option value="PE">PE</option>
-                    <option value="PI">PI</option>
-                    <option value="PR">PR</option>
-                    <option value="RJ">RJ</option>
-                    <option value="RN">RN</option>
-                    <option value="RS">RS</option>
-                    <option value="RO">RO</option>
-                    <option value="RR">RR</option>
-                    <option value="SC">SC</option>
-                    <option value="SE">SE</option>
-                    <option value="SP">SP</option>
-                    <option value="TO">TO</option>
-                </select>
-                <span asp-validation-for="CIDAUF" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="CIDACODIGOIBGE" class="form-label"></label>
-                <input asp-for="CIDACODIGOIBGE" type="text" class="form-control" required />
+            <div class="mb-4">
+                <label asp-for="CIDACODIGOIBGE" class="form-label">Código IBGE</label>
+                <input asp-for="CIDACODIGOIBGE" 
+                       type="text" 
+                       class="form-control" 
+                       placeholder="Código IBGE da cidade" 
+                       maxlength="7" 
+                       onkeypress="return apenasNumeros(event)"
+                       oninput="this.value = this.value.replace(/\D/g, '')"
+                       required />
                 <span asp-validation-for="CIDACODIGOIBGE" class="text-danger"></span>
             </div>
 
-            <button type="submit" class="btn btn-success">Salvar</button>
-            <a href="@Url.Action("CidadeList", "Cidade")" class="btn btn-secondary ms-2">Voltar para lista</a>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save me-1"></i>Salvar
+                </button>
+                <a href="@Url.Action("CidadeList", "Cidade")" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>Voltar para lista
+                </a>
+            </div>
         </form>
     </div>
 </div>
@@ -98,3 +113,17 @@
         });
     </script>
 }
+
+
+
+
+
+
+
+
+                    BEATSCHOOLIDIOMAS
+
+
+jenifer
+62 9 98800584
+12 18

@@ -105,6 +105,9 @@
             "projectReferences": {
               "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Domain\\EM.Domain.csproj": {
                 "projectPath": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Domain\\EM.Domain.csproj"
+              },
+              "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Repository\\EM.Repository.csproj": {
+                "projectPath": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Repository\\EM.Repository.csproj"
               }
             }
           }

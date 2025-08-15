@@ -1,11 +1,4 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-// ===== MÓDULO DE MÁSCARAS =====
-
-/**
+﻿/**
  * Aplica máscara de CPF no formato 000.000.000-00
  * @param {HTMLInputElement} input - Elemento input onde aplicar a máscara
  */
@@ -126,60 +119,16 @@ function configurarMascaraCPF(elemento) {
     console.log('Máscara CPF configurada para:', input.id || input.name);
 }
 
-// ===== OUTRAS MÁSCARAS ÚTEIS =====
-
-/**
- * Aplica máscara de telefone (00) 00000-0000
- * @param {HTMLInputElement} input - Elemento input
- */
-function aplicarMascaraTelefone(input) {
-    if (!input) return;
-    
-    let valor = input.value.replace(/\D/g, '');
-    
-    if (valor.length <= 2) {
-        valor = valor;
-    } else if (valor.length <= 7) {
-        valor = valor.replace(/(\d{2})(\d+)/, '($1) $2');
-    } else if (valor.length <= 10) {
-        valor = valor.replace(/(\d{2})(\d{4})(\d+)/, '($1) $2-$3');
-    } else {
-        valor = valor.replace(/(\d{2})(\d{5})(\d+)/, '($1) $2-$3');
-    }
-    
-    input.value = valor;
-}
-
-/**
- * Aplica máscara de CEP 00000-000
- * @param {HTMLInputElement} input - Elemento input
- */
-function aplicarMascaraCEP(input) {
-    if (!input) return;
-    
-    let valor = input.value.replace(/\D/g, '');
-    
-    if (valor.length <= 5) {
-        valor = valor;
-    } else {
-        valor = valor.replace(/(\d{5})(\d+)/, '$1-$2');
-    }
-    
-    input.value = valor;
-}
-
-// ===== INICIALIZAÇÃO AUTOMÁTICA =====
-
 /**
  * Inicializa todas as máscaras automaticamente quando a página carrega
  */
 function inicializarMascaras() {
-    console.log('🚀 Inicializando máscaras automáticas...');
+    console.log('Inicializando máscaras automáticas...');
     
     // Configura automaticamente todos os campos CPF
     const camposCPF = document.querySelectorAll('input[id*="cpf"], input[name*="CPF"], input[data-mask="cpf"]');
     camposCPF.forEach(function(campo) {
-        console.log('🔧 Configurando máscara CPF para:', campo.id || campo.name);
+        console.log('Configurando máscara CPF para:', campo.id || campo.name);
         configurarMascaraCPF(campo);
     });
     
@@ -190,7 +139,7 @@ function inicializarMascaras() {
             aplicarMascaraTelefone(this);
         });
         campo.addEventListener('keypress', apenasNumeros);
-        console.log('📞 Máscara de telefone configurada para:', campo.id || campo.name);
+        console.log('Máscara de telefone configurada para:', campo.id || campo.name);
     });
     
     // Configura automaticamente campos de CEP
@@ -202,10 +151,10 @@ function inicializarMascaras() {
         campo.addEventListener('keypress', apenasNumeros);
         campo.setAttribute('maxlength', '9');
         campo.setAttribute('placeholder', '00000-000');
-        console.log('📮 Máscara de CEP configurada para:', campo.id || campo.name);
+        console.log('Máscara de CEP configurada para:', campo.id || campo.name);
     });
     
-    console.log('✅ Máscaras automáticas inicializadas!');
+    console.log('Máscaras automáticas inicializadas!');
 }
 
 // ===== AUTO-EXECUÇÃO =====
