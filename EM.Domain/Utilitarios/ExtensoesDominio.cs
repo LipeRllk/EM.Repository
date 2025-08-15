@@ -57,6 +57,49 @@ namespace EM.Domain.Utilitarios
         }
 
         /// <summary>
+        /// Extensão para obter a idade formatada do aluno
+        /// </summary>
+        /// <param name="aluno">Aluno</param>
+        /// <returns>Idade formatada (ex: "20 anos", "1 ano", "9 meses", "1 mês")</returns>
+        public static string ObterIdadeFormatada(this Aluno aluno)
+        {
+            if (aluno?.AlunoNascimento == default(DateTime))
+                return "Idade não informada";
+
+            var hoje = DateTime.Today;
+            var nascimento = aluno.AlunoNascimento.Date;
+            
+            // Verifica se a data é válida
+            if (nascimento > hoje)
+                return "Data inválida";
+
+            var idadeAnos = aluno.ObterIdade();
+            
+            // Se tem 1 ano ou mais, mostra em anos
+            if (idadeAnos >= 1)
+            {
+                return idadeAnos == 1 ? "1 ano" : $"{idadeAnos} anos";
+            }
+            
+            // Se tem menos de 1 ano, calcula os meses
+            var meses = 0;
+            var dataTemp = nascimento;
+            
+            while (dataTemp.AddMonths(1) <= hoje)
+            {
+                meses++;
+                dataTemp = dataTemp.AddMonths(1);
+            }
+            
+            return meses switch
+            {
+                0 => "Recém-nascido",
+                1 => "1 mês",
+                _ => $"{meses} meses"
+            };
+        }
+
+        /// <summary>
         /// Extensão para obter descrição do sexo
         /// </summary>
         /// <param name="sexo">Enumerador de sexo</param>
