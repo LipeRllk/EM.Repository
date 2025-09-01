@@ -31,19 +31,6 @@ namespace EM.Domain.Utilitarios
         }
 
         /// <summary>
-        /// Extensão para verificar se o aluno é maior de idade
-        /// </summary>
-        /// <param name="aluno">Aluno a ser verificado</param>
-        /// <returns>True se for maior de idade</returns>
-        public static bool EhMaiorDeIdade(this Aluno aluno)
-        {
-            var idade = DateTime.Today.Year - aluno.AlunoNascimento.Year;
-            if (aluno.AlunoNascimento.Date > DateTime.Today.AddYears(-idade))
-                idade--;
-            return idade >= 18;
-        }
-
-        /// <summary>
         /// Extensão para obter a idade do aluno
         /// </summary>
         /// <param name="aluno">Aluno</param>
@@ -133,6 +120,18 @@ namespace EM.Domain.Utilitarios
         public static IEnumerable<Aluno> OrdenarPorNome(this IEnumerable<Aluno> alunos)
         {
             return alunos.OrderBy(a => a.AlunoNome);
+        }
+
+        /// <summary>
+        /// Filtra alunos pelo código da UF (a partir da propriedade Cidade.CidAuf).
+        /// Se ufCodigo for 0, não aplica filtro (retorna todos).
+        /// </summary>
+        public static IEnumerable<Aluno> PorUf(this IEnumerable<Aluno> alunos, int ufCodigo)
+        {
+            if (alunos == null) throw new ArgumentNullException(nameof(alunos));
+            if (ufCodigo == 0) return alunos;
+
+            return alunos.Where(a => a.Cidade.CIDAUF == ufCodigo);
         }
     }
 }
