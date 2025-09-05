@@ -1,1 +1,56 @@
 .vs/
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+
+# User specific files
+*.user
+*.suo
+
+# ASP.NET Core específicos
+appsettings.Development.json
+appsettings.Production.json
+
+# Entity Framework
+*.db
+*.db3
+
+# Firebird database files
+*.fdb
+*.gdb
+
+# PDF files gerados
+*.pdf
+
+# Logs
+*.log
+
+# Arquivos temporários do Windows
+Thumbs.db
+Desktop.ini
+
+# wwwroot/lib se usando LibMan
+wwwroot/lib/
+
+# Arquivos CSS/JS compilados
+wwwroot/css/*.min.css
+wwwroot/js/*.min.js
+
+# NuGet packages restore
+packages/
+*.nupkg
+
+# Visual Studio Code
+.vscode/
+
+# Arquivos de backup
+*.bak
+*.backup
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Connection strings sensíveis
+connectionstrings.config
