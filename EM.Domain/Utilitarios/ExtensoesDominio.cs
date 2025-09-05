@@ -123,15 +123,25 @@ namespace EM.Domain.Utilitarios
         }
 
         /// <summary>
-        /// Filtra alunos pelo código da UF (a partir da propriedade Cidade.CidAuf).
-        /// Se ufCodigo for 0, não aplica filtro (retorna todos).
+        /// Extensão para filtrar alunos por UF usando LINQ
         /// </summary>
-        public static IEnumerable<Aluno> PorUf(this IEnumerable<Aluno> alunos, int ufCodigo)
+        /// <param name="alunos">Lista de alunos</param>
+        /// <param name="ufCodigo">Código da UF</param>
+        /// <param name="cidades">Lista de cidades disponíveis para filtro</param>
+        /// <returns>Alunos que pertencem a cidades da UF especificada</returns>
+        public static IEnumerable<Aluno> PorUF(this IEnumerable<Aluno> alunos, string ufCodigo, IEnumerable<Cidade> cidades)
         {
             if (alunos == null) throw new ArgumentNullException(nameof(alunos));
-            if (ufCodigo == 0) return alunos;
+            if (cidades == null) throw new ArgumentNullException(nameof(cidades));
+            if (string.IsNullOrEmpty(ufCodigo)) return alunos;
 
-            return alunos.Where(a => a.Cidade.CIDAUF == ufCodigo);
+            //as cidades pelo UF
+            var cidadesDaUF = cidades.Where(c => c.CIDAUF == ufCodigo)
+                                      .Select(c => c.CIDACODIGO)
+                                      .ToList();
+
+            // filtra os alunos que pertencem a essas cidades
+            return alunos.Where(a => cidadesDaUF.Contains(a.AlunoCidaCodigo));
         }
     }
 }

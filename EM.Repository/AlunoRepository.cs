@@ -222,13 +222,5 @@ namespace EM.Repository
         {
             return Get(a => a.AlunoNome.ToLower().Contains(conteudo.ToLower()));
         }
-
-        /// <summary>
-        /// Exemplo de downcast/upcast - busca alunos maiores de idade
-        /// </summary>
-        public IEnumerable<Aluno> BuscarMaioresDeIdade()
-        {
-            return Get(a => a.EhMaiorDeIdade()); // Uso de método de extensão
-        }
     }
 }
