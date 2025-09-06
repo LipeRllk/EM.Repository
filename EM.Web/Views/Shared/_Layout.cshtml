@@ -20,40 +20,54 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Aluno" asp-action="AlunoList">
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownAlunos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-users me-1"></i>Alunos
                             </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownCidades">
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Aluno" asp-action="AlunoList">
+                                        <i class="fas fa-users me-1"></i>Ficha ALuno
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Relatorios" asp-action="RelatorioGeralAlunos">
+                                        <i class="fas fa-file-pdf me-1"></i>Relatório de Alunos
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownCidades" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-city me-1"></i>Cidades
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownCidades">
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Cidade" asp-action="CidadeList">
+                                        <i class="fas fa-city me-1"></i>Lista Cidades
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Relatorios" asp-action="RelatorioCidades">
+                                        <i class="fas fa-file-pdf me-1"></i>Relatório de Cidades
+                                    </a>
+                                </li>
+                            </ul>
+                            
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Cidade" asp-action="CidadeList">
-                                <i class="fas fa-map-marker-alt me-1"></i>Cidades
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownRelatorios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link text-white" asp-controller="Relatorios" asp-action="Index">
                                 <i class="fas fa-file-pdf me-1"></i>Relatórios
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownRelatorios">
-                                <li><a class="dropdown-item" asp-controller="Relatorios" asp-action="Index">
-                                    <i class="fas fa-list me-1"></i>Todos os Relatórios
-                                </a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li class="dropdown-header">Relatórios de Alunos</li>
-                                <li><a class="dropdown-item" asp-controller="Relatorios" asp-action="SelecionarRelatorio" asp-route-tipo="RelatorioGeralAlunos">
-                                    <i class="fas fa-users me-1"></i>Relatório Geral
-                                </a></li>
-                                <li><a class="dropdown-item" asp-controller="Relatorios" asp-action="SelecionarRelatorio" asp-route-tipo="RelatorioAlunosPorCidade">
-                                    <i class="fas fa-map-marker-alt me-1"></i>Por Cidade
-                                </a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li class="dropdown-header">Relatórios de Cidades</li>
-                                <li><a class="dropdown-item" asp-controller="Relatorios" asp-action="SelecionarRelatorio" asp-route-tipo="RelatorioCidades">
-                                    <i class="fas fa-city me-1"></i>Lista de Cidades
-                                </a></li>
-                            </ul>
                         </li>
                     </ul>
                 </div>

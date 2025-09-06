@@ -7,44 +7,66 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="card h-100">
             <div class="card-header bg-primary text-white">
                 <h5 class="mb-0"><i class="fas fa-users me-2"></i>Relatórios de Alunos</h5>
             </div>
-            <div class="card-body">
-                <div class="list-group list-group-flush">
-                    <a href="@Url.Action("SelecionarRelatorio", new { tipo = "RelatorioGeralAlunos" })" 
-                       class="list-group-item list-group-item-action">
-                        <i class="fas fa-list me-2"></i>Relatório Geral de Alunos
-                        <small class="text-muted d-block">Lista completa de todos os alunos cadastrados</small>
-                    </a>
-                    <a href="@Url.Action("SelecionarRelatorio", new { tipo = "RelatorioAlunosPorCidade" })" 
-                       class="list-group-item list-group-item-action">
-                        <i class="fas fa-map-marker-alt me-2"></i>Alunos por Cidade
-                        <small class="text-muted d-block">Relatório filtrado por cidade específica</small>
+            <div class="card-body d-flex flex-column">
+                <p class="card-text">Gere relatórios completos com informações dos alunos cadastrados.</p>
+                <div class="mt-auto">
+                    <a href="@Url.Action("RelatorioGeralAlunos")" class="btn btn-primary w-100">
+                        <i class="fas fa-list me-2"></i>Acessar Relatório
                     </a>
                 </div>
             </div>
         </div>
     </div>
     
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="card h-100">
             <div class="card-header bg-success text-white">
                 <h5 class="mb-0"><i class="fas fa-city me-2"></i>Relatórios de Cidades</h5>
             </div>
-            <div class="card-body">
-                <div class="list-group list-group-flush">
-                    <a href="@Url.Action("SelecionarRelatorio", new { tipo = "RelatorioCidades" })" 
-                       class="list-group-item list-group-item-action">
-                        <i class="fas fa-list me-2"></i>Lista de Cidades
-                        <small class="text-muted d-block">Lista completa de todas as cidades</small>
+            <div class="card-body d-flex flex-column">
+                <p class="card-text">Liste e filtre todas as cidades cadastradas no sistema.</p>
+                <div class="mt-auto">
+                    <a href="@Url.Action("RelatorioCidades")" class="btn btn-success w-100">
+                        <i class="fas fa-list me-2"></i>Acessar Relatório
                     </a>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
+    
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Informações</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="card-text">
+                            <i class="fas fa-lightbulb me-2 text-warning"></i>
+                            Todos os relatórios são gerados em formato PDF.
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="card-text">
+                            <i class="fas fa-filter me-2 text-primary"></i>
+                            Use os filtros para personalizar seus relatórios.
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="card-text mb-0">
+                            <i class="fas fa-cog me-2 text-secondary"></i>
+                            Configure as opções de formatação do PDF.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

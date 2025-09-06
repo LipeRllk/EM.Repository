@@ -1,0 +1,139 @@
+@model EM.Domain.Models.RelatorioFiltroModel
+
+@{
+    ViewData["Title"] = "Relatório Geral de Alunos";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-users me-2"></i>Relatório Geral de Alunos</h1>
+    <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i>Voltar
+    </a>
+</div>
+
+@if (TempData["Erro"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="fas fa-exclamation-triangle me-2"></i>@TempData["Erro"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<form asp-action="GerarRelatorio" method="post" class="needs-validation" novalidate>
+    <input type="hidden" asp-for="TipoRelatorio" value="RelatorioGeralAlunos" />
+    <input type="hidden" asp-for="TituloRelatorio" value="Relatório Geral de Alunos" />
+    
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-filter me-2"></i>Filtros de Alunos</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FiltroNome" class="form-label">Nome do Aluno</label>
+                    <input asp-for="FiltroNome" class="form-control" placeholder="Digite o nome do aluno...">
+                    <span asp-validation-for="FiltroNome" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FiltroSexo" class="form-label">Sexo</label>
+                    <select asp-for="FiltroSexo" class="form-select">
+                        <option value="">Todos</option>
+                        <option value="0">Masculino</option>
+                        <option value="1">Feminino</option>
+                    </select>
+                    <span asp-validation-for="FiltroSexo" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FiltroCidadeId" class="form-label">Cidade</label>
+                    <select asp-for="FiltroCidadeId" class="form-select">
+                        <option value="">Todas as cidades</option>
+                        @if (Model.ListaCidades != null)
+                        {
+                            @foreach (var cidade in Model.ListaCidades)
+                            {
+                                <option value="@cidade.CIDACODIGO">@cidade.CIDADESCRICAO</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="FiltroCidadeId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FiltroDataNascimentoDe" class="form-label">Data de Nascimento - De</label>
+                    <input asp-for="FiltroDataNascimentoDe" type="date" class="form-control">
+                    <span asp-validation-for="FiltroDataNascimentoDe" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FiltroDataNascimentoAte" class="form-label">Data de Nascimento - Até</label>
+                    <input asp-for="FiltroDataNascimentoAte" type="date" class="form-control">
+                    <span asp-validation-for="FiltroDataNascimentoAte" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FiltroIdadeMinima" class="form-label">Idade Mínima</label>
+                    <input asp-for="FiltroIdadeMinima" type="number" class="form-control" min="0" max="120">
+                    <span asp-validation-for="FiltroIdadeMinima" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FiltroIdadeMaxima" class="form-label">Idade Máxima</label>
+                    <input asp-for="FiltroIdadeMaxima" type="number" class="form-control" min="0" max="120">
+                    <span asp-validation-for="FiltroIdadeMaxima" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configurações do PDF -->
+    <div class="card mt-3">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0"><i class="fas fa-cog me-2"></i>Configurações do PDF</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-check mb-2">
+                        <input asp-for="IncluirCabecalho" class="form-check-input" type="checkbox" checked>
+                        <label asp-for="IncluirCabecalho" class="form-check-label">Incluir Cabeçalho</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input asp-for="IncluirRodape" class="form-check-input" type="checkbox" checked>
+                        <label asp-for="IncluirRodape" class="form-check-label">Incluir Rodapé</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check mb-2">
+                        <input asp-for="IncluirNumeroPagina" class="form-check-input" type="checkbox" checked>
+                        <label asp-for="IncluirNumeroPagina" class="form-check-label">Incluir Numeração de Páginas</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input asp-for="OrientacaoPaisagem" class="form-check-input" type="checkbox">
+                        <label asp-for="OrientacaoPaisagem" class="form-check-label">Orientação Paisagem</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex gap-2 mt-4">
+        <button type="submit" class="btn btn-success btn-lg">
+            <i class="fas fa-file-pdf me-2"></i>Gerar Relatório
+        </button>
+        <a href="@Url.Action("Index")" class="btn btn-outline-secondary btn-lg">
+            <i class="fas fa-times me-2"></i>Cancelar
+        </a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
