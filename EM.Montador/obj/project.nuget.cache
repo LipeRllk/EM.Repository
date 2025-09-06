@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "dgSpecHash": "6adF0KRcpFQ=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Montador\\EM.Montador.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
+    "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\itextsharp\\5.5.13.4\\itextsharp.5.5.13.4.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "message": "O pacote 'iTextSharp 5.5.13.4' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Montador\\EM.Montador.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Montador\\EM.Montador.csproj",
+      "libraryId": "iTextSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
+}

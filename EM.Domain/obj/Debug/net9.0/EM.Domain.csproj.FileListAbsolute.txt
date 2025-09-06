@@ -24,3 +24,16 @@ C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Domain\obj\Debug\net
 C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Domain\obj\Debug\net9.0\refint\EM.Domain.dll
 C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Domain\obj\Debug\net9.0\EM.Domain.pdb
 C:\Users\SUP.FELLYPE\source\repos\LipeRllk\EM.Repository\EM.Domain\obj\Debug\net9.0\ref\EM.Domain.dll
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\bin\Debug\net9.0\EM.Domain.deps.json
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\bin\Debug\net9.0\EM.Domain.dll
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\bin\Debug\net9.0\EM.Domain.pdb
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\obj\Debug\net9.0\EM.Domain.csproj.AssemblyReference.cache
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\obj\Debug\net9.0\EM.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\obj\Debug\net9.0\EM.Domain.AssemblyInfoInputs.cache
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\obj\Debug\net9.0\EM.Domain.AssemblyInfo.cs
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\obj\Debug\net9.0\EM.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\obj\Debug\net9.0\EM.Domain.sourcelink.json
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\obj\Debug\net9.0\EM.Domain.dll
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\obj\Debug\net9.0\refint\EM.Domain.dll
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\obj\Debug\net9.0\EM.Domain.pdb
+C:\Users\Fellype\Projetos\EM.Repository\EM.Domain\obj\Debug\net9.0\ref\EM.Domain.dll

@@ -126,13 +126,5 @@ namespace EM.Web.Controllers
             ViewBag.NomeCidade = cidade?.CIDADESCRICAO ?? "Cidade não encontrada";
             return View("AlunoList", alunos);
         }
-
-        // Exemplo de uso de métodos de extensão
-        public IActionResult AlunosMaioresDeIdade()
-        {
-            var alunos = _repo.BuscarMaioresDeIdade();
-            ViewBag.Titulo = "Alunos Maiores de Idade";
-            return View("AlunoList", alunos);
-        }
     }
 }

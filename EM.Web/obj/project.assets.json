@@ -1480,27 +1480,28 @@
       "EM.Domain >= 1.0.0",
       "EM.Repository >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 9.0.7",
-      "Microsoft.EntityFrameworkCore >= 9.0.7"
+      "Microsoft.EntityFrameworkCore >= 9.0.7",
+      "Microsoft.EntityFrameworkCore.Analyzers >= 9.0.7"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\SUP.FELLYPE\\.nuget\\packages\\": {},
+    "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Web\\EM.Web.csproj",
+      "projectUniqueName": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Web\\EM.Web.csproj",
       "projectName": "EM.Web",
-      "projectPath": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Web\\EM.Web.csproj",
-      "packagesPath": "C:\\Users\\SUP.FELLYPE\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Web\\obj\\",
+      "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Web\\EM.Web.csproj",
+      "packagesPath": "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\SUP.FELLYPE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1509,17 +1510,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Domain\\EM.Domain.csproj": {
-              "projectPath": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Domain\\EM.Domain.csproj"
+            "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Domain\\EM.Domain.csproj": {
+              "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Domain\\EM.Domain.csproj"
             },
-            "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Repository\\EM.Repository.csproj": {
-              "projectPath": "C:\\Users\\SUP.FELLYPE\\source\\repos\\LipeRllk\\EM.Repository\\EM.Repository\\EM.Repository.csproj"
+            "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Repository\\EM.Repository.csproj": {
+              "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Repository\\EM.Repository.csproj"
             }
           }
         }
@@ -1547,6 +1549,10 @@
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[9.0.7, )"
+          },
+          "Microsoft.EntityFrameworkCore.Analyzers": {
+            "target": "Package",
+            "version": "[9.0.7, )"
           }
         },
         "imports": [
@@ -1568,7 +1574,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
