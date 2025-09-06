@@ -3,7 +3,11 @@ using iTextSharp.text.pdf;
 using EM.Montador.PDF.Models;
 using EM.Montador.PDF.Components;
 
+<<<<<<< HEAD
 namespace EM.Montador.PDF.Components
+=======
+namespace EM.Services.PDF.Components
+>>>>>>> -Adicao da biblioteca ItextSharp
 {
     public class CabecalhoComponent : IComponentPDF
     {
