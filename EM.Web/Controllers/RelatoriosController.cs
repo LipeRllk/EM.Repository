@@ -26,21 +26,41 @@ namespace EM.Web.Controllers
             return View();
         }
 
-        public IActionResult SelecionarRelatorio(string tipo)
+        // Actions para cada tipo de relatório específico
+        public IActionResult RelatorioGeralAlunos()
         {
-            if (string.IsNullOrEmpty(tipo))
-                return RedirectToAction(nameof(Index));
-
             var model = new RelatorioFiltroModel
             {
-                TipoRelatorio = tipo,
-                TituloRelatorio = ObterTituloRelatorio(tipo)
+                TipoRelatorio = "RelatorioGeralAlunos",
+                TituloRelatorio = "Relatório Geral de Alunos"
             };
 
             CarregarDadosFormulario(model);
-            ViewData["Title"] = $"Filtros - {model.TituloRelatorio}";
-            
-            return View("FiltrosRelatorio", model);
+            return View(model);
+        }
+
+        public IActionResult RelatorioCidades()
+        {
+            var model = new RelatorioFiltroModel
+            {
+                TipoRelatorio = "RelatorioCidades",
+                TituloRelatorio = "Lista de Cidades"
+            };
+
+            CarregarDadosFormulario(model);
+            return View(model);
+        }
+
+        public IActionResult CertificadoIndividual()
+        {
+            var model = new RelatorioFiltroModel
+            {
+                TipoRelatorio = "CertificadoIndividual",
+                TituloRelatorio = "Certificado Individual"
+            };
+
+            CarregarDadosFormulario(model);
+            return View(model);
         }
 
         [HttpPost]
@@ -55,11 +75,7 @@ namespace EM.Web.Controllers
                 byte[] pdfBytes = filtros.TipoRelatorio switch
                 {
                     "RelatorioGeralAlunos" => GerarRelatorioGeralAlunos(filtros),
-                    "RelatorioAlunosPorCidade" => GerarRelatorioAlunosPorCidade(filtros),
-                    "RelatorioAlunosPorIdade" => GerarRelatorioAlunosPorIdade(filtros),
                     "RelatorioCidades" => GerarRelatorioCidades(filtros),
-                    "RelatorioCidadesPorUF" => GerarRelatorioCidadesPorUF(filtros),
-                    "CertificadoIndividual" => GerarCertificadoIndividual(filtros),
                     _ => throw new ArgumentException("Tipo de relatório inválido")
                 };
 
@@ -70,31 +86,21 @@ namespace EM.Web.Controllers
             {
                 TempData["Erro"] = $"Erro ao gerar relatório: {ex.Message}";
                 CarregarDadosFormulario(filtros);
-                return View("FiltrosRelatorio", filtros);
+                
+                // Redireciona para a view correta baseada no tipo
+                return filtros.TipoRelatorio switch
+                {
+                    "RelatorioGeralAlunos" => View("RelatorioGeralAlunos", filtros),
+                    "RelatorioCidades" => View("RelatorioCidades", filtros),
+                    "CertificadoIndividual" => View("CertificadoIndividual", filtros),
+                    _ => RedirectToAction(nameof(Index))
+                };
             }
         }
 
         private byte[] GerarRelatorioGeralAlunos(RelatorioFiltroModel filtros)
         {
             var alunos = _alunoRepo.BuscarAlunos(filtros.FiltroNome);
-            alunos = AplicarFiltrosAlunos(alunos, filtros);
-            return _pdfService.GerarRelatorioAlunos(alunos);
-        }
-
-        private byte[] GerarRelatorioAlunosPorCidade(RelatorioFiltroModel filtros)
-        {
-            var alunos = _alunoRepo.BuscarAlunos();
-            
-            if (filtros.FiltroCidadeId.HasValue)
-                alunos = alunos.Where(a => a.AlunoCidaCodigo == filtros.FiltroCidadeId.Value).ToList();
-                
-            alunos = AplicarFiltrosAlunos(alunos, filtros);
-            return _pdfService.GerarRelatorioAlunos(alunos);
-        }
-
-        private byte[] GerarRelatorioAlunosPorIdade(RelatorioFiltroModel filtros)
-        {
-            var alunos = _alunoRepo.BuscarAlunos();
             alunos = AplicarFiltrosAlunos(alunos, filtros);
             return _pdfService.GerarRelatorioAlunos(alunos);
         }
@@ -106,32 +112,13 @@ namespace EM.Web.Controllers
             if (!string.IsNullOrEmpty(filtros.FiltroUF))
                 cidades = cidades.Where(c => c.CIDAUF == filtros.FiltroUF).ToList();
 
-            var config = CriarConfiguracao(filtros);
-            return _pdfService.GerarDocumentoPersonalizado(config, new TabelaCidadesComponent(cidades));
-        }
-
-        private byte[] GerarRelatorioCidadesPorUF(RelatorioFiltroModel filtros)
-        {
-            var cidades = _cidadeRepo.BuscarCidades();
-            
-            if (!string.IsNullOrEmpty(filtros.FiltroUF))
-                cidades = cidades.Where(c => c.CIDAUF == filtros.FiltroUF).ToList();
+            if (!string.IsNullOrEmpty(filtros.FiltroCodigoIBGE))
+                cidades = cidades.Where(c => c.CIDACODIGOIBGE.Contains(filtros.FiltroCodigoIBGE)).ToList();
 
             var config = CriarConfiguracao(filtros);
             return _pdfService.GerarDocumentoPersonalizado(config, new TabelaCidadesComponent(cidades));
         }
 
-        private byte[] GerarCertificadoIndividual(RelatorioFiltroModel filtros)
-        {
-            if (!filtros.FiltroCidadeId.HasValue)
-                throw new ArgumentException("Selecione um aluno para gerar o certificado");
-
-            var aluno = _alunoRepo.BuscarPorMatriculaTradicional(filtros.FiltroCidadeId.Value);
-            if (aluno == null)
-                throw new ArgumentException("Aluno não encontrado");
-
-            return _pdfService.GerarCertificado(aluno.AlunoNome, "Curso de Programação", DateTime.Now);
-        }
 
         private List<Aluno> AplicarFiltrosAlunos(List<Aluno> alunos, RelatorioFiltroModel filtros)
         {
@@ -139,6 +126,9 @@ namespace EM.Web.Controllers
 
             if (!string.IsNullOrEmpty(filtros.FiltroSexo))
                 query = query.Where(a => a.AlunoSexo == filtros.FiltroSexo);
+
+            if (filtros.FiltroCidadeId.HasValue)
+                query = query.Where(a => a.AlunoCidaCodigo == filtros.FiltroCidadeId.Value);
 
             if (filtros.FiltroDataNascimentoDe.HasValue)
                 query = query.Where(a => a.AlunoNascimento >= filtros.FiltroDataNascimentoDe.Value);
@@ -184,20 +174,6 @@ namespace EM.Web.Controllers
                 IncluirRodape = filtros.IncluirRodape,
                 IncluirNumeroPagina = filtros.IncluirNumeroPagina,
                 Paisagem = filtros.OrientacaoPaisagem
-            };
-        }
-
-        private string ObterTituloRelatorio(string tipo)
-        {
-            return tipo switch
-            {
-                "RelatorioGeralAlunos" => "Relatório Geral de Alunos",
-                "RelatorioAlunosPorCidade" => "Relatório de Alunos por Cidade",
-                "RelatorioAlunosPorIdade" => "Relatório de Alunos por Faixa Etária",
-                "RelatorioCidades" => "Lista de Cidades",
-                "RelatorioCidadesPorUF" => "Relatório de Cidades por UF",
-                "CertificadoIndividual" => "Certificado Individual",
-                _ => "Relatório"
             };
         }
     }
