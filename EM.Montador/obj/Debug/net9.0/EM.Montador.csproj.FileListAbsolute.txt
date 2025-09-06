@@ -1,0 +1,16 @@
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\bin\Debug\net9.0\EM.Montador.deps.json
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\bin\Debug\net9.0\EM.Montador.dll
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\bin\Debug\net9.0\EM.Montador.pdb
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\bin\Debug\net9.0\EM.Domain.dll
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\bin\Debug\net9.0\EM.Domain.pdb
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\obj\Debug\net9.0\EM.Montador.csproj.AssemblyReference.cache
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\obj\Debug\net9.0\EM.Montador.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\obj\Debug\net9.0\EM.Montador.AssemblyInfoInputs.cache
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\obj\Debug\net9.0\EM.Montador.AssemblyInfo.cs
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\obj\Debug\net9.0\EM.Montador.csproj.CoreCompileInputs.cache
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\obj\Debug\net9.0\EM.Montador.sourcelink.json
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\obj\Debug\net9.0\EM.Monta.A9A8C5D9.Up2Date
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\obj\Debug\net9.0\EM.Montador.dll
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\obj\Debug\net9.0\refint\EM.Montador.dll
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\obj\Debug\net9.0\EM.Montador.pdb
+C:\Users\Fellype\Projetos\EM.Repository\EM.Montador\obj\Debug\net9.0\ref\EM.Montador.dll

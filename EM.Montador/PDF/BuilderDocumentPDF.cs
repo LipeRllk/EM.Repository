@@ -1,13 +1,7 @@
 ﻿using EM.Montador.PDF.Components;
 using EM.Montador.PDF.Models;
-using EM.Services.PDF.Components;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static EM.Montador.PDF.Components.ComponentRodape;
 
 namespace EM.Montador.PDF
 {
@@ -50,8 +44,8 @@ namespace EM.Montador.PDF
         {
             using (var memoryStream = new MemoryStream())
             {
-                // Configurar documento
-                var tamanho = _config.Paisagem ? _config.TamanhoPagina.Rotate() : _config.TamanhoPagina;
+                // Configurar documento - CORRIGIDO: usar o Rectangle diretamente
+                var tamanho = _config.Paisagem ? RotateRectangle(_config.TamanhoPagina) : _config.TamanhoPagina;
                 var document = new Document(tamanho,
                     _config.MargemEsquerda,
                     _config.MargemDireita,
@@ -70,6 +64,11 @@ namespace EM.Montador.PDF
                 document.Close();
                 return memoryStream.ToArray();
             }
+        }
+
+        private Rectangle RotateRectangle(Rectangle rectangle)
+        {
+            return new Rectangle(rectangle.Height, rectangle.Width);
         }
     }
 }

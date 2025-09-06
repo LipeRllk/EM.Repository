@@ -1207,8 +1207,10 @@ C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\refs\System.Xml.
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\refs\System.Xml.XPath.dll
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\refs\System.Xml.XPath.XDocument.dll
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\refs\WindowsBase.dll
+C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\FirebirdSql.Data.FirebirdClient.dll
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\FirebirdSql.EntityFrameworkCore.Firebird.dll
+C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\itextsharp.dll
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\Microsoft.AspNetCore.Razor.Language.dll
@@ -1255,9 +1257,11 @@ C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\tr\Microsoft.Cod
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\EM.Domain.dll
+C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\EM.Montador.dll
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\EM.Repository.dll
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\EM.Domain.pdb
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\EM.Repository.pdb
+C:\Users\Fellype\Projetos\EM.Repository\EM.Web\bin\Debug\net9.0\EM.Montador.pdb
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\obj\Debug\net9.0\EM.Web.csproj.AssemblyReference.cache
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\obj\Debug\net9.0\rpswa.dswa.cache.json
 C:\Users\Fellype\Projetos\EM.Repository\EM.Web\obj\Debug\net9.0\EM.Web.GeneratedMSBuildEditorConfig.editorconfig

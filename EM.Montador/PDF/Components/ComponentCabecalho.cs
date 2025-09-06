@@ -3,7 +3,7 @@ using iTextSharp.text.pdf;
 using EM.Montador.PDF.Models;
 using EM.Montador.PDF.Components;
 
-namespace EM.Services.PDF.Components
+namespace EM.Montador.PDF.Components
 {
     public class CabecalhoComponent : IComponentPDF
     {

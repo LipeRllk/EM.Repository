@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net9.0": {
+      "BouncyCastle.Cryptography/2.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "FirebirdSql.Data.FirebirdClient/10.3.3": {
         "type": "package",
         "compile": {
@@ -22,6 +35,18 @@
         },
         "runtime": {
           "lib/net8.0/FirebirdSql.EntityFrameworkCore.Firebird.dll": {}
+        }
+      },
+      "iTextSharp/5.5.13.4": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.4.0"
+        },
+        "compile": {
+          "lib/net461/itextsharp.dll": {}
+        },
+        "runtime": {
+          "lib/net461/itextsharp.dll": {}
         }
       },
       "Microsoft.AspNetCore.Mvc.Razor.Extensions/6.0.0": {
@@ -553,6 +578,20 @@
           "bin/placeholder/EM.Domain.dll": {}
         }
       },
+      "EM.Montador/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "EM.Domain": "1.0.0",
+          "iTextSharp": "5.5.13.4"
+        },
+        "compile": {
+          "bin/placeholder/EM.Montador.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EM.Montador.dll": {}
+        }
+      },
       "EM.Repository/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
@@ -570,6 +609,26 @@
     }
   },
   "libraries": {
+    "BouncyCastle.Cryptography/2.4.0": {
+      "sha512": "SwXsAV3sMvAU/Nn31pbjhWurYSjJ+/giI/0n6tCrYoupEK34iIHCuk3STAd9fx8yudM85KkLSVdn951vTng/vQ==",
+      "type": "package",
+      "path": "bouncycastle.cryptography/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "bouncycastle.cryptography.2.4.0.nupkg.sha512",
+        "bouncycastle.cryptography.nuspec",
+        "lib/net461/BouncyCastle.Cryptography.dll",
+        "lib/net461/BouncyCastle.Cryptography.xml",
+        "lib/net6.0/BouncyCastle.Cryptography.dll",
+        "lib/net6.0/BouncyCastle.Cryptography.xml",
+        "lib/netstandard2.0/BouncyCastle.Cryptography.dll",
+        "lib/netstandard2.0/BouncyCastle.Cryptography.xml",
+        "packageIcon.png"
+      ]
+    },
     "FirebirdSql.Data.FirebirdClient/10.3.3": {
       "sha512": "iAj21eY5u7obZumA3NAVZf8ynu7Z6lslkU3V4W8Mm9Mowa4gcadT2a+LIMwAovDIg8iS8RpCSzIzFdKFCdakTg==",
       "type": "package",
@@ -603,6 +662,22 @@
         "firebirdsql.entityframeworkcore.firebird.nuspec",
         "lib/net8.0/FirebirdSql.EntityFrameworkCore.Firebird.dll",
         "license.txt"
+      ]
+    },
+    "iTextSharp/5.5.13.4": {
+      "sha512": "/cvCNv8AJ+XuD99u4NfHSSxkBJKTdvP36wcfQF9V1Cjzi1ycyFSa4vJ64a3DhFVUTKVO60WF8OmAqngQDTHgYA==",
+      "type": "package",
+      "path": "itextsharp/5.5.13.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "gnu-agpl-v3.0.md",
+        "itextsharp.5.5.13.4.nupkg.sha512",
+        "itextsharp.nuspec",
+        "lib/net461/iTextSharp.xml",
+        "lib/net461/itextsharp.dll",
+        "notice.txt"
       ]
     },
     "Microsoft.AspNetCore.Mvc.Razor.Extensions/6.0.0": {
@@ -1469,6 +1544,11 @@
       "path": "../EM.Domain/EM.Domain.csproj",
       "msbuildProject": "../EM.Domain/EM.Domain.csproj"
     },
+    "EM.Montador/1.0.0": {
+      "type": "project",
+      "path": "../EM.Montador/EM.Montador.csproj",
+      "msbuildProject": "../EM.Montador/EM.Montador.csproj"
+    },
     "EM.Repository/1.0.0": {
       "type": "project",
       "path": "../EM.Repository/EM.Repository.csproj",
@@ -1478,6 +1558,7 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "EM.Domain >= 1.0.0",
+      "EM.Montador >= 1.0.0",
       "EM.Repository >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 9.0.7",
       "Microsoft.EntityFrameworkCore >= 9.0.7",
@@ -1519,6 +1600,9 @@
           "projectReferences": {
             "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Domain\\EM.Domain.csproj": {
               "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Domain\\EM.Domain.csproj"
+            },
+            "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Montador\\EM.Montador.csproj": {
+              "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Montador\\EM.Montador.csproj"
             },
             "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Repository\\EM.Repository.csproj": {
               "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Repository\\EM.Repository.csproj"
@@ -1577,5 +1661,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'iTextSharp 5.5.13.4' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net9.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "iTextSharp",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
 }
