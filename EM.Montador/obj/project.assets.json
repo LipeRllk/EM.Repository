@@ -1,11 +1,7 @@
 {
   "version": 3,
   "targets": {
-<<<<<<< HEAD
     "net9.0": {
-=======
-    "net8.0": {
->>>>>>> -Adicao da biblioteca ItextSharp
       "BouncyCastle.Cryptography/2.4.0": {
         "type": "package",
         "compile": {
@@ -19,7 +15,6 @@
           }
         }
       },
-<<<<<<< HEAD
       "FirebirdSql.Data.FirebirdClient/10.3.2": {
         "type": "package",
         "compile": {
@@ -42,8 +37,6 @@
           "lib/net8.0/FirebirdSql.EntityFrameworkCore.Firebird.dll": {}
         }
       },
-=======
->>>>>>> -Adicao da biblioteca ItextSharp
       "iTextSharp/5.5.13.4": {
         "type": "package",
         "dependencies": {
@@ -55,7 +48,6 @@
         "runtime": {
           "lib/net461/itextsharp.dll": {}
         }
-<<<<<<< HEAD
       },
       "Microsoft.EntityFrameworkCore/9.0.1": {
         "type": "package",
@@ -298,8 +290,6 @@
         "runtime": {
           "bin/placeholder/EM.Domain.dll": {}
         }
-=======
->>>>>>> -Adicao da biblioteca ItextSharp
       }
     }
   },
@@ -324,7 +314,6 @@
         "packageIcon.png"
       ]
     },
-<<<<<<< HEAD
     "FirebirdSql.Data.FirebirdClient/10.3.2": {
       "sha512": "mo74lexrjTPAQ4XGrVWTdXy1wEnLKl/KcUeHO8HqEcULrqo5HfZmhgbClqIPogeQ6TY6Jh1EClfHa9ALn5IxfQ==",
       "type": "package",
@@ -360,8 +349,6 @@
         "license.txt"
       ]
     },
-=======
->>>>>>> -Adicao da biblioteca ItextSharp
     "iTextSharp/5.5.13.4": {
       "sha512": "/cvCNv8AJ+XuD99u4NfHSSxkBJKTdvP36wcfQF9V1Cjzi1ycyFSa4vJ64a3DhFVUTKVO60WF8OmAqngQDTHgYA==",
       "type": "package",
@@ -377,7 +364,6 @@
         "lib/net461/itextsharp.dll",
         "notice.txt"
       ]
-<<<<<<< HEAD
     },
     "Microsoft.EntityFrameworkCore/9.0.1": {
       "sha512": "E25w4XugXNykTr5Y/sLDGaQ4lf67n9aXVPvsdGsIZjtuLmbvb9AoYP8D50CDejY8Ro4D9GK2kNHz5lWHqSK+wg==",
@@ -766,12 +752,6 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "EM.Domain >= 1.0.0",
-=======
-    }
-  },
-  "projectFileDependencyGroups": {
-    "net8.0": [
->>>>>>> -Adicao da biblioteca ItextSharp
       "iTextSharp >= 5.5.13.4"
     ]
   },
@@ -797,11 +777,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-<<<<<<< HEAD
         "net9.0"
-=======
-        "net8.0"
->>>>>>> -Adicao da biblioteca ItextSharp
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -809,7 +785,6 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-<<<<<<< HEAD
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
@@ -817,11 +792,6 @@
               "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Domain\\EM.Domain.csproj"
             }
           }
-=======
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "projectReferences": {}
->>>>>>> -Adicao da biblioteca ItextSharp
         }
       },
       "warningProperties": {
@@ -837,13 +807,8 @@
       "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
-<<<<<<< HEAD
       "net9.0": {
         "targetAlias": "net9.0",
-=======
-      "net8.0": {
-        "targetAlias": "net8.0",
->>>>>>> -Adicao da biblioteca ItextSharp
         "dependencies": {
           "iTextSharp": {
             "target": "Package",
@@ -875,17 +840,10 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-<<<<<<< HEAD
       "message": "O pacote 'iTextSharp 5.5.13.4' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net9.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
       "libraryId": "iTextSharp",
       "targetGraphs": [
         "net9.0"
-=======
-      "message": "O pacote 'iTextSharp 5.5.13.4' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
-      "libraryId": "iTextSharp",
-      "targetGraphs": [
-        "net8.0"
->>>>>>> -Adicao da biblioteca ItextSharp
       ]
     }
   ]

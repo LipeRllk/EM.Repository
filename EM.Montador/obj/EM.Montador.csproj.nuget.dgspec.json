@@ -4,7 +4,6 @@
     "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Montador\\EM.Montador.csproj": {}
   },
   "projects": {
-<<<<<<< HEAD
     "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Domain\\EM.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -77,8 +76,6 @@
         }
       }
     },
-=======
->>>>>>> -Adicao da biblioteca ItextSharp
     "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Montador\\EM.Montador.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -97,11 +94,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-<<<<<<< HEAD
           "net9.0"
-=======
-          "net8.0"
->>>>>>> -Adicao da biblioteca ItextSharp
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -109,7 +102,6 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-<<<<<<< HEAD
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
@@ -117,11 +109,6 @@
                 "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Domain\\EM.Domain.csproj"
               }
             }
-=======
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {}
->>>>>>> -Adicao da biblioteca ItextSharp
           }
         },
         "warningProperties": {
@@ -137,13 +124,8 @@
         "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-<<<<<<< HEAD
         "net9.0": {
           "targetAlias": "net9.0",
-=======
-        "net8.0": {
-          "targetAlias": "net8.0",
->>>>>>> -Adicao da biblioteca ItextSharp
           "dependencies": {
             "iTextSharp": {
               "target": "Package",

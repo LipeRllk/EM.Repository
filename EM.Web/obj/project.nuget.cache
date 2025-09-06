@@ -1,6 +1,5 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "fz9wXFdhoSA=",
   "success": true,
   "projectFilePath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Web\\EM.Web.csproj",
@@ -9,14 +8,6 @@
     "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\firebirdsql.data.firebirdclient\\10.3.3\\firebirdsql.data.firebirdclient.10.3.3.nupkg.sha512",
     "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\firebirdsql.entityframeworkcore.firebird\\12.0.0\\firebirdsql.entityframeworkcore.firebird.12.0.0.nupkg.sha512",
     "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\itextsharp\\5.5.13.4\\itextsharp.5.5.13.4.nupkg.sha512",
-=======
-  "dgSpecHash": "P87urDEmp+8=",
-  "success": true,
-  "projectFilePath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Web\\EM.Web.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\firebirdsql.data.firebirdclient\\10.3.3\\firebirdsql.data.firebirdclient.10.3.3.nupkg.sha512",
-    "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\firebirdsql.entityframeworkcore.firebird\\12.0.0\\firebirdsql.entityframeworkcore.firebird.12.0.0.nupkg.sha512",
->>>>>>> -Adicao da biblioteca ItextSharp
     "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\6.0.0\\microsoft.aspnetcore.mvc.razor.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\9.0.7\\microsoft.aspnetcore.mvc.razor.runtimecompilation.9.0.7.nupkg.sha512",
     "C:\\Users\\Fellype.DESKTOP-TPSVTV0\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.0\\microsoft.aspnetcore.razor.language.6.0.0.nupkg.sha512",

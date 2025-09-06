@@ -76,7 +76,6 @@
         }
       }
     },
-<<<<<<< HEAD
     "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Montador\\EM.Montador.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -156,11 +155,6 @@
     "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Repository\\EM.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-=======
-    "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Repository\\EM.Repository.csproj": {
-      "version": "1.0.0",
-      "restore": {
->>>>>>> -Adicao da biblioteca ItextSharp
         "projectUniqueName": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Repository\\EM.Repository.csproj",
         "projectName": "EM.Repository",
         "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Repository\\EM.Repository.csproj",
@@ -266,12 +260,9 @@
               "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Domain\\EM.Domain.csproj": {
                 "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Domain\\EM.Domain.csproj"
               },
-<<<<<<< HEAD
               "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Montador\\EM.Montador.csproj": {
                 "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Montador\\EM.Montador.csproj"
               },
-=======
->>>>>>> -Adicao da biblioteca ItextSharp
               "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Repository\\EM.Repository.csproj": {
                 "projectPath": "C:\\Users\\Fellype\\Projetos\\EM.Repository\\EM.Repository\\EM.Repository.csproj"
               }

@@ -10,11 +10,7 @@ namespace EM.Montador.PDF.Models
     public class ConfigModelPDF
     {
         public string Titulo { get; set; } = "";
-<<<<<<< HEAD
         public Rectangle TamanhoPagina { get; set; } = PageSize.A4;
-=======
-        public PageSize TamanhoPagina { get; set; } = PageSize.A4;
->>>>>>> -Adicao da biblioteca ItextSharp
         public bool Paisagem { get; set; } = false;
         public float MargemEsquerda { get; set; } = 20f;
         public float MargemDireita { get; set; } = 20f;

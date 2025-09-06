@@ -1,13 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-<<<<<<< HEAD
     <OutputType>Library</OutputType>
     <TargetFramework>net9.0</TargetFramework>
-=======
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
->>>>>>> -Adicao da biblioteca ItextSharp
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -15,12 +10,9 @@
   <ItemGroup>
     <PackageReference Include="iTextSharp" Version="5.5.13.4" />
   </ItemGroup>
-<<<<<<< HEAD
 	
   <ItemGroup>
     <ProjectReference Include="..\EM.Domain\EM.Domain.csproj" />
   </ItemGroup>
-=======
->>>>>>> -Adicao da biblioteca ItextSharp
 
 </Project>
