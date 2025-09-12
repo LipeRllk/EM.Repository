@@ -7,8 +7,14 @@ namespace EM.Web.Controllers
 {
     public class CidadeController : Controller
     {
-        private readonly CidadeRepository _repo = new CidadeRepository();
-        private readonly AlunoRepository _alunoRepo = new AlunoRepository();
+        private readonly CidadeRepository _repo;
+        private readonly AlunoRepository _alunoRepo;
+
+        public CidadeController(CidadeRepository cidadeRepository, AlunoRepository alunoRepository)
+        {
+            _repo = cidadeRepository;
+            _alunoRepo = alunoRepository;
+        }
 
         public IActionResult CidadeList(string search)
         {

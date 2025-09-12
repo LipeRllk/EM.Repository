@@ -13,11 +13,11 @@ namespace EM.Web.Controllers
         private readonly AlunoRepository _alunoRepo;
         private readonly CidadeRepository _cidadeRepo;
 
-        public RelatoriosController(IServicePDF pdfService)
+        public RelatoriosController(IServicePDF pdfService, AlunoRepository alunoRepository, CidadeRepository cidadeRepository)
         {
             _pdfService = pdfService;
-            _alunoRepo = new AlunoRepository();
-            _cidadeRepo = new CidadeRepository();
+            _alunoRepo = alunoRepository;
+            _cidadeRepo = cidadeRepository;
         }
 
         public IActionResult Index()

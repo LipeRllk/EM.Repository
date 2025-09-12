@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EM.Montador")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+172e9624e5afc3cdf42f35d1e6b076ae65198201")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfe94e524be808c87a137812e67501881243ec6b")]
 [assembly: System.Reflection.AssemblyProductAttribute("EM.Montador")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EM.Montador")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

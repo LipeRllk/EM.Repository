@@ -6,6 +6,11 @@ namespace EM.Repository
 {
     public class AlunoRepository : RepositorioAbstrato<Aluno>
     {
+        public AlunoRepository(IDbConnectionFactory connectionFactory) 
+            : base(connectionFactory)
+        {
+        }
+
         /// <summary>
         /// Implementação do método Add usando generics
         /// </summary>
@@ -51,7 +56,7 @@ namespace EM.Repository
         {
             var alunos = new List<Aluno>();
             
-            using (var cn = DbHelper.CreateConnection())
+            using (var cn = _connectionFactory.CreateConnection())
             using (var cmd = cn.CreateCommand())
             {
                 var sql = "SELECT A.*, C.CIDADESCRICAO FROM TBALUNO A " +
@@ -95,7 +100,7 @@ namespace EM.Repository
 
         public void Inserir(Aluno aluno)
         {
-            using (var cn = DbHelper.CreateConnection())
+            using (var cn = _connectionFactory.CreateConnection())
             using (var cmd = cn.CreateCommand())
             {
                 cmd.CommandText = @"INSERT INTO TBALUNO (NOME, CPF, SEXO, NASCIMENTO, CIDACODIGO) 
@@ -127,7 +132,7 @@ namespace EM.Repository
         /// </summary>
         public Aluno? BuscarPorMatriculaTradicional(int matricula)
         {
-            using (var cn = DbHelper.CreateConnection())
+            using (var cn = _connectionFactory.CreateConnection())
             using (var cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "SELECT * FROM TBALUNO WHERE MATRICULA = @MATRICULA";
@@ -153,7 +158,7 @@ namespace EM.Repository
 
         public void Atualizar(Aluno aluno)
         {
-            using (var cn = DbHelper.CreateConnection())
+            using (var cn = _connectionFactory.CreateConnection())
             using (var cmd = cn.CreateCommand())
             {
                 cmd.CommandText = @"UPDATE TBALUNO SET 
@@ -180,7 +185,7 @@ namespace EM.Repository
 
         public void Excluir(int matricula)
         {
-            using (var cn = DbHelper.CreateConnection())
+            using (var cn = _connectionFactory.CreateConnection())
             using (var cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "DELETE FROM TBALUNO WHERE MATRICULA = @MATRICULA";
@@ -204,7 +209,7 @@ namespace EM.Repository
         /// </summary>
         public int ContarPorCidadeTradicional(int cidadeId)
         {
-            using (var cn = DbHelper.CreateConnection())
+            using (var cn = _connectionFactory.CreateConnection())
             using (var cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "SELECT COUNT(*) FROM TBALUNO WHERE CIDACODIGO = @CIDACODIGO";

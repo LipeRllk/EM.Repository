@@ -8,8 +8,15 @@ namespace EM.Web.Controllers
 {
     public class AlunoController : Controller
     {
-        private readonly AlunoRepository _repo = new AlunoRepository();
-        private readonly CidadeRepository _cidadeRepo = new CidadeRepository();
+        private readonly AlunoRepository _repo;
+        private readonly CidadeRepository _cidadeRepo;
+
+        // Recebe os repositórios por injeção de dependência
+        public AlunoController(AlunoRepository alunoRepository, CidadeRepository cidadeRepository)
+        {
+            _repo = alunoRepository;
+            _cidadeRepo = cidadeRepository;
+        }
 
         public IActionResult AlunoList(string search)
         {

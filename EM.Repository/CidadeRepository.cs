@@ -5,6 +5,10 @@ namespace EM.Repository
 {
     public class CidadeRepository : RepositorioAbstrato<Cidade>
     {
+        public CidadeRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
+        {
+        }
+
         /// <summary>
         /// Implementação do método Add usando generics
         /// </summary>
@@ -50,7 +54,7 @@ namespace EM.Repository
         {
             var cidades = new List<Cidade>();
             
-            using (var cn = DbHelper.CreateConnection())
+            using (var cn = _connectionFactory.CreateConnection())
             using (var cmd = cn.CreateCommand())
             {
                 var sql = "SELECT * FROM TBCIDADE";
@@ -96,7 +100,7 @@ namespace EM.Repository
 
         public void Inserir(Cidade cidade)
         {
-            using (var cn = DbHelper.CreateConnection())
+            using (var cn = _connectionFactory.CreateConnection())
             using (var cmd = cn.CreateCommand())
             {
                 cmd.CommandText = @"INSERT INTO TBCIDADE (CIDADESCRICAO, CIDAUF, CIDACODIGOIBGE) 
@@ -124,7 +128,7 @@ namespace EM.Repository
         /// </summary>
         public Cidade? BuscarPorIdTradicional(int id)
         {
-            using (var cn = DbHelper.CreateConnection())
+            using (var cn = _connectionFactory.CreateConnection())
             using (var cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "SELECT * FROM TBCIDADE WHERE CIDACODIGO = @CIDACODIGO";
@@ -148,7 +152,7 @@ namespace EM.Repository
 
         public void Atualizar(Cidade cidade)
         {
-            using (var cn = DbHelper.CreateConnection())
+            using (var cn = _connectionFactory.CreateConnection())
             using (var cmd = cn.CreateCommand())
             {
                 cmd.CommandText = @"UPDATE TBCIDADE SET 
@@ -169,7 +173,7 @@ namespace EM.Repository
 
         public void Excluir(int id)
         {
-            using (var cn = DbHelper.CreateConnection())
+            using (var cn = _connectionFactory.CreateConnection())
             using (var cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "DELETE FROM TBCIDADE WHERE CIDACODIGO = @CIDACODIGO";
@@ -189,7 +193,7 @@ namespace EM.Repository
         }
 
         /// <summary>
-        /// Exemplo de uso de LINQ - busca cidades que contém determinado texto no nome
+        /// Exemplo de uso de LINQ - busca cidades que contêm determinado texto no nome
         /// </summary>
         public IEnumerable<Cidade> BuscarPorConteudoNome(string conteudo)
         {

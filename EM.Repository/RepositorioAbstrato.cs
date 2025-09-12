@@ -8,8 +8,15 @@ namespace EM.Repository
     /// Demonstra o uso de Generics, LINQ e Expression trees
     /// </summary>
     /// <typeparam name="T">Tipo da entidade que deve implementar IEntidade</typeparam>
-    public abstract class RepositorioAbstrato<T> where T : IEntidade
+    public abstract class RepositorioAbstrato<T> where T : class
     {
+        protected readonly IDbConnectionFactory _connectionFactory;
+
+        protected RepositorioAbstrato(IDbConnectionFactory connectionFactory)
+        {
+            _connectionFactory = connectionFactory;
+        }
+
         /// <summary>
         /// Adiciona uma nova entidade no repositório
         /// </summary>
