@@ -1,7 +1,6 @@
 ﻿using EM.Montador.PDF;
 using EM.Repository;
 using EM.Repository.Extensions;
-using EM.Domain.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 

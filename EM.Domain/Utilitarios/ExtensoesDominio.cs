@@ -27,31 +27,31 @@ namespace EM.Domain.Utilitarios
 
         public static string ObterIdadeFormatada(this Aluno aluno)
         {
-            if (aluno?.AlunoNascimento == default(DateTime))
+            if (aluno == null || aluno.AlunoNascimento == default(DateTime))
                 return "Idade não informada";
 
             var hoje = DateTime.Today;
             var nascimento = aluno.AlunoNascimento.Date;
-            
+
             if (nascimento > hoje)
                 return "Data inválida";
 
             var idadeAnos = aluno.ObterIdade();
-            
+
             if (idadeAnos >= 1)
             {
                 return idadeAnos == 1 ? "1 ano" : $"{idadeAnos} anos";
             }
-            
+
             var meses = 0;
             var dataTemp = nascimento;
-            
+
             while (dataTemp.AddMonths(1) <= hoje)
             {
                 meses++;
                 dataTemp = dataTemp.AddMonths(1);
             }
-            
+
             return meses switch
             {
                 0 => "Recém-nascido",

@@ -10,7 +10,7 @@ namespace EM.Montador.PDF
         private readonly List<IComponentPDF> _componentes;
         private readonly ConfigModelPDF _config;
 
-        public PdfDocumentBuilder(ConfigModelPDF config = null)
+        public PdfDocumentBuilder(ConfigModelPDF? config = null)
         {
             _config = config ?? new ConfigModelPDF();
             _componentes = new List<IComponentPDF>();
