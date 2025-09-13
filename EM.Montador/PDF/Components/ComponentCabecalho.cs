@@ -18,13 +18,11 @@ namespace EM.Montador.PDF.Components
         {
             if (!_config.IncluirCabecalho) return;
 
-            // Tabela para organizar logo e informações da empresa
             var tabelaCabecalho = new PdfPTable(2) { WidthPercentage = 100 };
             tabelaCabecalho.SetWidths(new float[] { 1f, 3f });
 
             document.Add(tabelaCabecalho);
 
-            // Linha separadora
             AdicionarLinhaSeparadora(document);
         }
 

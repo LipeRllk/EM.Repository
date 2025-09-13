@@ -11,7 +11,6 @@ namespace EM.Web.Controllers
         private readonly AlunoRepository _repo;
         private readonly CidadeRepository _cidadeRepo;
 
-        // Recebe os repositórios por injeção de dependência
         public AlunoController(AlunoRepository alunoRepository, CidadeRepository cidadeRepository)
         {
             _repo = alunoRepository;
@@ -22,7 +21,6 @@ namespace EM.Web.Controllers
         {
             var alunos = _repo.BuscarAlunos(search);
             
-            // Carrega todas as cidades para evitar múltiplas consultas
             var cidades = _cidadeRepo.ListarTodas();
             ViewBag.Cidades = cidades.ToDictionary(c => c.CIDACODIGO, c => c.CIDADESCRICAO);
             ViewBag.Search = search;
@@ -43,7 +41,6 @@ namespace EM.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Uso de método de extensão para limpar CPF
                 aluno.AlunoCPF = aluno.AlunoCPF.LimparCPF();
                 _repo.Inserir(aluno);
                 return RedirectToAction(nameof(AlunoList));
@@ -74,7 +71,6 @@ namespace EM.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                // Uso de método de extensão para limpar CPF
                 aluno.AlunoCPF = aluno.AlunoCPF.LimparCPF();
                 _repo.Atualizar(aluno);
                 return RedirectToAction(nameof(AlunoList));
@@ -107,7 +103,6 @@ namespace EM.Web.Controllers
             return RedirectToAction(nameof(AlunoList));
         }
 
-        // API endpoint para buscar cidade por ID (para usar no JavaScript)
         [HttpGet]
         public JsonResult BuscarCidadePorId(int id)
         {
@@ -124,7 +119,6 @@ namespace EM.Web.Controllers
             });
         }
 
-        // Exemplo de uso de métodos genéricos e LINQ - demonstra recursos da linguagem
         public IActionResult AlunosPorCidade(int cidadeId)
         {
             var alunos = _repo.Get(a => a.AlunoCidaCodigo == cidadeId);

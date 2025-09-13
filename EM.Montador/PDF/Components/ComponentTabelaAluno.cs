@@ -17,11 +17,9 @@ namespace EM.Montador.PDF.Components
         {
             if (!_alunos.Any()) return;
 
-            // Criar tabela com 4 colunas
             var tabela = new PdfPTable(4) { WidthPercentage = 100 };
             tabela.SetWidths(new float[] { 1f, 3f, 2f, 2f });
 
-            // Cabeçalho
             var fonteCabecalho = FontFactory.GetFont("Arial", 10, Font.BOLD);
             var cabecalhos = new[] { "Matrícula", "Nome", "CPF", "Nascimento" };
 
@@ -36,7 +34,6 @@ namespace EM.Montador.PDF.Components
                 tabela.AddCell(celula);
             }
 
-            // Dados
             var fonteConteudo = FontFactory.GetFont("Arial", 9);
             foreach (var aluno in _alunos)
             {

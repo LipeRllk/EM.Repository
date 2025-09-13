@@ -17,10 +17,8 @@ namespace EM.Montador.PDF.Components
         {
             if (!_config.IncluirRodape) return;
 
-            // Espaço antes do rodapé
             document.Add(new Paragraph(" ") { SpacingBefore = 30f });
 
-            // Linha separadora
             var linha = new Paragraph("_".PadRight(80, '_'))
             {
                 Alignment = Element.ALIGN_CENTER,
@@ -28,11 +26,9 @@ namespace EM.Montador.PDF.Components
             };
             document.Add(linha);
 
-            // Tabela do rodapé
             var tabelaRodape = new PdfPTable(2) { WidthPercentage = 100 };
             tabelaRodape.SetWidths(new float[] { 1f, 1f });
 
-            // Data e hora de geração
             var fonteRodape = FontFactory.GetFont("Arial", 8);
             var dataGeracao = new Paragraph($"Gerado em: {DateTime.Now:dd/MM/yyyy HH:mm}", fonteRodape);
             var celulaData = new PdfPCell(dataGeracao)
@@ -42,7 +38,6 @@ namespace EM.Montador.PDF.Components
             };
             tabelaRodape.AddCell(celulaData);
 
-            // Número da página (se habilitado)
             if (_config.IncluirNumeroPagina)
             {
                 var numeroPagina = new Paragraph("Página 1", fonteRodape);

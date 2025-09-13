@@ -11,45 +11,30 @@ namespace EM.Repository
         {
         }
 
-        /// <summary>
-        /// Implementação do método Add usando generics
-        /// </summary>
         public override void Add(Aluno aluno)
         {
             Inserir(aluno);
         }
 
-        /// <summary>
-        /// Implementação do método Remove
-        /// </summary>
         public override void Remove(Aluno aluno)
         {
             Excluir(aluno.AlunoMatricula);
         }
 
-        /// <summary>
-        /// Implementação do método Update
-        /// </summary>
         public override void Update(Aluno aluno)
         {
             Atualizar(aluno);
         }
 
-        /// <summary>
-        /// Implementação do GetAll usando LINQ
-        /// </summary>
         public override IEnumerable<Aluno> GetAll()
         {
             return BuscarAlunos().AsEnumerable();
         }
 
-        /// <summary>
-        /// Implementação do Get com Expression - demonstra uso de LINQ e conversão de tipos
-        /// </summary>
         public override IEnumerable<Aluno> Get(Expression<Func<Aluno, bool>> predicate)
         {
-            var func = predicate.Compile(); // Conversão de Expression para Func
-            return GetAll().Where(func); // Uso de LINQ
+            var func = predicate.Compile();
+            return GetAll().Where(func);
         }
 
         public List<Aluno> BuscarAlunos(string? search = null)
@@ -67,7 +52,6 @@ namespace EM.Repository
                     cmd.Parameters.AddWithValue("@search", $"%{search.ToLower()}%");
                     sql += " WHERE LOWER(A.NOME) LIKE @search";
                     
-                    // Se for número, também pesquisa por matrícula - demonstra conversão de tipos
                     if (int.TryParse(search, out int matricula))
                     {
                         cmd.Parameters.AddWithValue("@matricula", matricula);
@@ -94,7 +78,6 @@ namespace EM.Repository
                 }
             }
             
-            // Demonstra uso de LINQ e métodos de extensão
             return alunos.OrdenarPorNome().ToList();
         }
 
@@ -107,7 +90,6 @@ namespace EM.Repository
                                   VALUES (@NOME, @CPF, @SEXO, @NASCIMENTO, @CIDACODIGO)";
                 
                 cmd.Parameters.AddWithValue("@NOME", aluno.AlunoNome);
-                // Uso de método de extensão para limpar CPF
                 var cpfLimpo = aluno.AlunoCPF.LimparCPF();
                 cmd.Parameters.AddWithValue("@CPF", string.IsNullOrEmpty(cpfLimpo) ? DBNull.Value : (object)cpfLimpo);
                 cmd.Parameters.AddWithValue("@SEXO", aluno.AlunoSexo);
@@ -119,17 +101,11 @@ namespace EM.Repository
             }
         }
 
-        /// <summary>
-        /// Busca aluno por matrícula usando o método genérico
-        /// </summary>
         public Aluno? BuscarPorMatricula(int matricula)
         {
             return GetSingle(a => a.AlunoMatricula == matricula);
         }
 
-        /// <summary>
-        /// Implementação tradicional para compatibilidade
-        /// </summary>
         public Aluno? BuscarPorMatriculaTradicional(int matricula)
         {
             using (var cn = _connectionFactory.CreateConnection())
@@ -171,7 +147,6 @@ namespace EM.Repository
 
                 cmd.Parameters.AddWithValue("@MATRICULA", aluno.AlunoMatricula);
                 cmd.Parameters.AddWithValue("@NOME", aluno.AlunoNome);
-                // Uso de método de extensão
                 var cpfLimpo = aluno.AlunoCPF.LimparCPF();
                 cmd.Parameters.AddWithValue("@CPF", string.IsNullOrEmpty(cpfLimpo) ? DBNull.Value : (object)cpfLimpo);
                 cmd.Parameters.AddWithValue("@SEXO", aluno.AlunoSexo);
@@ -196,17 +171,11 @@ namespace EM.Repository
             }
         }
 
-        /// <summary>
-        /// Conta alunos por cidade usando método genérico
-        /// </summary>
         public int ContarPorCidade(int cidadeId)
         {
             return Count(a => a.AlunoCidaCodigo == cidadeId);
         }
 
-        /// <summary>
-        /// Implementação tradicional para compatibilidade com o controller atual
-        /// </summary>
         public int ContarPorCidadeTradicional(int cidadeId)
         {
             using (var cn = _connectionFactory.CreateConnection())
@@ -220,9 +189,6 @@ namespace EM.Repository
             }
         }
 
-        /// <summary>
-        /// Exemplo de uso de LINQ e conversão de tipos - busca por conteúdo do nome
-        /// </summary>
         public IEnumerable<Aluno> BuscarPorConteudoDoNome(string conteudo)
         {
             return Get(a => a.AlunoNome.ToLower().Contains(conteudo.ToLower()));

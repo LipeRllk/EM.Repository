@@ -10,7 +10,6 @@ namespace EM.Domain.Models
         [Display(Name = "Título do Relatório")]
         public string TituloRelatorio { get; set; } = string.Empty;
 
-        // Filtros de Alunos
         [Display(Name = "Pesquisar por Nome")]
         public string? FiltroNome { get; set; }
 
@@ -36,7 +35,6 @@ namespace EM.Domain.Models
         [Range(0, 120, ErrorMessage = "Idade deve estar entre 0 e 120 anos")]
         public int? FiltroIdadeMaxima { get; set; }
 
-        // Filtros de Cidades
         [Display(Name = "Pesquisar por Cidade")]
         public string? FiltroNomeCidade { get; set; }
 
@@ -46,11 +44,9 @@ namespace EM.Domain.Models
         [Display(Name = "Código IBGE")]
         public string? FiltroCodigoIBGE { get; set; }
 
-        // Listas para dropdowns (não usar SelectList aqui)
         public List<Cidade>? ListaCidades { get; set; }
         public List<string>? ListaUFs { get; set; }
 
-        // Configurações do PDF
         [Display(Name = "Incluir Cabeçalho")]
         public bool IncluirCabecalho { get; set; } = true;
 

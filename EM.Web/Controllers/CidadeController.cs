@@ -1,7 +1,6 @@
 ﻿using EM.Domain.Models;
-using EM.Repository; // Certifique-se de ter o repositório implementado
+using EM.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EM.Web.Controllers
 {
@@ -76,7 +75,6 @@ namespace EM.Web.Controllers
             var cidade = _repo.BuscarPorId(id.Value);
             if (cidade == null) return NotFound();
 
-            // Verificar se existem alunos vinculados a esta cidade
             var quantidadeAlunos = _alunoRepo.ContarPorCidadeTradicional(id.Value);
             ViewBag.TemAlunos = quantidadeAlunos > 0;
             ViewBag.QuantidadeAlunos = quantidadeAlunos;
@@ -115,7 +113,6 @@ namespace EM.Web.Controllers
             return RedirectToAction(nameof(CidadeList));
         }
 
-        // API endpoint para buscar cidade por ID
         [HttpGet]
         public JsonResult BuscarCidadePorId(int id)
         {
@@ -133,7 +130,6 @@ namespace EM.Web.Controllers
             });
         }
 
-        // Método para compatibilidade com scripts existentes
         [HttpGet]
         public JsonResult BuscarCidadePorCodigo(int codigo)
         {

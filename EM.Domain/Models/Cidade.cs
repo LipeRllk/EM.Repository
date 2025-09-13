@@ -21,7 +21,6 @@ namespace EM.Domain.Models
         [StringLength(7, ErrorMessage = "O código do IBGE deve ter no máximo 7 caracteres.")]
         public string CIDACODIGOIBGE { get; set; } = string.Empty;
 
-        // Métodos auxiliares para conversão de tipos
         public override bool Equals(object? obj)
         {
             if (obj is Cidade cidade)

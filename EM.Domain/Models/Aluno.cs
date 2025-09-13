@@ -30,14 +30,12 @@ namespace EM.Domain.Models
         [Display(Name = "Cidade")]
         public int AlunoCidaCodigo { get; set; }
 
-        // Propriedade auxiliar para trabalhar com o enum
         public EnumeradorSexo Sexo
         {
             get => Enum.TryParse<EnumeradorSexo>(AlunoSexo, out var sexo) ? sexo : EnumeradorSexo.Masculino;
             set => AlunoSexo = ((int)value).ToString();
         }
 
-        // Métodos auxiliares para conversão de tipos
         public override bool Equals(object? obj)
         {
             if (obj is Aluno aluno)

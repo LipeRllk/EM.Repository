@@ -6,7 +6,6 @@
 
 <a href="@Url.Action("AlunoCreate", "Aluno")" class="btn btn-primary mb-3">Cadastrar Novo Aluno</a>
 
-<!-- Formulário de Pesquisa -->
 <form method="get" class="mb-3">
     <div class="row">
         <div class="col-md-6">
@@ -41,14 +40,12 @@
                 <td style="text-align: left;">@aluno.AlunoNome</td>
                 <td class="text-center">
                     @{
-                        // Uso de método de extensão para formatar CPF
                         string cpfFormatado = aluno.AlunoCPF.FormatarCPF();
                     }
                     <span>@cpfFormatado</span>
                 </td>
                 <td class="text-center">
                     @{
-                        // Demonstra conversão de tipos e uso de enum
                         var sexoEnum = Enum.TryParse<EnumeradorSexo>(aluno.AlunoSexo, out var sexo) ? sexo : EnumeradorSexo.Masculino;
                     }
                     @sexoEnum.ObterDescricao()
@@ -56,14 +53,12 @@
                 <td class="text-center">@aluno.AlunoNascimento.ToShortDateString()</td>
                 <td class="text-center">
                     @{
-                        // Uso do novo método de extensão para idade formatada
                         string idadeFormatada = aluno.ObterIdadeFormatada();
                     }
                     <span>@idadeFormatada</span>
                 </td>
                 <td>
                     @{
-                        // Usa o dicionário de cidades do ViewBag
                         var cidades = ViewBag.Cidades as Dictionary<int, string>;
                         string nomeCidade = cidades != null && cidades.ContainsKey(aluno.AlunoCidaCodigo) 
                             ? cidades[aluno.AlunoCidaCodigo] 

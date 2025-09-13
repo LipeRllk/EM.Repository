@@ -18,10 +18,8 @@ namespace EM.Montador.PDF.Components
 
         public void AdicionarAoDocumento(Document document)
         {
-            // Espaçamento inicial
             document.Add(new Paragraph(" ") { SpacingAfter = 50f });
 
-            // Texto de certificação
             var fonteTexto = FontFactory.GetFont("Arial", 14);
             var textoCertificacao = new Paragraph("Certificamos que", fonteTexto)
             {
@@ -30,7 +28,6 @@ namespace EM.Montador.PDF.Components
             };
             document.Add(textoCertificacao);
 
-            // Nome do aluno
             var fonteNome = FontFactory.GetFont("Arial", 20, Font.BOLD);
             var nomeAluno = new Paragraph(_nomeAluno.ToUpper(), fonteNome)
             {
@@ -39,7 +36,6 @@ namespace EM.Montador.PDF.Components
             };
             document.Add(nomeAluno);
 
-            // Texto conclusão
             var textoConclusao = new Paragraph($"concluiu com êxito o {_curso}", fonteTexto)
             {
                 Alignment = Element.ALIGN_CENTER,
@@ -47,7 +43,6 @@ namespace EM.Montador.PDF.Components
             };
             document.Add(textoConclusao);
 
-            // Data
             var fonteData = FontFactory.GetFont("Arial", 12);
             var dataTexto = new Paragraph($"Em {_dataConclusao:dd/MM/yyyy}", fonteData)
             {
@@ -56,7 +51,6 @@ namespace EM.Montador.PDF.Components
             };
             document.Add(dataTexto);
 
-            // Linha para assinatura
             var linhAssinatura = new Paragraph("_".PadRight(50, '_'), fonteData)
             {
                 Alignment = Element.ALIGN_CENTER,

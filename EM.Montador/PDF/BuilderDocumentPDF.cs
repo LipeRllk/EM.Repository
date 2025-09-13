@@ -44,7 +44,6 @@ namespace EM.Montador.PDF
         {
             using (var memoryStream = new MemoryStream())
             {
-                // Configurar documento - CORRIGIDO: usar o Rectangle diretamente
                 var tamanho = _config.Paisagem ? RotateRectangle(_config.TamanhoPagina) : _config.TamanhoPagina;
                 var document = new Document(tamanho,
                     _config.MargemEsquerda,
@@ -55,7 +54,6 @@ namespace EM.Montador.PDF
                 var writer = PdfWriter.GetInstance(document, memoryStream);
                 document.Open();
 
-                // Adicionar todos os componentes
                 foreach (var componente in _componentes)
                 {
                     componente.AdicionarAoDocumento(document);

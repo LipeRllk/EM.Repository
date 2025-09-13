@@ -26,7 +26,6 @@ namespace EM.Web.Controllers
             return View();
         }
 
-        // Actions para cada tipo de relatório específico
         public IActionResult RelatorioGeralAlunos()
         {
             var model = new RelatorioFiltroModel
@@ -87,7 +86,6 @@ namespace EM.Web.Controllers
                 TempData["Erro"] = $"Erro ao gerar relatório: {ex.Message}";
                 CarregarDadosFormulario(filtros);
                 
-                // Redireciona para a view correta baseada no tipo
                 return filtros.TipoRelatorio switch
                 {
                     "RelatorioGeralAlunos" => View("RelatorioGeralAlunos", filtros),

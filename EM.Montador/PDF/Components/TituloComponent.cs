@@ -18,7 +18,6 @@ namespace EM.Montador.PDF.Components
         {
             if (string.IsNullOrEmpty(_titulo)) return;
 
-            // Título principal
             var fonteTitulo = FontFactory.GetFont("Arial", 18, Font.BOLD);
             var paragraphTitulo = new Paragraph(_titulo, fonteTitulo)
             {
@@ -27,7 +26,6 @@ namespace EM.Montador.PDF.Components
             };
             document.Add(paragraphTitulo);
 
-            // Subtítulo (se fornecido)
             if (!string.IsNullOrEmpty(_subtitulo))
             {
                 var fonteSubtitulo = FontFactory.GetFont("Arial", 14);

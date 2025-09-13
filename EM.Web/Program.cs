@@ -1,24 +1,20 @@
-using EM.Montador.PDF;
+ï»¿using EM.Montador.PDF;
 using EM.Repository;
+using EM.Repository.Extensions;
+using EM.Domain.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adicionar serviços ao contêiner
 builder.Services.AddControllersWithViews();
 
-// Registrar serviço de conexão com banco
 builder.Services.AddSingleton<IDbConnectionFactory, FirebirdConnectionFactory>();
 
-// Registrar repositórios
-builder.Services.AddScoped<CidadeRepository>();
-builder.Services.AddScoped<AlunoRepository>();
+builder.Services.AddRepositories(typeof(CidadeRepository).Assembly);
 
-// Registrar o serviço PDF
 builder.Services.AddScoped<IServicePDF, ServicePDF>();
 
 var app = builder.Build();
 
-// Configure o pipeline de requisições HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
