@@ -7,11 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<IDbConnectionFactory, FirebirdConnectionFactory>();
-
 builder.Services.AddRepositories(typeof(CidadeRepository).Assembly);
 
-builder.Services.AddScoped<IServicePDF, ServicePDF>();
+builder.Services.AddFactories(typeof(FirebirdConnectionFactory).Assembly);
+
+builder.Services.AddServices(typeof(ServicePDF).Assembly);
 
 var app = builder.Build();
 

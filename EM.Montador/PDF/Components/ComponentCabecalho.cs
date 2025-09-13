@@ -1,7 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using EM.Montador.PDF.Models;
-using EM.Montador.PDF.Components;
 
 namespace EM.Montador.PDF.Components
 {

@@ -3,7 +3,6 @@ using EM.Montador.PDF;
 using EM.Montador.PDF.Components;
 using EM.Domain.Models;
 using EM.Repository;
-using EM.Domain.Utilitarios;
 
 namespace EM.Web.Controllers
 {
@@ -50,17 +49,6 @@ namespace EM.Web.Controllers
             return View(model);
         }
 
-        public IActionResult CertificadoIndividual()
-        {
-            var model = new RelatorioFiltroModel
-            {
-                TipoRelatorio = "CertificadoIndividual",
-                TituloRelatorio = "Certificado Individual"
-            };
-
-            CarregarDadosFormulario(model);
-            return View(model);
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

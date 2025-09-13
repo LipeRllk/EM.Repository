@@ -7,7 +7,6 @@ namespace EM.Montador.PDF
     public interface IServicePDF
     {
         byte[] GerarRelatorioAlunos(IEnumerable<Aluno> alunos);
-        byte[] GerarCertificado(string nomeAluno, string curso, DateTime dataConclusao);
         byte[] GerarDocumentoPersonalizado(ConfigModelPDF config, params IComponentPDF[] componentes);
     }
 }

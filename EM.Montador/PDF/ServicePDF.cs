@@ -25,22 +25,6 @@ namespace EM.Montador.PDF
             return builder.Construir();
         }
 
-        public byte[] GerarCertificado(string nomeAluno, string curso, DateTime dataConclusao)
-        {
-            var config = new ConfigModelPDF
-            {
-                Titulo = "Certificado",
-                IncluirCabecalho = false,
-                IncluirRodape = false,
-                IncluirNumeroPagina = false
-            };
-
-            var builder = new PdfDocumentBuilder(config)
-                .ComTitulo("CERTIFICADO DE CONCLUSÃO")
-                .ComConteudo(new CertificadoComponent(nomeAluno, curso, dataConclusao));
-
-            return builder.Construir();
-        }
 
         public byte[] GerarDocumentoPersonalizado(ConfigModelPDF config, params IComponentPDF[] componentes)
         {

@@ -92,11 +92,135 @@ namespace EM.Repository.Extensions
             return services;
         }
 
+        public static IServiceCollection AddServices(this IServiceCollection services, params Assembly[] assemblies)
+        {
+            if (assemblies == null || assemblies.Length == 0)
+            {
+                assemblies = new[] { Assembly.GetExecutingAssembly() };
+            }
+
+            foreach (var assembly in assemblies)
+            {
+                var serviceTypes = assembly.GetTypes()
+                    .Where(type => IsServiceType(type))
+                    .Where(type => !type.IsAbstract && !type.IsInterface)
+                    .ToList();
+
+                foreach (var serviceType in serviceTypes)
+                {
+                    // Registrar o serviço diretamente
+                    services.AddScoped(serviceType);
+                    
+                    // Procurar por interfaces que o serviço implementa
+                    var serviceInterfaces = serviceType.GetInterfaces()
+                        .Where(i => !i.IsGenericTypeDefinition && 
+                                   i.IsPublic && 
+                                   i.Name.StartsWith("I") && 
+                                   i.Name.EndsWith("Service", StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+
+                    foreach (var serviceInterface in serviceInterfaces)
+                    {
+                        services.AddScoped(serviceInterface, serviceType);
+                    }
+
+                    // Se não encontrou interface específica, procurar por padrão IServiceXXX
+                    if (!serviceInterfaces.Any())
+                    {
+                        var expectedInterfaceName = $"I{serviceType.Name}";
+                        var expectedInterface = assembly.GetTypes()
+                            .FirstOrDefault(t => t.IsInterface && t.Name == expectedInterfaceName);
+
+                        if (expectedInterface != null)
+                        {
+                            services.AddScoped(expectedInterface, serviceType);
+                        }
+                    }
+                }
+            }
+
+            return services;
+        }
+
+        public static IServiceCollection AddFactories(this IServiceCollection services, params Assembly[] assemblies)
+        {
+            if (assemblies == null || assemblies.Length == 0)
+            {
+                assemblies = new[] { Assembly.GetExecutingAssembly() };
+            }
+
+            foreach (var assembly in assemblies)
+            {
+                var factoryTypes = assembly.GetTypes()
+                    .Where(type => IsFactoryType(type))
+                    .Where(type => !type.IsAbstract && !type.IsInterface)
+                    .ToList();
+
+                foreach (var factoryType in factoryTypes)
+                {
+                    // Determinar o lifetime baseado no tipo de factory
+                    var lifetime = DetermineFactoryLifetime(factoryType);
+                    
+                    // Registrar a factory diretamente
+                    services.Add(new ServiceDescriptor(factoryType, factoryType, lifetime));
+                    
+                    // Procurar por interfaces que a factory implementa
+                    var factoryInterfaces = factoryType.GetInterfaces()
+                        .Where(i => !i.IsGenericTypeDefinition && 
+                                   i.IsPublic && 
+                                   (i.Name.StartsWith("I") && i.Name.EndsWith("Factory", StringComparison.OrdinalIgnoreCase)))
+                        .ToList();
+
+                    foreach (var factoryInterface in factoryInterfaces)
+                    {
+                        services.Add(new ServiceDescriptor(factoryInterface, factoryType, lifetime));
+                    }
+
+                    // Se não encontrou interface específica, procurar por padrão IXXXFactory
+                    if (!factoryInterfaces.Any())
+                    {
+                        var expectedInterfaceName = $"I{factoryType.Name}";
+                        var expectedInterface = assembly.GetTypes()
+                            .FirstOrDefault(t => t.IsInterface && t.Name == expectedInterfaceName);
+
+                        if (expectedInterface != null)
+                        {
+                            services.Add(new ServiceDescriptor(expectedInterface, factoryType, lifetime));
+                        }
+                    }
+                }
+            }
+
+            return services;
+        }
+
         private static bool IsRepositoryType(Type type)
         {
             return type.GetInterfaces()
                 .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<>)) ||
                 type.Name.EndsWith("Repository", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsServiceType(Type type)
+        {
+            return type.Name.EndsWith("Service", StringComparison.OrdinalIgnoreCase) &&
+                   !type.Name.EndsWith("Repository", StringComparison.OrdinalIgnoreCase) &&
+                   !type.Name.EndsWith("Factory", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsFactoryType(Type type)
+        {
+            return type.Name.EndsWith("Factory", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static ServiceLifetime DetermineFactoryLifetime(Type factoryType)
+        {
+            // ConnectionFactory geralmente são Singleton
+            if (factoryType.Name.Contains("Connection", StringComparison.OrdinalIgnoreCase))
+                return ServiceLifetime.Singleton;
+            
+            // Outras factories geralmente são Scoped
+            return ServiceLifetime.Scoped;
         }
 
         public static IServiceCollection AddByConvention(this IServiceCollection services, Assembly assembly, string interfacePrefix = "I", ServiceLifetime lifetime = ServiceLifetime.Scoped)
