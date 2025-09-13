@@ -4,26 +4,23 @@ using EM.Domain.Models;
 
 namespace EM.Montador.PDF.Components
 {
-    public class TabelaCidadesComponent : IComponentPDF
+    public class TabelaCidadesComponent(IEnumerable<Cidade> cidades) : IComponentPDF
     {
-        private readonly IEnumerable<Cidade> _cidades;
+        private readonly IEnumerable<Cidade> _cidades = cidades;
 
-        public TabelaCidadesComponent(IEnumerable<Cidade> cidades)
-        {
-            _cidades = cidades;
-        }
+        private static readonly float[] s_widths = [1f, 3f, 1f, 2f];
+        private static readonly string[] s_cabecalhos = ["Código", "Cidade", "UF", "Código IBGE"];
 
         public void AdicionarAoDocumento(Document document)
         {
             if (!_cidades.Any()) return;
 
             var tabela = new PdfPTable(4) { WidthPercentage = 100 };
-            tabela.SetWidths(new float[] { 1f, 3f, 1f, 2f });
+            tabela.SetWidths(s_widths);
 
             var fonteCabecalho = FontFactory.GetFont("Arial", 10, Font.BOLD);
-            var cabecalhos = new[] { "Código", "Cidade", "UF", "Código IBGE" };
 
-            foreach (var cabecalho in cabecalhos)
+            foreach (var cabecalho in s_cabecalhos)
             {
                 var celula = new PdfPCell(new Phrase(cabecalho, fonteCabecalho))
                 {

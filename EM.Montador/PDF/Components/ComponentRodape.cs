@@ -4,14 +4,11 @@ using EM.Montador.PDF.Models;
 
 namespace EM.Montador.PDF.Components
 {
-    public class RodapeComponent : IComponentPDF
+    public class RodapeComponent(ConfigModelPDF config) : IComponentPDF
     {
-        private readonly ConfigModelPDF _config;
+        private readonly ConfigModelPDF _config = config;
 
-        public RodapeComponent(ConfigModelPDF config)
-        {
-            _config = config;
-        }
+        private static readonly float[] s_widths = [1f, 1f];
 
         public void AdicionarAoDocumento(Document document)
         {
@@ -27,7 +24,7 @@ namespace EM.Montador.PDF.Components
             document.Add(linha);
 
             var tabelaRodape = new PdfPTable(2) { WidthPercentage = 100 };
-            tabelaRodape.SetWidths(new float[] { 1f, 1f });
+            tabelaRodape.SetWidths(s_widths);
 
             var fonteRodape = FontFactory.GetFont("Arial", 8);
             var dataGeracao = new Paragraph($"Gerado em: {DateTime.Now:dd/MM/yyyy HH:mm}", fonteRodape);

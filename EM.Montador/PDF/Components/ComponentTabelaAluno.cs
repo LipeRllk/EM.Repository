@@ -13,17 +13,18 @@ namespace EM.Montador.PDF.Components
             _alunos = alunos;
         }
 
+        private static readonly float[] s_widths = [1f, 3f, 2f, 2f];
+        private static readonly string[] s_cabecalhos = ["Matrícula", "Nome", "CPF", "Nascimento"];
+
         public void AdicionarAoDocumento(Document document)
         {
             if (!_alunos.Any()) return;
 
             var tabela = new PdfPTable(4) { WidthPercentage = 100 };
-            tabela.SetWidths(new float[] { 1f, 3f, 2f, 2f });
+            tabela.SetWidths(s_widths);
 
             var fonteCabecalho = FontFactory.GetFont("Arial", 10, Font.BOLD);
-            var cabecalhos = new[] { "Matrícula", "Nome", "CPF", "Nascimento" };
-
-            foreach (var cabecalho in cabecalhos)
+            foreach (var cabecalho in s_cabecalhos)
             {
                 var celula = new PdfPCell(new Phrase(cabecalho, fonteCabecalho))
                 {

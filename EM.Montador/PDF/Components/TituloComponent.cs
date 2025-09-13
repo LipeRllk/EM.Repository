@@ -1,5 +1,4 @@
 ﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
 
 namespace EM.Montador.PDF.Components
 {

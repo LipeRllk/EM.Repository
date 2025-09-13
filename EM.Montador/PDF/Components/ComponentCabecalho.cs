@@ -13,19 +13,21 @@ namespace EM.Montador.PDF.Components
             _config = config;
         }
 
+        private static readonly float[] s_widths = [1f, 3f];
+
         public void AdicionarAoDocumento(Document document)
         {
             if (!_config.IncluirCabecalho) return;
 
             var tabelaCabecalho = new PdfPTable(2) { WidthPercentage = 100 };
-            tabelaCabecalho.SetWidths(new float[] { 1f, 3f });
+            tabelaCabecalho.SetWidths(s_widths);
 
             document.Add(tabelaCabecalho);
 
             AdicionarLinhaSeparadora(document);
         }
 
-        private void AdicionarLinhaSeparadora(Document document)
+        private static void AdicionarLinhaSeparadora(Document document)
         {
             var linha = new Paragraph("_".PadRight(80, '_'))
             {
