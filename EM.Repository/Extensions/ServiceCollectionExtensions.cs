@@ -57,7 +57,6 @@ namespace EM.Repository.Extensions
                 }
             }
 
-
             return services;
         }
 
@@ -68,7 +67,6 @@ namespace EM.Repository.Extensions
                 assemblies = new[] { Assembly.GetExecutingAssembly() };
             }
 
-
             foreach (var assembly in assemblies)
             {
                 var repositoryTypes = assembly.GetTypes()
@@ -76,9 +74,10 @@ namespace EM.Repository.Extensions
                     .Where(type => !type.IsAbstract && !type.IsInterface)
                     .ToList();
 
-
                 foreach (var repositoryType in repositoryTypes)
                 {
+                    services.AddScoped(repositoryType);
+                    
                     var repositoryInterfaces = repositoryType.GetInterfaces()
                         .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<>))
                         .ToList();
@@ -86,10 +85,7 @@ namespace EM.Repository.Extensions
                     foreach (var repositoryInterface in repositoryInterfaces)
                     {
                         services.AddScoped(repositoryInterface, repositoryType);
-                        
                     }
-
-                    services.AddScoped(repositoryType);
                 }
             }
 
@@ -99,7 +95,8 @@ namespace EM.Repository.Extensions
         private static bool IsRepositoryType(Type type)
         {
             return type.GetInterfaces()
-                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<>));
+                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<>)) ||
+                type.Name.EndsWith("Repository", StringComparison.OrdinalIgnoreCase);
         }
 
         public static IServiceCollection AddByConvention(this IServiceCollection services, Assembly assembly, string interfacePrefix = "I", ServiceLifetime lifetime = ServiceLifetime.Scoped)
@@ -111,7 +108,6 @@ namespace EM.Repository.Extensions
                 t.Name.StartsWith(interfacePrefix) &&
                 t.IsPublic)
                 .ToList();
-
 
             foreach (var interfaceType in interfaces)
             {
