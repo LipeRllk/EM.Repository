@@ -3,8 +3,11 @@ using System.Text.RegularExpressions;
 
 namespace EM.Domain.Models.Attributes
 {
-    public class CpfAttribute : ValidationAttribute
+    public partial class CpfAttribute : ValidationAttribute
     {
+        [GeneratedRegex(@"^\d{11}$")]
+        private static partial Regex CpfPattern();
+
         public override bool IsValid(object? value)
         {
             if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
@@ -12,13 +15,13 @@ namespace EM.Domain.Models.Attributes
 
             var cpf = value.ToString()!.Replace(".", "").Replace("-", "");
             
-            if (cpf.Length != 11 || !Regex.IsMatch(cpf, @"^\d{11}$")) 
+            if (cpf.Length != 11 || !CpfPattern().IsMatch(cpf)) 
                 return false;
 
-            int[] multiplicador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-            int[] multiplicador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplicador1 = [10, 9, 8, 7, 6, 5, 4, 3, 2];
+            int[] multiplicador2 = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
 
-            string tempCpf = cpf.Substring(0, 9);
+            string tempCpf = cpf[..9];
             int soma = 0;
 
             for (int i = 0; i < 9; i++)

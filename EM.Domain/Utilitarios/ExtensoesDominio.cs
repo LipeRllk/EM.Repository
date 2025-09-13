@@ -27,7 +27,7 @@ namespace EM.Domain.Utilitarios
 
         public static string ObterIdadeFormatada(this Aluno aluno)
         {
-            if (aluno == null || aluno.AlunoNascimento == default(DateTime))
+            if (aluno == null || aluno.AlunoNascimento == default)
                 return "Idade não informada";
 
             var hoje = DateTime.Today;
@@ -82,8 +82,8 @@ namespace EM.Domain.Utilitarios
 
         public static IEnumerable<Aluno> PorUF(this IEnumerable<Aluno> alunos, string ufCodigo, IEnumerable<Cidade> cidades)
         {
-            if (alunos == null) throw new ArgumentNullException(nameof(alunos));
-            if (cidades == null) throw new ArgumentNullException(nameof(cidades));
+            ArgumentNullException.ThrowIfNull(alunos);
+            ArgumentNullException.ThrowIfNull(cidades);
             if (string.IsNullOrEmpty(ufCodigo)) return alunos;
 
             var cidadesDaUF = cidades.Where(c => c.CIDAUF == ufCodigo)

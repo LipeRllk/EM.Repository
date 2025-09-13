@@ -5,16 +5,10 @@ using iTextSharp.text.pdf;
 
 namespace EM.Montador.PDF
 {
-    public class PdfDocumentBuilder
+    public class PdfDocumentBuilder(ConfigModelPDF? config = null)
     {
-        private readonly List<IComponentPDF> _componentes;
-        private readonly ConfigModelPDF _config;
-
-        public PdfDocumentBuilder(ConfigModelPDF? config = null)
-        {
-            _config = config ?? new ConfigModelPDF();
-            _componentes = new List<IComponentPDF>();
-        }
+        private readonly List<IComponentPDF> _componentes = [];
+        private readonly ConfigModelPDF _config = config ?? new ConfigModelPDF();
 
         public PdfDocumentBuilder ComCabecalho()
         {
@@ -42,29 +36,27 @@ namespace EM.Montador.PDF
 
         public byte[] Construir()
         {
-            using (var memoryStream = new MemoryStream())
+            using var memoryStream = new MemoryStream();
+            var tamanho = _config.Paisagem ? RotateRectangle(_config.TamanhoPagina) : _config.TamanhoPagina;
+            var document = new Document(tamanho,
+                _config.MargemEsquerda,
+                _config.MargemDireita,
+                _config.MargemSuperior,
+                _config.MargemInferior);
+
+            _ = PdfWriter.GetInstance(document, memoryStream);
+            document.Open();
+
+            foreach (var componente in _componentes)
             {
-                var tamanho = _config.Paisagem ? RotateRectangle(_config.TamanhoPagina) : _config.TamanhoPagina;
-                var document = new Document(tamanho,
-                    _config.MargemEsquerda,
-                    _config.MargemDireita,
-                    _config.MargemSuperior,
-                    _config.MargemInferior);
-
-                var writer = PdfWriter.GetInstance(document, memoryStream);
-                document.Open();
-
-                foreach (var componente in _componentes)
-                {
-                    componente.AdicionarAoDocumento(document);
-                }
-
-                document.Close();
-                return memoryStream.ToArray();
+                componente.AdicionarAoDocumento(document);
             }
+
+            document.Close();
+            return memoryStream.ToArray();
         }
 
-        private Rectangle RotateRectangle(Rectangle rectangle)
+        private static Rectangle RotateRectangle(Rectangle rectangle)
         {
             return new Rectangle(rectangle.Height, rectangle.Width);
         }

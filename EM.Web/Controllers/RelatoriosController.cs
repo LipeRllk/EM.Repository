@@ -6,18 +6,11 @@ using EM.Repository;
 
 namespace EM.Web.Controllers
 {
-    public class RelatoriosController : Controller
+    public class RelatoriosController(IPDFService pdfService, AlunoRepository alunoRepository, CidadeRepository cidadeRepository) : Controller
     {
-        private readonly IPDFService _pdfService;
-        private readonly AlunoRepository _alunoRepo;
-        private readonly CidadeRepository _cidadeRepo;
-
-        public RelatoriosController(IPDFService pdfService, AlunoRepository alunoRepository, CidadeRepository cidadeRepository)
-        {
-            _pdfService = pdfService;
-            _alunoRepo = alunoRepository;
-            _cidadeRepo = cidadeRepository;
-        }
+        private readonly IPDFService _pdfService = pdfService;
+        private readonly AlunoRepository _alunoRepo = alunoRepository;
+        private readonly CidadeRepository _cidadeRepo = cidadeRepository;
 
         public IActionResult Index()
         {
@@ -49,7 +42,6 @@ namespace EM.Web.Controllers
             return View(model);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult GerarRelatorio(RelatorioFiltroModel filtros)
@@ -73,12 +65,11 @@ namespace EM.Web.Controllers
             {
                 TempData["Erro"] = $"Erro ao gerar relatório: {ex.Message}";
                 CarregarDadosFormulario(filtros);
-                
+
                 return filtros.TipoRelatorio switch
                 {
                     "RelatorioGeralAlunos" => View("RelatorioGeralAlunos", filtros),
                     "RelatorioCidades" => View("RelatorioCidades", filtros),
-                    "CertificadoIndividual" => View("CertificadoIndividual", filtros),
                     _ => RedirectToAction(nameof(Index))
                 };
             }
@@ -88,13 +79,18 @@ namespace EM.Web.Controllers
         {
             var alunos = _alunoRepo.BuscarAlunos(filtros.FiltroNome);
             alunos = AplicarFiltrosAlunos(alunos, filtros);
-            return _pdfService.GerarRelatorioAlunos(alunos);
+
+            // IDE0305: usar expressão de coleção no params
+            return _pdfService.GerarDocumentoPersonalizado(
+                CriarConfiguracao(filtros),
+                [new TabelaAlunosComponent(alunos)]
+            );
         }
 
         private byte[] GerarRelatorioCidades(RelatorioFiltroModel filtros)
         {
             var cidades = _cidadeRepo.BuscarCidades(filtros.FiltroNomeCidade);
-            
+
             if (!string.IsNullOrEmpty(filtros.FiltroUF))
                 cidades = cidades.Where(c => c.CIDAUF == filtros.FiltroUF).ToList();
 
@@ -102,11 +98,12 @@ namespace EM.Web.Controllers
                 cidades = cidades.Where(c => c.CIDACODIGOIBGE.Contains(filtros.FiltroCodigoIBGE)).ToList();
 
             var config = CriarConfiguracao(filtros);
-            return _pdfService.GerarDocumentoPersonalizado(config, new TabelaCidadesComponent(cidades));
+
+            // IDE0305: usar expressão de coleção no params
+            return _pdfService.GerarDocumentoPersonalizado(config, [new TabelaCidadesComponent(cidades)]);
         }
 
-
-        private List<Aluno> AplicarFiltrosAlunos(List<Aluno> alunos, RelatorioFiltroModel filtros)
+        private static List<Aluno> AplicarFiltrosAlunos(List<Aluno> alunos, RelatorioFiltroModel filtros)
         {
             var query = alunos.AsQueryable();
 
@@ -125,11 +122,11 @@ namespace EM.Web.Controllers
             if (filtros.FiltroIdadeMinima.HasValue || filtros.FiltroIdadeMaxima.HasValue)
             {
                 var hoje = DateTime.Today;
-                var alunosComIdade = query.Select(a => new 
-                { 
-                    Aluno = a, 
-                    Idade = hoje.Year - a.AlunoNascimento.Year - 
-                           (hoje.DayOfYear < a.AlunoNascimento.DayOfYear ? 1 : 0) 
+                var alunosComIdade = query.Select(a => new
+                {
+                    Aluno = a,
+                    Idade = hoje.Year - a.AlunoNascimento.Year -
+                           (hoje.DayOfYear < a.AlunoNascimento.DayOfYear ? 1 : 0)
                 });
 
                 if (filtros.FiltroIdadeMinima.HasValue)
@@ -147,11 +144,10 @@ namespace EM.Web.Controllers
         private void CarregarDadosFormulario(RelatorioFiltroModel model)
         {
             model.ListaCidades = _cidadeRepo.ListarTodas();
-
             model.ListaUFs = model.ListaCidades.Select(c => c.CIDAUF).Distinct().OrderBy(u => u).ToList();
         }
 
-        private EM.Montador.PDF.Models.ConfigModelPDF CriarConfiguracao(RelatorioFiltroModel filtros)
+        private static EM.Montador.PDF.Models.ConfigModelPDF CriarConfiguracao(RelatorioFiltroModel filtros)
         {
             return new EM.Montador.PDF.Models.ConfigModelPDF
             {

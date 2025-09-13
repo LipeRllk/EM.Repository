@@ -3,12 +3,8 @@ using System.Linq.Expressions;
 
 namespace EM.Repository
 {
-    public class CidadeRepository : RepositorioAbstrato<Cidade>
+    public class CidadeRepository(IDbConnectionFactory connectionFactory) : RepositorioAbstrato<Cidade>(connectionFactory)
     {
-        public CidadeRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
-        {
-        }
-
         public override void Add(Cidade cidade)
         {
             Inserir(cidade);
@@ -37,40 +33,39 @@ namespace EM.Repository
 
         public List<Cidade> BuscarCidades(string? search = null)
         {
-            var cidades = new List<Cidade>();
+            List<Cidade> cidades = [];
             
-            using (var cn = _connectionFactory.CreateConnection())
-            using (var cmd = cn.CreateCommand())
+            using var cn = _connectionFactory.CreateConnection();
+            using var cmd = cn.CreateCommand();
+            
+            var sql = "SELECT * FROM TBCIDADE";
+
+            if (!string.IsNullOrWhiteSpace(search))
             {
-                var sql = "SELECT * FROM TBCIDADE";
-
-                if (!string.IsNullOrWhiteSpace(search))
+                cmd.Parameters.AddWithValue("@search", $"%{search.ToLower()}%");
+                sql += " WHERE LOWER(CIDADESCRICAO) LIKE @search";
+                
+                if (int.TryParse(search, out int codigo))
                 {
-                    cmd.Parameters.AddWithValue("@search", $"%{search.ToLower()}%");
-                    sql += " WHERE LOWER(CIDADESCRICAO) LIKE @search";
-                    
-                    if (int.TryParse(search, out int codigo))
-                    {
-                        cmd.Parameters.AddWithValue("@codigo", codigo);
-                        sql = sql.Replace("WHERE", "WHERE CIDACODIGO = @codigo OR");
-                    }
+                    cmd.Parameters.AddWithValue("@codigo", codigo);
+                    sql = sql.Replace("WHERE", "WHERE CIDACODIGO = @codigo OR");
                 }
+            }
 
-                sql += " ORDER BY CIDADESCRICAO";
-                cmd.CommandText = sql;
+            sql += " ORDER BY CIDADESCRICAO";
+            cmd.CommandText = sql;
 
-                cn.Open();
-                using var dr = cmd.ExecuteReader();
-                while (dr.Read())
+            cn.Open();
+            using var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cidades.Add(new()
                 {
-                    cidades.Add(new Cidade
-                    {
-                        CIDACODIGO = dr.GetInt32(dr.GetOrdinal("CIDACODIGO")),
-                        CIDADESCRICAO = dr.GetString(dr.GetOrdinal("CIDADESCRICAO")),
-                        CIDAUF = dr.GetString(dr.GetOrdinal("CIDAUF")),
-                        CIDACODIGOIBGE = dr.GetString(dr.GetOrdinal("CIDACODIGOIBGE"))
-                    });
-                }
+                    CIDACODIGO = dr.GetInt32(dr.GetOrdinal("CIDACODIGO")),
+                    CIDADESCRICAO = dr.GetString(dr.GetOrdinal("CIDADESCRICAO")),
+                    CIDAUF = dr.GetString(dr.GetOrdinal("CIDAUF")),
+                    CIDACODIGOIBGE = dr.GetString(dr.GetOrdinal("CIDACODIGOIBGE"))
+                });
             }
             
             return cidades.OrderBy(c => c.CIDADESCRICAO).ToList();
@@ -83,19 +78,18 @@ namespace EM.Repository
 
         public void Inserir(Cidade cidade)
         {
-            using (var cn = _connectionFactory.CreateConnection())
-            using (var cmd = cn.CreateCommand())
-            {
-                cmd.CommandText = @"INSERT INTO TBCIDADE (CIDADESCRICAO, CIDAUF, CIDACODIGOIBGE) 
-                                  VALUES (@CIDADESCRICAO, @CIDAUF, @CIDACODIGOIBGE)";
-                
-                cmd.Parameters.AddWithValue("@CIDADESCRICAO", cidade.CIDADESCRICAO);
-                cmd.Parameters.AddWithValue("@CIDAUF", cidade.CIDAUF);
-                cmd.Parameters.AddWithValue("@CIDACODIGOIBGE", cidade.CIDACODIGOIBGE);
+            using var cn = _connectionFactory.CreateConnection();
+            using var cmd = cn.CreateCommand();
+            
+            cmd.CommandText = @"INSERT INTO TBCIDADE (CIDADESCRICAO, CIDAUF, CIDACODIGOIBGE) 
+                              VALUES (@CIDADESCRICAO, @CIDAUF, @CIDACODIGOIBGE)";
+            
+            cmd.Parameters.AddWithValue("@CIDADESCRICAO", cidade.CIDADESCRICAO);
+            cmd.Parameters.AddWithValue("@CIDAUF", cidade.CIDAUF);
+            cmd.Parameters.AddWithValue("@CIDACODIGOIBGE", cidade.CIDACODIGOIBGE);
 
-                cn.Open();
-                cmd.ExecuteNonQuery();
-            }
+            cn.Open();
+            cmd.ExecuteNonQuery();
         }
 
         public Cidade? BuscarPorId(int id)
@@ -105,60 +99,57 @@ namespace EM.Repository
 
         public Cidade? BuscarPorIdTradicional(int id)
         {
-            using (var cn = _connectionFactory.CreateConnection())
-            using (var cmd = cn.CreateCommand())
-            {
-                cmd.CommandText = "SELECT * FROM TBCIDADE WHERE CIDACODIGO = @CIDACODIGO";
-                cmd.Parameters.AddWithValue("@CIDACODIGO", id);
+            using var cn = _connectionFactory.CreateConnection();
+            using var cmd = cn.CreateCommand();
+            
+            cmd.CommandText = "SELECT * FROM TBCIDADE WHERE CIDACODIGO = @CIDACODIGO";
+            cmd.Parameters.AddWithValue("@CIDACODIGO", id);
 
-                cn.Open();
-                using var dr = cmd.ExecuteReader();
-                if (dr.Read())
+            cn.Open();
+            using var dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                return new()
                 {
-                    return new Cidade
-                    {
-                        CIDACODIGO = dr.GetInt32(dr.GetOrdinal("CIDACODIGO")),
-                        CIDADESCRICAO = dr.GetString(dr.GetOrdinal("CIDADESCRICAO")),
-                        CIDAUF = dr.GetString(dr.GetOrdinal("CIDAUF")),
-                        CIDACODIGOIBGE = dr.GetString(dr.GetOrdinal("CIDACODIGOIBGE"))
-                    };
-                }
+                    CIDACODIGO = dr.GetInt32(dr.GetOrdinal("CIDACODIGO")),
+                    CIDADESCRICAO = dr.GetString(dr.GetOrdinal("CIDADESCRICAO")),
+                    CIDAUF = dr.GetString(dr.GetOrdinal("CIDAUF")),
+                    CIDACODIGOIBGE = dr.GetString(dr.GetOrdinal("CIDACODIGOIBGE"))
+                };
             }
             return null;
         }
 
         public void Atualizar(Cidade cidade)
         {
-            using (var cn = _connectionFactory.CreateConnection())
-            using (var cmd = cn.CreateCommand())
-            {
-                cmd.CommandText = @"UPDATE TBCIDADE SET 
-                                  CIDADESCRICAO = @CIDADESCRICAO, 
-                                  CIDAUF = @CIDAUF, 
-                                  CIDACODIGOIBGE = @CIDACODIGOIBGE 
-                                  WHERE CIDACODIGO = @CIDACODIGO";
+            using var cn = _connectionFactory.CreateConnection();
+            using var cmd = cn.CreateCommand();
+            
+            cmd.CommandText = @"UPDATE TBCIDADE SET 
+                              CIDADESCRICAO = @CIDADESCRICAO, 
+                              CIDAUF = @CIDAUF, 
+                              CIDACODIGOIBGE = @CIDACODIGOIBGE 
+                              WHERE CIDACODIGO = @CIDACODIGO";
 
-                cmd.Parameters.AddWithValue("@CIDACODIGO", cidade.CIDACODIGO);
-                cmd.Parameters.AddWithValue("@CIDADESCRICAO", cidade.CIDADESCRICAO);
-                cmd.Parameters.AddWithValue("@CIDAUF", cidade.CIDAUF);
-                cmd.Parameters.AddWithValue("@CIDACODIGOIBGE", cidade.CIDACODIGOIBGE);
+            cmd.Parameters.AddWithValue("@CIDACODIGO", cidade.CIDACODIGO);
+            cmd.Parameters.AddWithValue("@CIDADESCRICAO", cidade.CIDADESCRICAO);
+            cmd.Parameters.AddWithValue("@CIDAUF", cidade.CIDAUF);
+            cmd.Parameters.AddWithValue("@CIDACODIGOIBGE", cidade.CIDACODIGOIBGE);
 
-                cn.Open();
-                cmd.ExecuteNonQuery();
-            }
+            cn.Open();
+            cmd.ExecuteNonQuery();
         }
 
         public void Excluir(int id)
         {
-            using (var cn = _connectionFactory.CreateConnection())
-            using (var cmd = cn.CreateCommand())
-            {
-                cmd.CommandText = "DELETE FROM TBCIDADE WHERE CIDACODIGO = @CIDACODIGO";
-                cmd.Parameters.AddWithValue("@CIDACODIGO", id);
+            using var cn = _connectionFactory.CreateConnection();
+            using var cmd = cn.CreateCommand();
+            
+            cmd.CommandText = "DELETE FROM TBCIDADE WHERE CIDACODIGO = @CIDACODIGO";
+            cmd.Parameters.AddWithValue("@CIDACODIGO", id);
 
-                cn.Open();
-                cmd.ExecuteNonQuery();
-            }
+            cn.Open();
+            cmd.ExecuteNonQuery();
         }
 
         public IEnumerable<Cidade> BuscarPorUF(string uf)
@@ -168,7 +159,7 @@ namespace EM.Repository
 
         public IEnumerable<Cidade> BuscarPorConteudoNome(string conteudo)
         {
-            return Get(c => c.CIDADESCRICAO.ToLower().Contains(conteudo.ToLower()));
+            return Get(c => c.CIDADESCRICAO.Contains(conteudo, StringComparison.OrdinalIgnoreCase));
         }
     }
 }
