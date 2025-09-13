@@ -4,7 +4,7 @@ using EM.Montador.PDF.Models;
 
 namespace EM.Montador.PDF
 {
-    public class ServicePDF : IServicePDF
+    public class PDFService : IPDFService
     {
         public byte[] GerarRelatorioAlunos(IEnumerable<Aluno> alunos)
         {
@@ -24,7 +24,6 @@ namespace EM.Montador.PDF
 
             return builder.Construir();
         }
-
 
         public byte[] GerarDocumentoPersonalizado(ConfigModelPDF config, params IComponentPDF[] componentes)
         {

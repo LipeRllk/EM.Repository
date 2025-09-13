@@ -4,15 +4,9 @@ using System.Linq.Expressions;
 namespace EM.Repository
 {
 
-    public abstract class RepositorioAbstrato<T> where T : class
+    public abstract class RepositorioAbstrato<T>(IDbConnectionFactory connectionFactory) where T : class
     {
-        protected readonly IDbConnectionFactory _connectionFactory;
-
-        protected RepositorioAbstrato(IDbConnectionFactory connectionFactory)
-        {
-            _connectionFactory = connectionFactory;
-        }
-
+        protected readonly IDbConnectionFactory _connectionFactory = connectionFactory;
 
         public abstract void Add(T objeto);
 

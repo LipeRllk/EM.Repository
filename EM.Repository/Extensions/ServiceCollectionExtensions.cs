@@ -108,10 +108,8 @@ namespace EM.Repository.Extensions
 
                 foreach (var serviceType in serviceTypes)
                 {
-                    // Registrar o serviço diretamente
                     services.AddScoped(serviceType);
                     
-                    // Procurar por interfaces que o serviço implementa
                     var serviceInterfaces = serviceType.GetInterfaces()
                         .Where(i => !i.IsGenericTypeDefinition && 
                                    i.IsPublic && 
@@ -124,7 +122,6 @@ namespace EM.Repository.Extensions
                         services.AddScoped(serviceInterface, serviceType);
                     }
 
-                    // Se não encontrou interface específica, procurar por padrão IServiceXXX
                     if (!serviceInterfaces.Any())
                     {
                         var expectedInterfaceName = $"I{serviceType.Name}";
@@ -158,13 +155,10 @@ namespace EM.Repository.Extensions
 
                 foreach (var factoryType in factoryTypes)
                 {
-                    // Determinar o lifetime baseado no tipo de factory
                     var lifetime = DetermineFactoryLifetime(factoryType);
                     
-                    // Registrar a factory diretamente
                     services.Add(new ServiceDescriptor(factoryType, factoryType, lifetime));
                     
-                    // Procurar por interfaces que a factory implementa
                     var factoryInterfaces = factoryType.GetInterfaces()
                         .Where(i => !i.IsGenericTypeDefinition && 
                                    i.IsPublic && 
@@ -176,7 +170,6 @@ namespace EM.Repository.Extensions
                         services.Add(new ServiceDescriptor(factoryInterface, factoryType, lifetime));
                     }
 
-                    // Se não encontrou interface específica, procurar por padrão IXXXFactory
                     if (!factoryInterfaces.Any())
                     {
                         var expectedInterfaceName = $"I{factoryType.Name}";
@@ -215,11 +208,9 @@ namespace EM.Repository.Extensions
 
         private static ServiceLifetime DetermineFactoryLifetime(Type factoryType)
         {
-            // ConnectionFactory geralmente são Singleton
             if (factoryType.Name.Contains("Connection", StringComparison.OrdinalIgnoreCase))
                 return ServiceLifetime.Singleton;
             
-            // Outras factories geralmente são Scoped
             return ServiceLifetime.Scoped;
         }
 

@@ -8,11 +8,11 @@ namespace EM.Web.Controllers
 {
     public class RelatoriosController : Controller
     {
-        private readonly IServicePDF _pdfService;
+        private readonly IPDFService _pdfService;
         private readonly AlunoRepository _alunoRepo;
         private readonly CidadeRepository _cidadeRepo;
 
-        public RelatoriosController(IServicePDF pdfService, AlunoRepository alunoRepository, CidadeRepository cidadeRepository)
+        public RelatoriosController(IPDFService pdfService, AlunoRepository alunoRepository, CidadeRepository cidadeRepository)
         {
             _pdfService = pdfService;
             _alunoRepo = alunoRepository;

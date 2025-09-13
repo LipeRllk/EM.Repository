@@ -11,7 +11,7 @@ builder.Services.AddRepositories(typeof(CidadeRepository).Assembly);
 
 builder.Services.AddFactories(typeof(FirebirdConnectionFactory).Assembly);
 
-builder.Services.AddServices(typeof(ServicePDF).Assembly);
+builder.Services.AddServices(typeof(PDFService).Assembly);
 
 var app = builder.Build();
 
