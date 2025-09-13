@@ -23,6 +23,8 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+[Oo]ut/
+[Pp]ublish/
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
@@ -84,3 +86,124 @@ artifacts/
 *.vsp
 *.vspx
 *.sap
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Pp]ublish/
+[Rr]elease/
+[Dd]ebug/
+*.dll
+*.exe
+*.pdb
+*.user
+*.suo
+*.cache
+*.log
+
+# User specific files
+*.user
+*.suo
+
+# ASP.NET Core específicos
+#appsettings.Development.json
+#appsettings.Production.json
+#appsettings.*.json
+#!appsettings.json
+#launchSettings.json
+
+# Entity Framework
+*.db
+*.db3
+
+# Firebird database files
+*.fdb
+*.gdb
+
+# PDF files gerados
+*.pdf
+
+# Logs
+*.log
+
+# Arquivos temporários do Windows
+Thumbs.db
+Desktop.ini
+
+# wwwroot/lib se usando LibMan
+wwwroot/lib/
+
+# Arquivos CSS/JS compilados
+wwwroot/css/*.min.css
+wwwroot/js/*.min.js
+
+# NuGet packages restore
+packages/
+*.nupkg
+
+# Visual Studio Code
+.vscode/
+
+# Arquivos de backup
+*.bak
+*.backup
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Connection strings sensíveis
+connectionstrings.config
+
+# Ferramentas e dependências
+node_modules/
+bower_components/
+.sass-cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de banco de dados
+*.mdf
+*.ldf
+*.ndf
+*.FDB
+
+# Arquivos gerados automaticamente
+staticwebassets.*.json
+*.Generated.cs
+*.g.cs
+*.designer.cs
+
+# Adicional - Arquivos específicos do build .NET
+*.AssemblyInfo.cs
+*.AssemblyInfoInputs.cache
+*.assets.cache
+*.csproj.AssemblyReference.cache
+*.csproj.CoreCompileInputs.cache
+*.csproj.FileListAbsolute.txt
+*.GeneratedMSBuildEditorConfig.editorconfig
+*.sourcelink.json
+*.genruntimeconfig.cache
+ref/
+refint/
+*.csproj.nuget.dgspec.json
+*.csproj.nuget.g.props
+project.assets.json
+project.nuget.cache
+
+# Arquivos de host da aplicação
+apphost.exe
+
+# Arquivos de cache do Static Web Assets
+*.dswa.cache.json
+staticwebassets.build.endpoints.json
+staticwebassets.build.json
+staticwebassets.build.json.cache
+staticwebassets.development.json
+staticwebassets.removed.txt
+staticwebassets.upToDateCheck.txt
+
+# Diretório refs (assemblies de referência)
+refs/
