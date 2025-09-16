@@ -2,16 +2,10 @@
 
 namespace EM.Montador.PDF.Components
 {
-    public class TituloComponent : IComponentPDF
+    public class TituloComponent(string titulo, string subtitulo = "") : IComponentPDF
     {
-        private readonly string _titulo;
-        private readonly string _subtitulo;
-
-        public TituloComponent(string titulo, string subtitulo = "")
-        {
-            _titulo = titulo;
-            _subtitulo = subtitulo;
-        }
+        private readonly string _titulo = titulo;
+        private readonly string _subtitulo = subtitulo;
 
         public void AdicionarAoDocumento(Document document)
         {

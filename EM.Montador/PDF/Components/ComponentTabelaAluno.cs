@@ -4,15 +4,9 @@ using EM.Domain.Models;
 
 namespace EM.Montador.PDF.Components
 {
-    public class TabelaAlunosComponent : IComponentPDF
+    public class TabelaAlunosComponent(IEnumerable<Aluno> alunos) : IComponentPDF
     {
-        private readonly IEnumerable<Aluno> _alunos;
-
-        public TabelaAlunosComponent(IEnumerable<Aluno> alunos)
-        {
-            _alunos = alunos;
-        }
-
+        private readonly IEnumerable<Aluno> _alunos = alunos;
         private static readonly float[] s_widths = [1f, 3f, 2f, 2f];
         private static readonly string[] s_cabecalhos = ["Matrícula", "Nome", "CPF", "Nascimento"];
 

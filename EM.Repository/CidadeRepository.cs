@@ -68,7 +68,7 @@ namespace EM.Repository
                 });
             }
             
-            return cidades.OrderBy(c => c.CIDADESCRICAO).ToList();
+            return [.. cidades.OrderBy(c => c.CIDADESCRICAO)];
         }
 
         public List<Cidade> ListarTodas()

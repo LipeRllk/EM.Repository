@@ -72,7 +72,7 @@ namespace EM.Repository
                 });
             }
             
-            return alunos.OrdenarPorNome().ToList();
+            return [.. alunos.OrdenarPorNome()];
         }
 
         public void Inserir(Aluno aluno)

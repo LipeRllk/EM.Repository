@@ -6,16 +6,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EM.Web.Controllers
 {
-    public class AlunoController : Controller
+    public class AlunoController(AlunoRepository alunoRepository, CidadeRepository cidadeRepository) : Controller
     {
-        private readonly AlunoRepository _repo;
-        private readonly CidadeRepository _cidadeRepo;
-
-        public AlunoController(AlunoRepository alunoRepository, CidadeRepository cidadeRepository)
-        {
-            _repo = alunoRepository;
-            _cidadeRepo = cidadeRepository;
-        }
+        private readonly AlunoRepository _repo = alunoRepository;
+        private readonly CidadeRepository _cidadeRepo = cidadeRepository;
 
         public IActionResult AlunoList(string search)
         {

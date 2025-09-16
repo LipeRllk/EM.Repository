@@ -4,15 +4,9 @@ using EM.Montador.PDF.Models;
 
 namespace EM.Montador.PDF.Components
 {
-    public class CabecalhoComponent : IComponentPDF
+    public class CabecalhoComponent(ConfigModelPDF config) : IComponentPDF
     {
-        private readonly ConfigModelPDF _config;
-
-        public CabecalhoComponent(ConfigModelPDF config)
-        {
-            _config = config;
-        }
-
+        private readonly ConfigModelPDF _config = config;
         private static readonly float[] s_widths = [1f, 3f];
 
         public void AdicionarAoDocumento(Document document)

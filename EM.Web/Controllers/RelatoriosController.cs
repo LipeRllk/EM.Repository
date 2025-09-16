@@ -92,10 +92,10 @@ namespace EM.Web.Controllers
             var cidades = _cidadeRepo.BuscarCidades(filtros.FiltroNomeCidade);
 
             if (!string.IsNullOrEmpty(filtros.FiltroUF))
-                cidades = cidades.Where(c => c.CIDAUF == filtros.FiltroUF).ToList();
+                cidades = [.. cidades.Where(c => c.CIDAUF == filtros.FiltroUF)];
 
             if (!string.IsNullOrEmpty(filtros.FiltroCodigoIBGE))
-                cidades = cidades.Where(c => c.CIDACODIGOIBGE.Contains(filtros.FiltroCodigoIBGE)).ToList();
+                cidades = [.. cidades.Where(c => c.CIDACODIGOIBGE.Contains(filtros.FiltroCodigoIBGE))];
 
             var config = CriarConfiguracao(filtros);
 
@@ -138,13 +138,13 @@ namespace EM.Web.Controllers
                 query = alunosComIdade.Select(x => x.Aluno).AsQueryable();
             }
 
-            return query.ToList();
+            return [.. query];
         }
 
         private void CarregarDadosFormulario(RelatorioFiltroModel model)
         {
             model.ListaCidades = _cidadeRepo.ListarTodas();
-            model.ListaUFs = model.ListaCidades.Select(c => c.CIDAUF).Distinct().OrderBy(u => u).ToList();
+            model.ListaUFs = [.. model.ListaCidades.Select(c => c.CIDAUF).Distinct().OrderBy(u => u)];
         }
 
         private static EM.Montador.PDF.Models.ConfigModelPDF CriarConfiguracao(RelatorioFiltroModel filtros)
