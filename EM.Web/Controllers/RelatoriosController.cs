@@ -6,11 +6,16 @@ using EM.Repository;
 
 namespace EM.Web.Controllers
 {
-    public class RelatoriosController(IPDFService pdfService, AlunoRepository alunoRepository, CidadeRepository cidadeRepository) : Controller
+    public class RelatoriosController(
+        IPDFService pdfService,
+        AlunoRepository alunoRepository,
+        CidadeRepository cidadeRepository,
+        RelatorioConfigRepository relatorioConfigRepository) : Controller
     {
         private readonly IPDFService _pdfService = pdfService;
         private readonly AlunoRepository _alunoRepo = alunoRepository;
         private readonly CidadeRepository _cidadeRepo = cidadeRepository;
+        private readonly RelatorioConfigRepository _configRepo = relatorioConfigRepository;
 
         public IActionResult Index()
         {
@@ -41,6 +46,28 @@ namespace EM.Web.Controllers
             CarregarDadosFormulario(model);
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult ConfiguracaoCabecalho()
+        {
+            var model = new EM.Montador.PDF.Models.ConfigModelPDF();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ConfiguracaoCabecalho(EM.Montador.PDF.Models.ConfigModelPDF config, IFormFile LogoFile)
+        {
+            if (LogoFile != null && LogoFile.Length > 0)
+            {
+                using var ms = new MemoryStream();
+                LogoFile.CopyTo(ms);
+                config.Logo = ms.ToArray();
+            }
+
+            TempData["Mensagem"] = "Configuração salva com sucesso!";
+            return RedirectToAction("Index", "Relatorios");
+            }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -80,7 +107,6 @@ namespace EM.Web.Controllers
             var alunos = _alunoRepo.BuscarAlunos(filtros.FiltroNome);
             alunos = AplicarFiltrosAlunos(alunos, filtros);
 
-            // IDE0305: usar expressão de coleção no params
             return _pdfService.GerarDocumentoPersonalizado(
                 CriarConfiguracao(filtros),
                 [new TabelaAlunosComponent(alunos)]
@@ -99,7 +125,6 @@ namespace EM.Web.Controllers
 
             var config = CriarConfiguracao(filtros);
 
-            // IDE0305: usar expressão de coleção no params
             return _pdfService.GerarDocumentoPersonalizado(config, [new TabelaCidadesComponent(cidades)]);
         }
 

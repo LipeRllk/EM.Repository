@@ -16,8 +16,26 @@ namespace EM.Montador.PDF.Components
             var tabelaCabecalho = new PdfPTable(2) { WidthPercentage = 100 };
             tabelaCabecalho.SetWidths(s_widths);
 
-            document.Add(tabelaCabecalho);
+            if (_config.Logo != null)
+            {
+                var imagem = Image.GetInstance(_config.Logo);
+                imagem.ScaleToFit(60f, 60f);
+                tabelaCabecalho.AddCell(imagem);
+            }
+            else
+            {
+                tabelaCabecalho.AddCell("");
+            }
 
+            var info = $"{_config.NomeColegio}\n{_config.Endereco}\nEmissão: {DateTime.Now:dd/MM/yyyy HH:mm}";
+            var cellInfo = new PdfPCell(new Phrase(info, FontFactory.GetFont("Arial", 10)))
+            {
+                Border = Rectangle.NO_BORDER,
+                VerticalAlignment = Element.ALIGN_MIDDLE
+            };
+            tabelaCabecalho.AddCell(cellInfo);
+
+            document.Add(tabelaCabecalho);
             AdicionarLinhaSeparadora(document);
         }
 

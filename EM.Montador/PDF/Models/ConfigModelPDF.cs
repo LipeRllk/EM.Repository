@@ -14,5 +14,8 @@ namespace EM.Montador.PDF.Models
         public bool IncluirCabecalho { get; set; } = true;
         public bool IncluirRodape { get; set; } = true;
         public bool IncluirNumeroPagina { get; set; } = true;
+        public string? NomeColegio { get; set; }
+        public string? Endereco { get; set; }
+        public byte[]? Logo { get; set; }
     }
 }
