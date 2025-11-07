@@ -2,6 +2,7 @@
 using EM.Montador.PDF.Models;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.Linq;
 
 namespace EM.Montador.PDF
 {
@@ -44,7 +45,15 @@ namespace EM.Montador.PDF
                 _config.MargemSuperior,
                 _config.MargemInferior);
 
-            _ = PdfWriter.GetInstance(document, memoryStream);
+            var writer = PdfWriter.GetInstance(document, memoryStream);
+
+            var rodape = _componentes.OfType<RodapeComponent>().FirstOrDefault();
+            if (rodape != null)
+            {
+                rodape.ReservarEspacoInferior(document, 15f);
+                rodape.RegistrarRodapeFixo(writer);
+            }
+
             document.Open();
 
             foreach (var componente in _componentes)
