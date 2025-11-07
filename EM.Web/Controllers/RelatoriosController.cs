@@ -96,7 +96,7 @@ namespace EM.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ConfiguracaoCabecalho(EM.Montador.PDF.Models.ConfigModelPDF config, IFormFile? LogoFile)
         {
-            _logger.LogInformation("POST ConfiguracaoCabecalho chamado.");
+            _logger.LogInformation("POST ConfiguracaoCabecalho chamado. Arquivo recebido: {HasFile}", LogoFile is { Length: > 0 });
 
             if (!ModelState.IsValid)
                 return View(config);
@@ -104,7 +104,7 @@ namespace EM.Web.Controllers
             var salvo = _configRepo.BuscarPorId(1);
             byte[]? logoFinal = config.Logo;
 
-            if (LogoFile != null && LogoFile.Length > 0)
+            if (LogoFile is { Length: > 0 })
             {
                 if (!LogoFile.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase))
                 {
@@ -121,25 +121,16 @@ namespace EM.Web.Controllers
                 logoFinal = salvo.Logo;
             }
 
-            try
+            _configRepo.Upsert(new RelatorioConfig
             {
-                _configRepo.Upsert(new RelatorioConfig
-                {
-                    Id = 1,
-                    NomeColegio = config.NomeColegio ?? string.Empty,
-                    Endereco = config.Endereco ?? string.Empty,
-                    Logo = logoFinal
-                });
+                Id = 1,
+                NomeColegio = config.NomeColegio ?? string.Empty,
+                Endereco = config.Endereco ?? string.Empty,
+                Logo = logoFinal
+            });
 
-                TempData["Sucesso"] = "Configuração salva com sucesso!";
-                return RedirectToAction(nameof(ConfiguracaoCabecalho));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao salvar configuração do relatório.");
-                TempData["Erro"] = $"Erro ao salvar configuração: {ex.Message}";
-                return View(config);
-            }
+            TempData["Sucesso"] = "Configuração salva com sucesso!";
+            return RedirectToAction(nameof(ConfiguracaoCabecalho));
         }
 
         [HttpPost]
