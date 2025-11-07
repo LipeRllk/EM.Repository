@@ -17,7 +17,7 @@
         <p class="card-text">
             <strong>Nome:</strong> @Model.AlunoNome<br>
             <strong>Matrícula:</strong> @Model.AlunoMatricula<br>
-            <strong>CPF:</strong> @Model.AlunoCPF.FormatarCPF()<br>
+            <strong>CPF:</strong> @(Model.AlunoCPF?.FormatarCPF() ?? "")<br>
             <strong>Sexo:</strong> @Model.Sexo.ObterDescricao()<br>
             <strong>Data de Nascimento:</strong> @Model.AlunoNascimento.ToShortDateString()<br>
             <strong>Idade:</strong> @Model.ObterIdade() anos

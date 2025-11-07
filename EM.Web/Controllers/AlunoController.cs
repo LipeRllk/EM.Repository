@@ -35,7 +35,7 @@ namespace EM.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                aluno.AlunoCPF = aluno.AlunoCPF.LimparCPF();
+                aluno.AlunoCPF = (aluno.AlunoCPF ?? string.Empty).LimparCPF();
                 _repo.Inserir(aluno);
                 return RedirectToAction(nameof(AlunoList));
             }
@@ -65,7 +65,7 @@ namespace EM.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                aluno.AlunoCPF = aluno.AlunoCPF.LimparCPF();
+                aluno.AlunoCPF = (aluno.AlunoCPF ?? string.Empty).LimparCPF();
                 _repo.Atualizar(aluno);
                 return RedirectToAction(nameof(AlunoList));
             }

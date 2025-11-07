@@ -70,13 +70,11 @@ namespace EM.Montador.PDF.Components
             document.Add(tabelaRodape);
         }
 
-        private sealed class RodapePageEvent : PdfPageEventHelper
+        private sealed class RodapePageEvent(ConfigModelPDF config) : PdfPageEventHelper
         {
-            private readonly ConfigModelPDF _config;
+            private readonly ConfigModelPDF _config = config;
             private readonly float[] _widths = [1f, 1f];
             private readonly Font _font = FontFactory.GetFont("Arial", 8, Font.NORMAL);
-
-            public RodapePageEvent(ConfigModelPDF config) => _config = config;
 
             public override void OnEndPage(PdfWriter writer, Document document)
             {

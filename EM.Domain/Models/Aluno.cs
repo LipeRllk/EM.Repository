@@ -15,7 +15,8 @@ namespace EM.Domain.Models
 
         [CpfAttribute(ErrorMessage = "CPF inválido.")]
         [Display(Name = "CPF")]
-        public string AlunoCPF { get; set; } = string.Empty;
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        public string? AlunoCPF { get; set; } 
 
         [Required(ErrorMessage = "O sexo é obrigatório.")]
         [Display(Name = "Sexo")]
@@ -43,14 +44,8 @@ namespace EM.Domain.Models
             return false;
         }
 
-        public override int GetHashCode()
-        {
-            return AlunoMatricula.GetHashCode();
-        }
+        public override int GetHashCode() => AlunoMatricula.GetHashCode();
 
-        public override string ToString()
-        {
-            return $"{AlunoNome} - Matrícula: {AlunoMatricula}";
-        }
+        public override string ToString() => $"{AlunoNome} - Matrícula: {AlunoMatricula}";
     }
 }

@@ -84,7 +84,7 @@ namespace EM.Repository
                               VALUES (@NOME, @CPF, @SEXO, @NASCIMENTO, @CIDACODIGO)";
             
             cmd.Parameters.AddWithValue("@NOME", aluno.AlunoNome);
-            var cpfLimpo = aluno.AlunoCPF.LimparCPF();
+            var cpfLimpo = (aluno.AlunoCPF ?? string.Empty).LimparCPF();
             cmd.Parameters.AddWithValue("@CPF", string.IsNullOrEmpty(cpfLimpo) ? DBNull.Value : (object)cpfLimpo);
             cmd.Parameters.AddWithValue("@SEXO", aluno.AlunoSexo);
             cmd.Parameters.AddWithValue("@NASCIMENTO", aluno.AlunoNascimento);
@@ -139,7 +139,7 @@ namespace EM.Repository
 
             cmd.Parameters.AddWithValue("@MATRICULA", aluno.AlunoMatricula);
             cmd.Parameters.AddWithValue("@NOME", aluno.AlunoNome);
-            var cpfLimpo = aluno.AlunoCPF.LimparCPF();
+            var cpfLimpo = (aluno.AlunoCPF ?? string.Empty).LimparCPF();
             cmd.Parameters.AddWithValue("@CPF", string.IsNullOrEmpty(cpfLimpo) ? DBNull.Value : (object)cpfLimpo);
             cmd.Parameters.AddWithValue("@SEXO", aluno.AlunoSexo);
             cmd.Parameters.AddWithValue("@NASCIMENTO", aluno.AlunoNascimento);

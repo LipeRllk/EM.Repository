@@ -73,8 +73,8 @@ namespace EM.Repository
                 return new RelatorioConfig
                 {
                     Id = dr.GetInt32(dr.GetOrdinal("Id")),
-                    NomeColegio = dr.IsDBNull(dr.GetOrdinal("NomeColegio")) ? null : dr.GetString(dr.GetOrdinal("NomeColegio"))!,
-                    Endereco = dr.IsDBNull(dr.GetOrdinal("Endereco")) ? null : dr.GetString(dr.GetOrdinal("Endereco"))!,
+                    NomeColegio = dr.IsDBNull(dr.GetOrdinal("NomeColegio")) ? string.Empty : dr.GetString(dr.GetOrdinal("NomeColegio")),
+                    Endereco = !dr.IsDBNull(dr.GetOrdinal("Endereco")) ? dr.GetString(dr.GetOrdinal("Endereco")) : string.Empty,
                     Logo = dr.IsDBNull(dr.GetOrdinal("Logo")) ? null : (byte[])dr["Logo"]
                 };
             }
