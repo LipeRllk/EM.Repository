@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using EM.Montador.PDF;
 using EM.Montador.PDF.Components;
 using EM.Domain.Models;
@@ -10,12 +11,14 @@ namespace EM.Web.Controllers
         IPDFService pdfService,
         AlunoRepository alunoRepository,
         CidadeRepository cidadeRepository,
-        RelatorioConfigRepository relatorioConfigRepository) : Controller
+        RelatorioConfigRepository relatorioConfigRepository,
+        ILogger<RelatoriosController> logger) : Controller
     {
         private readonly IPDFService _pdfService = pdfService;
         private readonly AlunoRepository _alunoRepo = alunoRepository;
         private readonly CidadeRepository _cidadeRepo = cidadeRepository;
         private readonly RelatorioConfigRepository _configRepo = relatorioConfigRepository;
+        private readonly ILogger<RelatoriosController> _logger = logger;
 
         public IActionResult Index()
         {
@@ -50,24 +53,94 @@ namespace EM.Web.Controllers
         [HttpGet]
         public IActionResult ConfiguracaoCabecalho()
         {
+            _logger.LogInformation("GET ConfiguracaoCabecalho chamado.");
+            var salvo = _configRepo.BuscarPorId(1);
+
             var model = new EM.Montador.PDF.Models.ConfigModelPDF();
+            if (salvo != null)
+            {
+                model.NomeColegio = salvo.NomeColegio;
+                model.Endereco = salvo.Endereco;
+                model.Logo = salvo.Logo;
+            }
+
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult LogoAtual()
+        {
+            var salvo = _configRepo.BuscarPorId(1);
+            if (salvo?.Logo == null || salvo.Logo.Length == 0)
+                return NotFound();
+
+            var mime = ObterMimeTypeImagem(salvo.Logo);
+            return File(salvo.Logo, mime);
+        }
+
+        private static string ObterMimeTypeImagem(byte[] bytes)
+        {
+            if (bytes.Length >= 12)
+            {
+                if (bytes[0] == 0x89 && bytes[1] == 0x50 && bytes[2] == 0x4E && bytes[3] == 0x47) return "image/png";
+                if (bytes[0] == 0xFF && bytes[1] == 0xD8) return "image/jpeg";
+                if (bytes[0] == 0x47 && bytes[1] == 0x49 && bytes[2] == 0x46) return "image/gif";
+                if (bytes[0] == 0x42 && bytes[1] == 0x4D) return "image/bmp";
+                if (bytes[0] == 0x52 && bytes[1] == 0x49 && bytes[2] == 0x46 && bytes[3] == 0x46 &&
+                    bytes[8] == 0x57 && bytes[9] == 0x45 && bytes[10] == 0x42 && bytes[11] == 0x50) return "image/webp";
+            }
+            return "image/png";
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ConfiguracaoCabecalho(EM.Montador.PDF.Models.ConfigModelPDF config, IFormFile LogoFile)
+        public IActionResult ConfiguracaoCabecalho(EM.Montador.PDF.Models.ConfigModelPDF config, IFormFile? LogoFile)
         {
+            _logger.LogInformation("POST ConfiguracaoCabecalho chamado.");
+
+            if (!ModelState.IsValid)
+                return View(config);
+
+            var salvo = _configRepo.BuscarPorId(1);
+            byte[]? logoFinal = config.Logo;
+
             if (LogoFile != null && LogoFile.Length > 0)
             {
-                using var ms = new MemoryStream();
-                LogoFile.CopyTo(ms);
-                config.Logo = ms.ToArray();
+                if (!LogoFile.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase))
+                {
+                    ModelState.AddModelError(nameof(LogoFile), "O arquivo de logo deve ser uma imagem.");
+                    return View(config);
+                }
+
+                using var memoryStream = new MemoryStream();
+                LogoFile.CopyTo(memoryStream);
+                logoFinal = memoryStream.ToArray();
+            }
+            else if (logoFinal == null && salvo?.Logo != null)
+            {
+                logoFinal = salvo.Logo;
             }
 
-            TempData["Mensagem"] = "Configuração salva com sucesso!";
-            return RedirectToAction("Index", "Relatorios");
+            try
+            {
+                _configRepo.Upsert(new RelatorioConfig
+                {
+                    Id = 1,
+                    NomeColegio = config.NomeColegio ?? string.Empty,
+                    Endereco = config.Endereco ?? string.Empty,
+                    Logo = logoFinal
+                });
+
+                TempData["Sucesso"] = "Configuração salva com sucesso!";
+                return RedirectToAction(nameof(ConfiguracaoCabecalho));
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao salvar configuração do relatório.");
+                TempData["Erro"] = $"Erro ao salvar configuração: {ex.Message}";
+                return View(config);
+            }
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -172,9 +245,9 @@ namespace EM.Web.Controllers
             model.ListaUFs = [.. model.ListaCidades.Select(c => c.CIDAUF).Distinct().OrderBy(u => u)];
         }
 
-        private static EM.Montador.PDF.Models.ConfigModelPDF CriarConfiguracao(RelatorioFiltroModel filtros)
+        private EM.Montador.PDF.Models.ConfigModelPDF CriarConfiguracao(RelatorioFiltroModel filtros)
         {
-            return new EM.Montador.PDF.Models.ConfigModelPDF
+            var cfg = new EM.Montador.PDF.Models.ConfigModelPDF
             {
                 Titulo = filtros.TituloRelatorio,
                 IncluirCabecalho = filtros.IncluirCabecalho,
@@ -182,6 +255,24 @@ namespace EM.Web.Controllers
                 IncluirNumeroPagina = filtros.IncluirNumeroPagina,
                 Paisagem = filtros.OrientacaoPaisagem
             };
+
+            try
+            {
+                var salvo = _configRepo.BuscarPorId(1);
+                if (salvo != null)
+                {
+                    cfg.NomeColegio = salvo.NomeColegio;
+                    cfg.Endereco = salvo.Endereco;
+                    cfg.Logo = salvo.Logo;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao carregar configuração do cabeçalho.");
+                TempData["Erro"] = "Não foi possível carregar as configurações do cabeçalho. Verifique os dados salvos.";
+            }
+
+            return cfg;
         }
     }
 }
