@@ -15,25 +15,68 @@ namespace EM.Montador.PDF.Components
 
             var tabelaCabecalho = new PdfPTable(2) { WidthPercentage = 100 };
             tabelaCabecalho.SetWidths(s_widths);
+            tabelaCabecalho.SpacingBefore = 0f;
 
             if (_config.Logo != null)
             {
                 var imagem = Image.GetInstance(_config.Logo);
-                imagem.ScaleToFit(60f, 60f);
-                tabelaCabecalho.AddCell(imagem);
+                imagem.ScaleToFit(120f, 60f);
+
+                var cellLogo = new PdfPCell(imagem, true)
+                {
+                    Border = Rectangle.NO_BORDER,
+                    FixedHeight = 80f,
+                    HorizontalAlignment = Element.ALIGN_LEFT,
+                    VerticalAlignment = Element.ALIGN_MIDDLE,
+                    Padding = 0
+                };
+                tabelaCabecalho.AddCell(cellLogo);
             }
             else
             {
                 tabelaCabecalho.AddCell("");
             }
 
-            var info = $"{_config.NomeColegio}\n{_config.Endereco}\nEmissão: {DateTime.Now:dd/MM/yyyy HH:mm}";
-            var cellInfo = new PdfPCell(new Phrase(info, FontFactory.GetFont("Arial", 10)))
+            var fonteNome = FontFactory.GetFont("Helvetica", 14f, Font.BOLD);
+            var fonteEndereco = FontFactory.GetFont("Arial", 10f, Font.NORMAL);
+
+            var phraseInfo = new Phrase
+            {
+                new Chunk(_config.NomeColegio ?? string.Empty, fonteNome),
+                Chunk.NEWLINE,
+                new Chunk(_config.Endereco ?? string.Empty, fonteEndereco)
+            };
+            phraseInfo.SetLeading(0f, 1.0f);
+
+            var cellInfo = new PdfPCell(phraseInfo)
             {
                 Border = Rectangle.NO_BORDER,
-                VerticalAlignment = Element.ALIGN_MIDDLE
+                VerticalAlignment = Element.ALIGN_TOP,
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                PaddingTop = 0f,
+                PaddingBottom = 0f,
+                PaddingLeft = 8f,
+                MinimumHeight = 80f
             };
             tabelaCabecalho.AddCell(cellInfo);
+
+            if (!string.IsNullOrWhiteSpace(_config.Titulo))
+            {
+                var fonteTitulo = FontFactory.GetFont("Helvetica", 16f, Font.BOLD);
+                var tituloPhrase = new Phrase(_config.Titulo, fonteTitulo);
+                tituloPhrase.SetLeading(0f, 1.0f);
+
+                var tituloCell = new PdfPCell(tituloPhrase)
+                {
+                    Border = Rectangle.NO_BORDER,
+                    Colspan = 2,
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    VerticalAlignment = Element.ALIGN_TOP,
+                    PaddingTop = 4f,
+                    PaddingBottom = 4f
+                };
+                tabelaCabecalho.AddCell(tituloCell);
+            }
 
             document.Add(tabelaCabecalho);
             AdicionarLinhaSeparadora(document);
@@ -41,11 +84,11 @@ namespace EM.Montador.PDF.Components
 
         private static void AdicionarLinhaSeparadora(Document document)
         {
-            var linha = new Paragraph("_".PadRight(80, '_'))
+            var linha = new Paragraph("_".PadRight(83, '_'))
             {
                 Alignment = Element.ALIGN_CENTER,
                 SpacingAfter = 20f,
-                Font = FontFactory.GetFont("Arial", 8)
+                Font = FontFactory.GetFont("Arial", 8,5)
             };
             document.Add(linha);
         }
