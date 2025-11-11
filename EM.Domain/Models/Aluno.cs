@@ -1,5 +1,6 @@
 ﻿using EM.Domain.Interface;
 using EM.Domain.Models.Attributes;
+using EM.Domain.Helpers;
 using System.ComponentModel.DataAnnotations;
 
 namespace EM.Domain.Models
@@ -33,16 +34,12 @@ namespace EM.Domain.Models
 
         public EnumeradorSexo Sexo
         {
-            get => Enum.TryParse<EnumeradorSexo>(AlunoSexo, out var sexo) ? sexo : EnumeradorSexo.Masculino;
-            set => AlunoSexo = ((int)value).ToString();
+            get => SexoHelper.ParseOrDefault(AlunoSexo);
+            set => AlunoSexo = SexoHelper.ToStorageString(value);
         }
 
-        public override bool Equals(object? obj)
-        {
-            if (obj is Aluno aluno)
-                return AlunoMatricula == aluno.AlunoMatricula;
-            return false;
-        }
+        public override bool Equals(object? obj) =>
+            obj is Aluno aluno && AlunoMatricula == aluno.AlunoMatricula;
 
         public override int GetHashCode() => AlunoMatricula.GetHashCode();
 
