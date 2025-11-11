@@ -17,13 +17,6 @@ namespace EM.Domain.Utilitarios
             return string.IsNullOrEmpty(cpf) ? string.Empty : cpf.Replace(".", "").Replace("-", "");
         }
 
-        public static int ObterIdade(this Aluno aluno)
-        {
-            var idade = DateTime.Today.Year - aluno.AlunoNascimento.Year;
-            if (aluno.AlunoNascimento.Date > DateTime.Today.AddYears(-idade))
-                idade--;
-            return idade;
-        }
 
         public static string ObterIdadeFormatada(this Aluno aluno)
         {
@@ -36,7 +29,7 @@ namespace EM.Domain.Utilitarios
             if (nascimento > hoje)
                 return "Data inválida";
 
-            var idadeAnos = aluno.ObterIdade();
+            var idadeAnos = aluno.CalcularIdade();
 
             if (idadeAnos >= 1)
             {

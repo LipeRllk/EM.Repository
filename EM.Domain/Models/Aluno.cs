@@ -38,11 +38,22 @@ namespace EM.Domain.Models
             set => AlunoSexo = SexoHelper.ToStorageString(value);
         }
 
+        public int Idade => CalcularIdade();
         public override bool Equals(object? obj) =>
             obj is Aluno aluno && AlunoMatricula == aluno.AlunoMatricula;
 
         public override int GetHashCode() => AlunoMatricula.GetHashCode();
 
         public override string ToString() => $"{AlunoNome} - Matrícula: {AlunoMatricula}";
+
+        public int CalcularIdade()
+        {
+            if (AlunoNascimento == default) return 0;
+            var hoje = DateTime.Today;
+            var idade = hoje.Year - AlunoNascimento.Year;
+            if (AlunoNascimento.Date > hoje.AddYears(-idade))
+                idade--;
+            return idade;
+        }
     }
 }

@@ -20,7 +20,7 @@
             <strong>CPF:</strong> @(Model.AlunoCPF?.FormatarCPF() ?? "")<br>
             <strong>Sexo:</strong> @Model.Sexo.ObterDescricao()<br>
             <strong>Data de Nascimento:</strong> @Model.AlunoNascimento.ToShortDateString()<br>
-            <strong>Idade:</strong> @Model.ObterIdade() anos
+            <strong>Idade:</strong> @Model.CalcularIdade() anos
         </p>
     </div>
 </div>
