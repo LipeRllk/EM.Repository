@@ -65,7 +65,7 @@ namespace EM.Domain.Utilitarios
 
         public static IEnumerable<Aluno> PorCidade(this IEnumerable<Aluno> alunos, int cidadeCodigo)
         {
-            return alunos.Where(a => a.AlunoCidaCodigo == cidadeCodigo);
+            return alunos.Where(a => a.Cidade == cidadeCodigo);
         }
 
         public static IEnumerable<Aluno> OrdenarPorNome(this IEnumerable<Aluno> alunos)
@@ -81,7 +81,7 @@ namespace EM.Domain.Utilitarios
 
             List<int> cidadesDaUF = [.. cidades.Where(c => c.Uf == ufCodigo).Select(c => c.Id)];
 
-            return alunos.Where(a => cidadesDaUF.Contains(a.AlunoCidaCodigo));
+            return alunos.Where(a => cidadesDaUF.Contains(a.Cidade));
         }
     }
 }

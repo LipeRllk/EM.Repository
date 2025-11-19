@@ -51,7 +51,7 @@ namespace EM.Web.Controllers
             var aluno = _repo.BuscarPorMatriculaTradicional(AlunoMatricula.Value);
             if (aluno == null) return NotFound();
 
-            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "Id", "Descricao", aluno.AlunoCidaCodigo);
+            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "Id", "Descricao", aluno.Cidade);
             ViewData["Action"] = "AlunoEdit";
             return View(aluno);
         }
@@ -70,7 +70,7 @@ namespace EM.Web.Controllers
                 return RedirectToAction(nameof(AlunoList));
             }
             
-            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "Id", "Descricao", aluno.AlunoCidaCodigo);
+            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "Id", "Descricao", aluno.Cidade);
             ViewData["Action"] = "AlunoEdit";
             return View(aluno);
         }
@@ -115,7 +115,7 @@ namespace EM.Web.Controllers
 
         public IActionResult AlunosPorCidade(int cidadeId)
         {
-            var alunos = _repo.Get(a => a.AlunoCidaCodigo == cidadeId);
+            var alunos = _repo.Get(a => a.Cidade == cidadeId);
             var cidade = _cidadeRepo.BuscarPorId(cidadeId);
             
             ViewBag.NomeCidade = cidade?.Descricao ?? "Cidade não encontrada";

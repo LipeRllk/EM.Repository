@@ -30,7 +30,7 @@ namespace EM.Domain.Models
         [Required(ErrorMessage = "A cidade é obrigatória.")]
         [Range(1, int.MaxValue, ErrorMessage = "Selecione uma cidade válida.")]
         [Display(Name = "Cidade")]
-        public int AlunoCidaCodigo { get; set; }
+        public int Cidade { get; set; }
 
         public EnumeradorSexo EnumSexo
         {

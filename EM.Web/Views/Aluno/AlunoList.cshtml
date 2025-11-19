@@ -60,8 +60,8 @@
                 <td>
                     @{
                         var cidades = ViewBag.Cidades as Dictionary<int, string>;
-                        string nomeCidade = cidades != null && cidades.ContainsKey(aluno.AlunoCidaCodigo) 
-                            ? cidades[aluno.AlunoCidaCodigo] 
+                        string nomeCidade = cidades != null && cidades.ContainsKey(aluno.Cidade) 
+                            ? cidades[aluno.Cidade] 
                             : "Não encontrada";
                     }
                     @nomeCidade

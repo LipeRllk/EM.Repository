@@ -68,7 +68,7 @@ namespace EM.Repository
                     Cpf = dr.IsDBNull(dr.GetOrdinal("CPF")) ? "" : dr.GetString(dr.GetOrdinal("CPF")),
                     Sexo = dr.GetString(dr.GetOrdinal("SEXO")),
                     DataNascimento = dr.GetDateTime(dr.GetOrdinal("NASCIMENTO")),
-                    AlunoCidaCodigo = dr.GetInt32(dr.GetOrdinal("CIDACODIGO"))
+                    Cidade = dr.GetInt32(dr.GetOrdinal("CIDACODIGO"))
                 });
             }
             
@@ -88,7 +88,7 @@ namespace EM.Repository
             cmd.Parameters.AddWithValue("@CPF", string.IsNullOrEmpty(cpfLimpo) ? DBNull.Value : (object)cpfLimpo);
             cmd.Parameters.AddWithValue("@SEXO", aluno.Sexo);
             cmd.Parameters.AddWithValue("@NASCIMENTO", aluno.DataNascimento);
-            cmd.Parameters.AddWithValue("@CIDACODIGO", aluno.AlunoCidaCodigo);
+            cmd.Parameters.AddWithValue("@CIDACODIGO", aluno.Cidade);
 
             cn.Open();
             cmd.ExecuteNonQuery();
@@ -118,7 +118,7 @@ namespace EM.Repository
                     Cpf = dr.IsDBNull(dr.GetOrdinal("CPF")) ? "" : dr.GetString(dr.GetOrdinal("CPF")),
                     Sexo = dr.GetString(dr.GetOrdinal("SEXO")),
                     DataNascimento = dr.GetDateTime(dr.GetOrdinal("NASCIMENTO")),
-                    AlunoCidaCodigo = dr.GetInt32(dr.GetOrdinal("CIDACODIGO"))
+                    Cidade = dr.GetInt32(dr.GetOrdinal("CIDACODIGO"))
                 };
             }
             return null;
@@ -143,7 +143,7 @@ namespace EM.Repository
             cmd.Parameters.AddWithValue("@CPF", string.IsNullOrEmpty(cpfLimpo) ? DBNull.Value : (object)cpfLimpo);
             cmd.Parameters.AddWithValue("@SEXO", aluno.Sexo);
             cmd.Parameters.AddWithValue("@NASCIMENTO", aluno.DataNascimento);
-            cmd.Parameters.AddWithValue("@CIDACODIGO", aluno.AlunoCidaCodigo);
+            cmd.Parameters.AddWithValue("@CIDACODIGO", aluno.Cidade);
 
             cn.Open();
             cmd.ExecuteNonQuery();
@@ -163,7 +163,7 @@ namespace EM.Repository
 
         public int ContarPorCidade(int cidadeId)
         {
-            return Count(a => a.AlunoCidaCodigo == cidadeId);
+            return Count(a => a.Cidade == cidadeId);
         }
 
         public int ContarPorCidadeTradicional(int cidadeId)

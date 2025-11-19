@@ -200,7 +200,7 @@ namespace EM.Web.Controllers
                 query = query.Where(a => a.Sexo == filtros.FiltroSexo);
 
             if (filtros.FiltroCidadeId.HasValue)
-                query = query.Where(a => a.AlunoCidaCodigo == filtros.FiltroCidadeId.Value);
+                query = query.Where(a => a.Cidade == filtros.FiltroCidadeId.Value);
 
             if (filtros.FiltroDataNascimentoDe.HasValue)
                 query = query.Where(a => a.DataNascimento >= filtros.FiltroDataNascimentoDe.Value);
