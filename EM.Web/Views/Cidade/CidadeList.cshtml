@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<EM.Domain.Models.Cidade>
 
 @{
-    var cidadesOrdenadas = Model.OrderBy(c => c.CIDADESCRICAO);
+    var cidadesOrdenadas = Model.OrderBy(c => c.Descricao);
 }
 
 <h1>Lista de Cidades</h1>
@@ -34,13 +34,13 @@
     @foreach (var cidade in cidadesOrdenadas)
     {
         <tr>
-            <td>@cidade.CIDACODIGO</td>
-            <td>@cidade.CIDADESCRICAO</td>
-            <td>@cidade.CIDAUF</td>
-            <td>@cidade.CIDACODIGOIBGE</td>
+            <td>@cidade.Id</td>
+            <td>@cidade.Descricao</td>
+            <td>@cidade.Uf</td>
+            <td>@cidade.Ibge</td>
             <td>
-                <a href="@Url.Action("CidadeEdit", new { id = cidade.CIDACODIGO })" class="btn btn-sm btn-warning">Editar</a>
-                <a href="@Url.Action("CidadeDelete", new { id = cidade.CIDACODIGO })" class="btn btn-sm btn-danger">Excluir</a>
+                <a href="@Url.Action("CidadeEdit", new { id = cidade.Id })" class="btn btn-sm btn-warning">Editar</a>
+                <a href="@Url.Action("CidadeDelete", new { id = cidade.Id })" class="btn btn-sm btn-danger">Excluir</a>
             </td>
         </tr>
     }

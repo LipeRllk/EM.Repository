@@ -36,21 +36,21 @@
         @foreach (var aluno in Model)
         {
             <tr>
-                <td class="text-center">@aluno.AlunoMatricula</td>
-                <td style="text-align: left;">@aluno.AlunoNome</td>
+                <td class="text-center">@aluno.Matricula</td>
+                <td style="text-align: left;">@aluno.Nome</td>
                 <td class="text-center">
                     @{
-                        string cpfFormatado = aluno.AlunoCPF.FormatarCPF();
+                        string cpfFormatado = aluno.Cpf.FormatarCPF();
                     }
                     <span>@cpfFormatado</span>
                 </td>
                 <td class="text-center">
                     @{
-                        var sexoEnum = Enum.TryParse<EnumeradorSexo>(aluno.AlunoSexo, out var sexo) ? sexo : EnumeradorSexo.Masculino;
+                        var sexoEnum = Enum.TryParse<EnumeradorSexo>(aluno.Sexo, out var sexo) ? sexo : EnumeradorSexo.Masculino;
                     }
                     @sexoEnum.ObterDescricao()
                 </td>
-                <td class="text-center">@aluno.AlunoNascimento.ToShortDateString()</td>
+                <td class="text-center">@aluno.DataNascimento.ToShortDateString()</td>
                 <td class="text-center">
                     @{
                         string idadeFormatada = aluno.ObterIdadeFormatada();
@@ -67,8 +67,8 @@
                     @nomeCidade
                 </td>
                 <td class="text-center">
-                    <a href="@Url.Action("AlunoEdit", new { AlunoMatricula = aluno.AlunoMatricula })" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="@Url.Action("AlunoDelete", new { AlunoMatricula = aluno.AlunoMatricula })" class="btn btn-sm btn-danger">Excluir</a>
+                    <a href="@Url.Action("AlunoEdit", new { AlunoMatricula = aluno.Matricula })" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="@Url.Action("AlunoDelete", new { AlunoMatricula = aluno.Matricula })" class="btn btn-sm btn-danger">Excluir</a>
                 </td>
             </tr>
         }

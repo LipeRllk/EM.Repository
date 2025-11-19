@@ -32,13 +32,13 @@ namespace EM.Montador.PDF.Components
             var fonteConteudo = FontFactory.GetFont("Arial", 9);
             foreach (var aluno in _alunos)
             {
-                tabela.AddCell(new PdfPCell(new Phrase(aluno.AlunoMatricula.ToString(), fonteConteudo))
+                tabela.AddCell(new PdfPCell(new Phrase(aluno.Matricula.ToString(), fonteConteudo))
                 { Padding = 3f });
-                tabela.AddCell(new PdfPCell(new Phrase(aluno.AlunoNome, fonteConteudo))
+                tabela.AddCell(new PdfPCell(new Phrase(aluno.Nome, fonteConteudo))
                 { Padding = 3f });
-                tabela.AddCell(new PdfPCell(new Phrase(aluno.AlunoCPF, fonteConteudo))
+                tabela.AddCell(new PdfPCell(new Phrase(aluno.Cpf, fonteConteudo))
                 { Padding = 3f });
-                tabela.AddCell(new PdfPCell(new Phrase(aluno.AlunoNascimento.ToString("dd/MM/yyyy"), fonteConteudo))
+                tabela.AddCell(new PdfPCell(new Phrase(aluno.DataNascimento.ToString("dd/MM/yyyy"), fonteConteudo))
                 { Padding = 3f });
             }
 

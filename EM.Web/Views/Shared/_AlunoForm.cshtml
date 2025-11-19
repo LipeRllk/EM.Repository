@@ -4,15 +4,15 @@
     <div class="card-body">
         <form asp-action="@ViewData["Action"]" method="post">
             @Html.AntiForgeryToken()
-            @if (Model.AlunoMatricula != 0)
+            @if (Model.Matricula != 0)
             {
-                <input type="hidden" asp-for="AlunoMatricula" />
+                <input type="hidden" asp-for="Matricula" />
             }
 
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label asp-for="AlunoNome" class="form-label"></label>
-                    <input asp-for="AlunoNome" 
+                    <label asp-for="Nome" class="form-label"></label>
+                    <input asp-for="Nome" 
                            type="text" 
                            class="form-control" 
                            placeholder="Nome do Aluno"
@@ -20,13 +20,13 @@
                            minlength="3"
                            maxlength="100"
                            required />
-                    <span asp-validation-for="AlunoNome" class="text-danger"></span>
+                    <span asp-validation-for="Nome" class="text-danger"></span>
                     <small class="form-text text-muted">Mínimo 3 caracteres, máximo 100 caracteres</small>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label for="cpfInput" class="form-label">CPF</label>
-                    <input asp-for="AlunoCPF" 
+                    <input asp-for="Cpf" 
                            id="cpfInput" 
                            type="text" 
                            class="form-control" 
@@ -34,27 +34,27 @@
                            placeholder="000.000.000-00"
                            oninput="aplicarMascaraCPF(this)"
                            onkeypress="return apenasNumeros(event)" />
-                    <span asp-validation-for="AlunoCPF" class="text-danger"></span>
+                    <span asp-validation-for="Cpf" class="text-danger"></span>
                     <small class="form-text text-muted">Opcional, mas deve ser válido se informado</small>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label asp-for="AlunoSexo" class="form-label"></label>
-                    <select asp-for="AlunoSexo" class="form-select" required>
+                    <label asp-for="Sexo" class="form-label"></label>
+                    <select asp-for="EnumSexo" class="form-select" required>
                         <option value="">Selecione</option>
                         <option value="0">Masculino</option>
                         <option value="1">Feminino</option>
                     </select>
-                    <span asp-validation-for="AlunoSexo" class="text-danger"></span>
+                    <span asp-validation-for="Sexo" class="text-danger"></span>
                     <small class="form-text text-muted">Campo obrigatório - apenas as opções disponíveis</small>
                 </div>
 
                 <div class="col-md-6 mb-3">
-                    <label asp-for="AlunoNascimento" class="form-label">Data de Nascimento</label>
-                    <input asp-for="AlunoNascimento" type="date" class="form-control" required />
-                    <span asp-validation-for="AlunoNascimento" class="text-danger"></span>
+                    <label asp-for="DataNascimento" class="form-label">Data de Nascimento</label>
+                    <input asp-for="DataNascimento" type="date" class="form-control" required />
+                    <span asp-validation-for="DataNascimento" class="text-danger"></span>
                 </div>
             </div>
 

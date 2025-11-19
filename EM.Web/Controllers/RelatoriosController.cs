@@ -182,10 +182,10 @@ namespace EM.Web.Controllers
             var cidades = _cidadeRepo.BuscarCidades(filtros.FiltroNomeCidade);
 
             if (!string.IsNullOrEmpty(filtros.FiltroUF))
-                cidades = [.. cidades.Where(c => c.CIDAUF == filtros.FiltroUF)];
+                cidades = [.. cidades.Where(c => c.Uf == filtros.FiltroUF)];
 
             if (!string.IsNullOrEmpty(filtros.FiltroCodigoIBGE))
-                cidades = [.. cidades.Where(c => c.CIDACODIGOIBGE.Contains(filtros.FiltroCodigoIBGE))];
+                cidades = [.. cidades.Where(c => c.Ibge.Contains(filtros.FiltroCodigoIBGE))];
 
             var config = CriarConfiguracao(filtros);
 
@@ -197,16 +197,16 @@ namespace EM.Web.Controllers
             var query = alunos.AsQueryable();
 
             if (!string.IsNullOrEmpty(filtros.FiltroSexo))
-                query = query.Where(a => a.AlunoSexo == filtros.FiltroSexo);
+                query = query.Where(a => a.Sexo == filtros.FiltroSexo);
 
             if (filtros.FiltroCidadeId.HasValue)
                 query = query.Where(a => a.AlunoCidaCodigo == filtros.FiltroCidadeId.Value);
 
             if (filtros.FiltroDataNascimentoDe.HasValue)
-                query = query.Where(a => a.AlunoNascimento >= filtros.FiltroDataNascimentoDe.Value);
+                query = query.Where(a => a.DataNascimento >= filtros.FiltroDataNascimentoDe.Value);
 
             if (filtros.FiltroDataNascimentoAte.HasValue)
-                query = query.Where(a => a.AlunoNascimento <= filtros.FiltroDataNascimentoAte.Value);
+                query = query.Where(a => a.DataNascimento <= filtros.FiltroDataNascimentoAte.Value);
 
             if (filtros.FiltroIdadeMinima.HasValue || filtros.FiltroIdadeMaxima.HasValue)
             {
@@ -214,8 +214,8 @@ namespace EM.Web.Controllers
                 var alunosComIdade = query.Select(a => new
                 {
                     Aluno = a,
-                    Idade = hoje.Year - a.AlunoNascimento.Year -
-                           (hoje.DayOfYear < a.AlunoNascimento.DayOfYear ? 1 : 0)
+                    Idade = hoje.Year - a.DataNascimento.Year -
+                           (hoje.DayOfYear < a.DataNascimento.DayOfYear ? 1 : 0)
                 });
 
                 if (filtros.FiltroIdadeMinima.HasValue)
@@ -233,7 +233,7 @@ namespace EM.Web.Controllers
         private void CarregarDadosFormulario(RelatorioFiltroModel model)
         {
             model.ListaCidades = _cidadeRepo.ListarTodas();
-            model.ListaUFs = [.. model.ListaCidades.Select(c => c.CIDAUF).Distinct().OrderBy(u => u)];
+            model.ListaUFs = [.. model.ListaCidades.Select(c => c.Uf).Distinct().OrderBy(u => u)];
         }
 
         private EM.Montador.PDF.Models.ConfigModelPDF CriarConfiguracao(RelatorioFiltroModel filtros)

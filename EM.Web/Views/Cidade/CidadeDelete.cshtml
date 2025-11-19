@@ -25,10 +25,10 @@
         <div class="card-body">
             <h5 class="card-title">Dados da Cidade</h5>
             <p class="card-text">
-                <strong>Nome:</strong> @Model.CIDADESCRICAO<br>
-                <strong>Código:</strong> @Model.CIDACODIGO<br>
-                <strong>UF:</strong> @Model.CIDAUF<br>
-                <strong>Código IBGE:</strong> @Model.CIDACODIGOIBGE
+                <strong>Nome:</strong> @Model.Descricao<br>
+                <strong>Código:</strong> @Model.Id<br>
+                <strong>UF:</strong> @Model.Uf<br>
+                <strong>Código IBGE:</strong> @Model.Ibge
             </p>
         </div>
     </div>
@@ -47,10 +47,10 @@ else
         <div class="card-body">
             <h5 class="card-title">Dados da Cidade</h5>
             <p class="card-text">
-                <strong>Nome:</strong> @Model.CIDADESCRICAO<br>
-                <strong>Código:</strong> @Model.CIDACODIGO<br>
-                <strong>UF:</strong> @Model.CIDAUF<br>
-                <strong>Código IBGE:</strong> @Model.CIDACODIGOIBGE
+                <strong>Nome:</strong> @Model.Descricao<br>
+                <strong>Código:</strong> @Model.Id<br>
+                <strong>UF:</strong> @Model.Uf<br>
+                <strong>Código IBGE:</strong> @Model.Ibge
             </p>
         </div>
     </div>
@@ -63,7 +63,6 @@ else
         <a href="@Url.Action("CidadeList", "Cidade")" class="btn btn-secondary">Voltar para lista</a>
     </div>
 
-    <!-- Modal de Confirmação -->
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -80,8 +79,8 @@ else
                             <strong>Você está prestes a excluir permanentemente:</strong>
                         </p>
                         <div class="alert alert-light border">
-                            <strong class="text-primary">@Model.CIDADESCRICAO</strong><br>
-                            <small class="text-muted">Código: @Model.CIDACODIGO</small>
+                            <strong class="text-primary">@Model.Descricao</strong><br>
+                            <small class="text-muted">Código: @Model.Id</small>
                         </div>
                         <p class="text-danger">
                             <strong>Esta ação não pode ser desfeita!</strong>
@@ -90,7 +89,7 @@ else
                 </div>
                 <div class="modal-footer">
                     <form method="post" class="d-inline">
-                        <input type="hidden" asp-for="CIDACODIGO" />
+                        <input type="hidden" asp-for="Id" />
                         <button type="submit" class="btn btn-danger">
                             <i class="fas fa-trash-alt me-1"></i>Sim, Excluir
                         </button>

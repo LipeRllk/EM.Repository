@@ -34,16 +34,16 @@ namespace EM.Montador.PDF.Components
             var fonteConteudo = FontFactory.GetFont("Arial", 9);
             foreach (var cidade in _cidades)
             {
-                tabela.AddCell(new PdfPCell(new Phrase(cidade.CIDACODIGO.ToString(), fonteConteudo))
+                tabela.AddCell(new PdfPCell(new Phrase(cidade.Id.ToString(), fonteConteudo))
                 { Padding = 3f, HorizontalAlignment = Element.ALIGN_CENTER });
                 
-                tabela.AddCell(new PdfPCell(new Phrase(cidade.CIDADESCRICAO, fonteConteudo))
+                tabela.AddCell(new PdfPCell(new Phrase(cidade.Descricao, fonteConteudo))
                 { Padding = 3f });
                 
-                tabela.AddCell(new PdfPCell(new Phrase(cidade.CIDAUF, fonteConteudo))
+                tabela.AddCell(new PdfPCell(new Phrase(cidade.Uf, fonteConteudo))
                 { Padding = 3f, HorizontalAlignment = Element.ALIGN_CENTER });
                 
-                tabela.AddCell(new PdfPCell(new Phrase(cidade.CIDACODIGOIBGE, fonteConteudo))
+                tabela.AddCell(new PdfPCell(new Phrase(cidade.Ibge, fonteConteudo))
                 { Padding = 3f, HorizontalAlignment = Element.ALIGN_CENTER });
             }
 

@@ -12,7 +12,7 @@ namespace EM.Repository
 
         public override void Remove(Cidade cidade)
         {
-            Excluir(cidade.CIDACODIGO);
+            Excluir(cidade.Id);
         }
 
         public override void Update(Cidade cidade)
@@ -61,14 +61,14 @@ namespace EM.Repository
             {
                 cidades.Add(new()
                 {
-                    CIDACODIGO = dr.GetInt32(dr.GetOrdinal("CIDACODIGO")),
-                    CIDADESCRICAO = dr.GetString(dr.GetOrdinal("CIDADESCRICAO")),
-                    CIDAUF = dr.GetString(dr.GetOrdinal("CIDAUF")),
-                    CIDACODIGOIBGE = dr.GetString(dr.GetOrdinal("CIDACODIGOIBGE"))
+                    Id = dr.GetInt32(dr.GetOrdinal("CIDACODIGO")),
+                    Descricao = dr.GetString(dr.GetOrdinal("CIDADESCRICAO")),
+                    Uf = dr.GetString(dr.GetOrdinal("CIDAUF")),
+                    Ibge = dr.GetString(dr.GetOrdinal("CIDACODIGOIBGE"))
                 });
             }
             
-            return [.. cidades.OrderBy(c => c.CIDADESCRICAO)];
+            return [.. cidades.OrderBy(c => c.Descricao)];
         }
 
         public List<Cidade> ListarTodas()
@@ -84,9 +84,9 @@ namespace EM.Repository
             cmd.CommandText = @"INSERT INTO TBCIDADE (CIDADESCRICAO, CIDAUF, CIDACODIGOIBGE) 
                               VALUES (@CIDADESCRICAO, @CIDAUF, @CIDACODIGOIBGE)";
             
-            cmd.Parameters.AddWithValue("@CIDADESCRICAO", cidade.CIDADESCRICAO);
-            cmd.Parameters.AddWithValue("@CIDAUF", cidade.CIDAUF);
-            cmd.Parameters.AddWithValue("@CIDACODIGOIBGE", cidade.CIDACODIGOIBGE);
+            cmd.Parameters.AddWithValue("@CIDADESCRICAO", cidade.Descricao);
+            cmd.Parameters.AddWithValue("@CIDAUF", cidade.Uf);
+            cmd.Parameters.AddWithValue("@CIDACODIGOIBGE", cidade.Ibge);
 
             cn.Open();
             cmd.ExecuteNonQuery();
@@ -94,7 +94,7 @@ namespace EM.Repository
 
         public Cidade? BuscarPorId(int id)
         {
-            return GetSingle(c => c.CIDACODIGO == id);
+            return GetSingle(c => c.Id == id);
         }
 
         public Cidade? BuscarPorIdTradicional(int id)
@@ -111,10 +111,10 @@ namespace EM.Repository
             {
                 return new()
                 {
-                    CIDACODIGO = dr.GetInt32(dr.GetOrdinal("CIDACODIGO")),
-                    CIDADESCRICAO = dr.GetString(dr.GetOrdinal("CIDADESCRICAO")),
-                    CIDAUF = dr.GetString(dr.GetOrdinal("CIDAUF")),
-                    CIDACODIGOIBGE = dr.GetString(dr.GetOrdinal("CIDACODIGOIBGE"))
+                    Id = dr.GetInt32(dr.GetOrdinal("CIDACODIGO")),
+                    Descricao = dr.GetString(dr.GetOrdinal("CIDADESCRICAO")),
+                    Uf = dr.GetString(dr.GetOrdinal("CIDAUF")),
+                    Ibge = dr.GetString(dr.GetOrdinal("CIDACODIGOIBGE"))
                 };
             }
             return null;
@@ -131,10 +131,10 @@ namespace EM.Repository
                               CIDACODIGOIBGE = @CIDACODIGOIBGE 
                               WHERE CIDACODIGO = @CIDACODIGO";
 
-            cmd.Parameters.AddWithValue("@CIDACODIGO", cidade.CIDACODIGO);
-            cmd.Parameters.AddWithValue("@CIDADESCRICAO", cidade.CIDADESCRICAO);
-            cmd.Parameters.AddWithValue("@CIDAUF", cidade.CIDAUF);
-            cmd.Parameters.AddWithValue("@CIDACODIGOIBGE", cidade.CIDACODIGOIBGE);
+            cmd.Parameters.AddWithValue("@CIDACODIGO", cidade.Id);
+            cmd.Parameters.AddWithValue("@CIDADESCRICAO", cidade.Descricao);
+            cmd.Parameters.AddWithValue("@CIDAUF", cidade.Uf);
+            cmd.Parameters.AddWithValue("@CIDACODIGOIBGE", cidade.Ibge);
 
             cn.Open();
             cmd.ExecuteNonQuery();
@@ -154,12 +154,12 @@ namespace EM.Repository
 
         public IEnumerable<Cidade> BuscarPorUF(string uf)
         {
-            return Get(c => c.CIDAUF.Equals(uf, StringComparison.OrdinalIgnoreCase));
+            return Get(c => c.Uf.Equals(uf, StringComparison.OrdinalIgnoreCase));
         }
 
         public IEnumerable<Cidade> BuscarPorConteudoNome(string conteudo)
         {
-            return Get(c => c.CIDADESCRICAO.Contains(conteudo, StringComparison.OrdinalIgnoreCase));
+            return Get(c => c.Descricao.Contains(conteudo, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

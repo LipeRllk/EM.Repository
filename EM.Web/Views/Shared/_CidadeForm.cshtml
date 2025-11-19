@@ -4,20 +4,20 @@
     <div class="card-body">
         <form asp-action="@ViewData["Action"]" method="post">
             @Html.AntiForgeryToken()
-            <input type="hidden" asp-for="CIDACODIGO" />
+            <input type="hidden" asp-for="Id" />
 
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
             <div class="row">
                 <div class="col-md-8 mb-3">
-                    <label asp-for="CIDADESCRICAO" class="form-label">Nome da Cidade</label>
-                    <input asp-for="CIDADESCRICAO" type="text" class="form-control" placeholder="Nome da cidade" maxlength="100" required />
-                    <span asp-validation-for="CIDADESCRICAO" class="text-danger"></span>
+                    <label asp-for="Descricao" class="form-label">Nome da Cidade</label>
+                    <input asp-for="Descricao" type="text" class="form-control" placeholder="Nome da cidade" maxlength="100" required />
+                    <span asp-validation-for="Descricao" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-4 mb-3">
-                    <label asp-for="CIDAUF" class="form-label">UF</label>
-                    <select asp-for="CIDAUF" class="form-select" required>
+                    <label asp-for="Uf" class="form-label">UF</label>
+                    <select asp-for="Uf" class="form-select" required>
                         <option value="">Selecione</option>
                         <option value="AC">AC</option>
                         <option value="AL">AL</option>
@@ -48,13 +48,13 @@
                         <option value="TO">TO</option>
                         <option value="EX">EX</option>
                     </select>
-                    <span asp-validation-for="CIDAUF" class="text-danger"></span>
+                    <span asp-validation-for="Uf" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="mb-4">
-                <label asp-for="CIDACODIGOIBGE" class="form-label">Código IBGE</label>
-                <input asp-for="CIDACODIGOIBGE" 
+                <label asp-for="Ibge" class="form-label">Código IBGE</label>
+                <input asp-for="Ibge" 
                        type="text" 
                        class="form-control" 
                        placeholder="Código IBGE da cidade" 
@@ -62,7 +62,7 @@
                        onkeypress="return apenasNumeros(event)"
                        oninput="this.value = this.value.replace(/\D/g, '')"
                        required />
-                <span asp-validation-for="CIDACODIGOIBGE" class="text-danger"></span>
+                <span asp-validation-for="Ibge" class="text-danger"></span>
             </div>
 
             <div class="d-flex gap-2">
@@ -105,7 +105,7 @@
         }
 
         $(document).ready(function () {
-            var codigoCidade = '@Model.CIDACODIGO';
+            var codigoCidade = '@Model.Id';
             if (codigoCidade) {
                 buscarCidadePorCodigo(codigoCidade);
             }

@@ -50,7 +50,7 @@ namespace EM.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CidadeEdit(int id, Cidade cidade)
         {
-            if (id != cidade.CIDACODIGO)
+            if (id != cidade.Id)
                 return NotFound();
 
             if (ModelState.IsValid)
@@ -117,10 +117,10 @@ namespace EM.Web.Controllers
             }
             
             return Json(new { 
-                cidacodigo = cidade.CIDACODIGO,
-                cidadescricao = cidade.CIDADESCRICAO,
-                cidauf = cidade.CIDAUF,
-                cidacodigoibge = cidade.CIDACODIGOIBGE
+                cidacodigo = cidade.Id,
+                cidadescricao = cidade.Descricao,
+                cidauf = cidade.Uf,
+                cidacodigoibge = cidade.Ibge
             });
         }
 

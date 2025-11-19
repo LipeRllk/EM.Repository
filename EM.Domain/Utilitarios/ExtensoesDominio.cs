@@ -20,11 +20,11 @@ namespace EM.Domain.Utilitarios
 
         public static string ObterIdadeFormatada(this Aluno aluno)
         {
-            if (aluno == null || aluno.AlunoNascimento == default)
+            if (aluno == null || aluno.DataNascimento == default)
                 return "Idade não informada";
 
             var hoje = DateTime.Today;
-            var nascimento = aluno.AlunoNascimento.Date;
+            var nascimento = aluno.DataNascimento.Date;
 
             if (nascimento > hoje)
                 return "Data inválida";
@@ -70,18 +70,16 @@ namespace EM.Domain.Utilitarios
 
         public static IEnumerable<Aluno> OrdenarPorNome(this IEnumerable<Aluno> alunos)
         {
-            return alunos.OrderBy(a => a.AlunoNome);
+            return alunos.OrderBy(a => a.Nome);
         }
 
-        public static IEnumerable<Aluno> PorUF(this IEnumerable<Aluno> alunos, string ufCodigo, IEnumerable<Cidade> cidades)
+        public static IEnumerable<Aluno> FiltroPorUF(this IEnumerable<Aluno> alunos, string ufCodigo, IEnumerable<Cidade> cidades)
         {
             ArgumentNullException.ThrowIfNull(alunos);
             ArgumentNullException.ThrowIfNull(cidades);
             if (string.IsNullOrEmpty(ufCodigo)) return alunos;
 
-            var cidadesDaUF = cidades.Where(c => c.CIDAUF == ufCodigo)
-                                      .Select(c => c.CIDACODIGO)
-                                      .ToList();
+            List<int> cidadesDaUF = [.. cidades.Where(c => c.Uf == ufCodigo).Select(c => c.Id)];
 
             return alunos.Where(a => cidadesDaUF.Contains(a.AlunoCidaCodigo));
         }

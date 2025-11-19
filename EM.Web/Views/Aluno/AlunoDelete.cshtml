@@ -15,11 +15,11 @@
     <div class="card-body">
         <h5 class="card-title">Dados do Aluno</h5>
         <p class="card-text">
-            <strong>Nome:</strong> @Model.AlunoNome<br>
-            <strong>Matrícula:</strong> @Model.AlunoMatricula<br>
-            <strong>CPF:</strong> @(Model.AlunoCPF?.FormatarCPF() ?? "")<br>
-            <strong>Sexo:</strong> @Model.Sexo.ObterDescricao()<br>
-            <strong>Data de Nascimento:</strong> @Model.AlunoNascimento.ToShortDateString()<br>
+            <strong>Nome:</strong> @Model.Nome<br>
+            <strong>Matrícula:</strong> @Model.Matricula<br>
+            <strong>CPF:</strong> @(Model.Cpf?.FormatarCPF() ?? "")<br>
+            <strong>Sexo:</strong> @Model.EnumSexo.ObterDescricao()<br>
+            <strong>Data de Nascimento:</strong> @Model.DataNascimento.ToShortDateString()<br>
             <strong>Idade:</strong> @Model.CalcularIdade() anos
         </p>
     </div>
@@ -49,8 +49,8 @@
                         <strong>Você está prestes a excluir permanentemente:</strong>
                     </p>
                     <div class="alert alert-light border">
-                        <strong class="text-primary">@Model.AlunoNome</strong><br>
-                        <small class="text-muted">Matrícula: @Model.AlunoMatricula</small>
+                        <strong class="text-primary">@Model.Nome</strong><br>
+                        <small class="text-muted">Matrícula: @Model.Matricula</small>
                     </div>
                     <p class="text-danger">
                         <strong>Esta ação não pode ser desfeita!</strong>
@@ -60,7 +60,7 @@
             <div class="modal-footer">
                 <form method="post" class="d-inline">
                     @Html.AntiForgeryToken()
-                    <input type="hidden" asp-for="AlunoMatricula" />
+                    <input type="hidden" asp-for="Matricula" />
                     <button type="submit" class="btn btn-danger">
                         <i class="fas fa-trash-alt me-1"></i>Sim, Excluir
                     </button>

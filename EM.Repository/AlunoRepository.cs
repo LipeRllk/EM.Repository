@@ -13,7 +13,7 @@ namespace EM.Repository
 
         public override void Remove(Aluno aluno)
         {
-            Excluir(aluno.AlunoMatricula);
+            Excluir(aluno.Matricula);
         }
 
         public override void Update(Aluno aluno)
@@ -63,11 +63,11 @@ namespace EM.Repository
             {
                 alunos.Add(new()
                 {
-                    AlunoMatricula = dr.GetInt32(dr.GetOrdinal("MATRICULA")),
-                    AlunoNome = dr.GetString(dr.GetOrdinal("NOME")),
-                    AlunoCPF = dr.IsDBNull(dr.GetOrdinal("CPF")) ? "" : dr.GetString(dr.GetOrdinal("CPF")),
-                    AlunoSexo = dr.GetString(dr.GetOrdinal("SEXO")),
-                    AlunoNascimento = dr.GetDateTime(dr.GetOrdinal("NASCIMENTO")),
+                    Matricula = dr.GetInt32(dr.GetOrdinal("MATRICULA")),
+                    Nome = dr.GetString(dr.GetOrdinal("NOME")),
+                    Cpf = dr.IsDBNull(dr.GetOrdinal("CPF")) ? "" : dr.GetString(dr.GetOrdinal("CPF")),
+                    Sexo = dr.GetString(dr.GetOrdinal("SEXO")),
+                    DataNascimento = dr.GetDateTime(dr.GetOrdinal("NASCIMENTO")),
                     AlunoCidaCodigo = dr.GetInt32(dr.GetOrdinal("CIDACODIGO"))
                 });
             }
@@ -83,11 +83,11 @@ namespace EM.Repository
             cmd.CommandText = @"INSERT INTO TBALUNO (NOME, CPF, SEXO, NASCIMENTO, CIDACODIGO) 
                               VALUES (@NOME, @CPF, @SEXO, @NASCIMENTO, @CIDACODIGO)";
             
-            cmd.Parameters.AddWithValue("@NOME", aluno.AlunoNome);
-            var cpfLimpo = (aluno.AlunoCPF ?? string.Empty).LimparCPF();
+            cmd.Parameters.AddWithValue("@NOME", aluno.Nome);
+            var cpfLimpo = (aluno.Cpf ?? string.Empty).LimparCPF();
             cmd.Parameters.AddWithValue("@CPF", string.IsNullOrEmpty(cpfLimpo) ? DBNull.Value : (object)cpfLimpo);
-            cmd.Parameters.AddWithValue("@SEXO", aluno.AlunoSexo);
-            cmd.Parameters.AddWithValue("@NASCIMENTO", aluno.AlunoNascimento);
+            cmd.Parameters.AddWithValue("@SEXO", aluno.Sexo);
+            cmd.Parameters.AddWithValue("@NASCIMENTO", aluno.DataNascimento);
             cmd.Parameters.AddWithValue("@CIDACODIGO", aluno.AlunoCidaCodigo);
 
             cn.Open();
@@ -96,7 +96,7 @@ namespace EM.Repository
 
         public Aluno? BuscarPorMatricula(int matricula)
         {
-            return GetSingle(a => a.AlunoMatricula == matricula);
+            return GetSingle(a => a.Matricula == matricula);
         }
 
         public Aluno? BuscarPorMatriculaTradicional(int matricula)
@@ -113,11 +113,11 @@ namespace EM.Repository
             {
                 return new()
                 {
-                    AlunoMatricula = dr.GetInt32(dr.GetOrdinal("MATRICULA")),
-                    AlunoNome = dr.GetString(dr.GetOrdinal("NOME")),
-                    AlunoCPF = dr.IsDBNull(dr.GetOrdinal("CPF")) ? "" : dr.GetString(dr.GetOrdinal("CPF")),
-                    AlunoSexo = dr.GetString(dr.GetOrdinal("SEXO")),
-                    AlunoNascimento = dr.GetDateTime(dr.GetOrdinal("NASCIMENTO")),
+                    Matricula = dr.GetInt32(dr.GetOrdinal("MATRICULA")),
+                    Nome = dr.GetString(dr.GetOrdinal("NOME")),
+                    Cpf = dr.IsDBNull(dr.GetOrdinal("CPF")) ? "" : dr.GetString(dr.GetOrdinal("CPF")),
+                    Sexo = dr.GetString(dr.GetOrdinal("SEXO")),
+                    DataNascimento = dr.GetDateTime(dr.GetOrdinal("NASCIMENTO")),
                     AlunoCidaCodigo = dr.GetInt32(dr.GetOrdinal("CIDACODIGO"))
                 };
             }
@@ -137,12 +137,12 @@ namespace EM.Repository
                               CIDACODIGO = @CIDACODIGO 
                               WHERE MATRICULA = @MATRICULA";
 
-            cmd.Parameters.AddWithValue("@MATRICULA", aluno.AlunoMatricula);
-            cmd.Parameters.AddWithValue("@NOME", aluno.AlunoNome);
-            var cpfLimpo = (aluno.AlunoCPF ?? string.Empty).LimparCPF();
+            cmd.Parameters.AddWithValue("@MATRICULA", aluno.Matricula);
+            cmd.Parameters.AddWithValue("@NOME", aluno.Nome);
+            var cpfLimpo = (aluno.Cpf ?? string.Empty).LimparCPF();
             cmd.Parameters.AddWithValue("@CPF", string.IsNullOrEmpty(cpfLimpo) ? DBNull.Value : (object)cpfLimpo);
-            cmd.Parameters.AddWithValue("@SEXO", aluno.AlunoSexo);
-            cmd.Parameters.AddWithValue("@NASCIMENTO", aluno.AlunoNascimento);
+            cmd.Parameters.AddWithValue("@SEXO", aluno.Sexo);
+            cmd.Parameters.AddWithValue("@NASCIMENTO", aluno.DataNascimento);
             cmd.Parameters.AddWithValue("@CIDACODIGO", aluno.AlunoCidaCodigo);
 
             cn.Open();
@@ -180,7 +180,7 @@ namespace EM.Repository
 
         public IEnumerable<Aluno> BuscarPorConteudoDoNome(string conteudo)
         {
-            return Get(a => a.AlunoNome.Contains(conteudo, StringComparison.OrdinalIgnoreCase));
+            return Get(a => a.Nome.Contains(conteudo, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

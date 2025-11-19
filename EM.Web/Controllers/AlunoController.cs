@@ -16,7 +16,7 @@ namespace EM.Web.Controllers
             var alunos = _repo.BuscarAlunos(search);
             
             var cidades = _cidadeRepo.ListarTodas();
-            ViewBag.Cidades = cidades.ToDictionary(c => c.CIDACODIGO, c => c.CIDADESCRICAO);
+            ViewBag.Cidades = cidades.ToDictionary(c => c.Id, c => c.Descricao);
             ViewBag.Search = search;
             
             return View(alunos);
@@ -24,7 +24,7 @@ namespace EM.Web.Controllers
 
         public IActionResult AlunoCreate()
         {
-            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "CIDACODIGO", "CIDADESCRICAO");
+            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "Id", "Descricao");
             ViewData["Action"] = "AlunoCreate";
             return View(new Aluno());
         }
@@ -35,11 +35,11 @@ namespace EM.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                aluno.AlunoCPF = (aluno.AlunoCPF ?? string.Empty).LimparCPF();
+                aluno.Cpf = (aluno.Cpf ?? string.Empty);
                 _repo.Inserir(aluno);
                 return RedirectToAction(nameof(AlunoList));
             }
-            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "CIDACODIGO", "CIDADESCRICAO");
+            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "Id", "Descricao");
             ViewData["Action"] = "AlunoCreate";
             return View(aluno);
         }
@@ -51,7 +51,7 @@ namespace EM.Web.Controllers
             var aluno = _repo.BuscarPorMatriculaTradicional(AlunoMatricula.Value);
             if (aluno == null) return NotFound();
 
-            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "CIDACODIGO", "CIDADESCRICAO", aluno.AlunoCidaCodigo);
+            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "Id", "Descricao", aluno.AlunoCidaCodigo);
             ViewData["Action"] = "AlunoEdit";
             return View(aluno);
         }
@@ -60,17 +60,17 @@ namespace EM.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AlunoEdit(int AlunoMatricula, Aluno aluno)
         {
-            if (AlunoMatricula != aluno.AlunoMatricula)
+            if (AlunoMatricula != aluno.Matricula)
                 return NotFound();
 
             if (ModelState.IsValid)
             {
-                aluno.AlunoCPF = (aluno.AlunoCPF ?? string.Empty).LimparCPF();
+                aluno.Cpf = (aluno.Cpf ?? string.Empty);
                 _repo.Atualizar(aluno);
                 return RedirectToAction(nameof(AlunoList));
             }
             
-            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "CIDACODIGO", "CIDADESCRICAO", aluno.AlunoCidaCodigo);
+            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "Id", "Descricao", aluno.AlunoCidaCodigo);
             ViewData["Action"] = "AlunoEdit";
             return View(aluno);
         }
@@ -107,9 +107,9 @@ namespace EM.Web.Controllers
             }
             
             return Json(new { 
-                cidacodigo = cidade.CIDACODIGO,
-                cidadescricao = cidade.CIDADESCRICAO,
-                cidauf = cidade.CIDAUF 
+                cidacodigo = cidade.Id,
+                cidadescricao = cidade.Descricao,
+                cidauf = cidade.Uf 
             });
         }
 
@@ -118,7 +118,8 @@ namespace EM.Web.Controllers
             var alunos = _repo.Get(a => a.AlunoCidaCodigo == cidadeId);
             var cidade = _cidadeRepo.BuscarPorId(cidadeId);
             
-            ViewBag.NomeCidade = cidade?.CIDADESCRICAO ?? "Cidade não encontrada";
+            ViewBag.NomeCidade = cidade?.Descricao ?? "Cidade não encontrada";
+            ViewBag.Cidades = new SelectList(_cidadeRepo.ListarTodas(), "Id", "Descricao");
             return View("AlunoList", alunos);
         }
     }

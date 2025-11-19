@@ -61,7 +61,7 @@
                                 {
                                     @foreach (var cidade in Model.ListaCidades)
                                     {
-                                        <option value="@cidade.CIDACODIGO">@cidade.CIDADESCRICAO</option>
+                                        <option value="@cidade.Id">@cidade.Descricao</option>
                                     }
                                 }
                             </select>
@@ -110,7 +110,7 @@
                                     @* Aqui você deveria carregar alunos, não cidades *@
                                     @foreach (var cidade in Model.ListaCidades)
                                     {
-                                        <option value="@cidade.CIDACODIGO">@cidade.CIDADESCRICAO</option>
+                                        <option value="@cidade.Id">@cidade.Descricao</option>
                                     }
                                 }
                             </select>
