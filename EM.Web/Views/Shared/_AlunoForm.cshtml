@@ -55,7 +55,13 @@
 
                 <div class="col-md-6 mb-3">
                     <label asp-for="DataNascimento" class="form-label">Data de Nascimento</label>
-                    <input asp-for="DataNascimento" type="date" class="form-control" required />
+                    <input asp-for="DataNascimento"
+                           type="date"
+                           class="form-control"
+                           max="@DateTime.Today.ToString("yyyy-MM-dd")"
+                           min="@DateTime.Today.AddYears(-120).ToString("yyyy-MM-dd")"
+                           value="@(Model.DataNascimento == default ? DateTime.Today.ToString("yyyy-MM-dd") : Model.DataNascimento.ToString("yyyy-MM-dd"))"
+                           required />
                     <span asp-validation-for="DataNascimento" class="text-danger"></span>
                 </div>
             </div>
