@@ -35,7 +35,7 @@ namespace EM.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                aluno.Cpf = (aluno.Cpf ?? string.Empty);
+                aluno.Cpf ??= string.Empty;
                 _repo.Inserir(aluno);
                 return RedirectToAction(nameof(AlunoList));
             }
@@ -65,7 +65,7 @@ namespace EM.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                aluno.Cpf = (aluno.Cpf ?? string.Empty);
+                aluno.Cpf ??= string.Empty;
                 _repo.Atualizar(aluno);
                 return RedirectToAction(nameof(AlunoList));
             }

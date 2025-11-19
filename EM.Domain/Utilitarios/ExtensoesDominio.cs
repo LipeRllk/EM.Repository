@@ -4,10 +4,10 @@ namespace EM.Domain.Utilitarios
 {
     public static class ExtensoesDominio
     {
-        public static string FormatarCPF(this string cpf)
+        public static string FormatarCPF(this string? cpf)
         {
             if (string.IsNullOrEmpty(cpf) || cpf.Length != 11)
-                return cpf;
+                return cpf ?? string.Empty;
 
             return Convert.ToUInt64(cpf).ToString(@"000\.000\.000\-00");
         }
