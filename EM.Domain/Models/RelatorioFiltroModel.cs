@@ -64,20 +64,13 @@ namespace EM.Domain.Models
     {
         [Display(Name = "Relatório Geral de Alunos")]
         RelatorioGeralAlunos,
-
         [Display(Name = "Relatório de Alunos por Cidade")]
         RelatorioAlunosPorCidade,
-
         [Display(Name = "Relatório de Alunos por Faixa Etária")]
         RelatorioAlunosPorIdade,
-
         [Display(Name = "Lista de Cidades")]
         RelatorioCidades,
-
         [Display(Name = "Relatório de Cidades por UF")]
-        RelatorioCidadesPorUF,
-
-        [Display(Name = "Certificado Individual")]
-        CertificadoIndividual
+        RelatorioCidadesPorUF
     }
 }
