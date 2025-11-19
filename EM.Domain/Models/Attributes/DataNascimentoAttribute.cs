@@ -10,7 +10,6 @@ namespace EM.Domain.Models.Attributes
 
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            // Aceita ausência aqui; [Required] cuida disso se necessário
             if (value is not DateTime dt) return ValidationResult.Success;
 
             if (dt == default)
